@@ -6,8 +6,7 @@ import javafx.collections.ObservableList;
 import util.Mydatabase;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 public class ServicePost implements Iservice<Post> {
     private Connection connection;
@@ -28,7 +27,16 @@ public class ServicePost implements Iservice<Post> {
     @Override
     public void modifier(Post post) throws SQLException {
 
+        String sql = "update post set nom = ?, prenom = ? where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, post.getNom());
+        preparedStatement.setString(2, post.getPrenom());
+        preparedStatement.setInt(3,post.getId());
+        preparedStatement.executeUpdate();
+
     }
+
+
 
     public ObservableList<Post> getAll() throws SQLException {
         ObservableList<Post> posts= FXCollections.observableArrayList();
@@ -60,6 +68,13 @@ public class ServicePost implements Iservice<Post> {
         preparedStatement.executeUpdate();
 
     }
+public  Post getPost(int id) throws SQLException {
+    for (Post post : Collections.unmodifiableList(this.getAll())) {
+        if (post.getId()==id)
+            return  post;
 
+    }
+    return  null;
+}
 
 }

@@ -1,6 +1,7 @@
 package com.example.demo1;
 
 import entites.Post;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,7 +37,7 @@ public class postController {
     public void delete(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
-        alert.setHeaderText("Delete Post");
+        alert.setHeaderText("Delete Post"+idPost.getText());
         alert.setContentText("Are you sure you want to delete this post?");
 
         alert.showAndWait().ifPresent(response -> {
@@ -56,5 +57,61 @@ public class postController {
             }
         });
     }
+
+    public void navtoupdate(ActionEvent actionEvent) throws SQLException, IOException {
+
+
+        String idText = idPost.getText();
+        if (!idText.isEmpty()) {
+            int id = Integer.parseInt(idText);
+            Post p = service.getPost(id);
+            if (p != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("updatepost.fxml"));
+                Parent root = loader.load();
+                postController controller = loader.getController();
+
+                controller.setData(p);
+                Scene scene = new Scene(root);
+
+                // Get the current stage and scene
+                Stage currentStage = (Stage) idPost.getScene().getWindow();
+                Scene currentScene = idPost.getScene();
+
+                // Set the new scene
+                currentStage.setScene(scene);
+                currentStage.setTitle("Post Details");
+                currentStage.show();
+
+
+
+            }
+        }
+
+
+    }
+    public void update(ActionEvent actionEvent) throws SQLException, IOException {
+
+
+
+        Post post= new Post();
+        post.setId(Integer.parseInt(idPost.getText()));
+        post.setNom(nomPost.getText());
+        post.setPrenom(prenomPost.getText());
+        service.modifier(post);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherpost.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage currentStage = (Stage) idPost.getScene().getWindow();
+        Scene currentScene = idPost.getScene();
+
+        // Set the new scene
+        currentStage.setScene(scene);
+        currentStage.setTitle("Post Details");
+        currentStage.show();
+
+    }
+
+
 
 }

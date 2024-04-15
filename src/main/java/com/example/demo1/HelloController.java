@@ -61,6 +61,22 @@ public class HelloController implements Initializable  {
 
     }
     @FXML
+    public  void  navigateVersafficher(ActionEvent event){
+        try{
+            Parent root =
+                    FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
+
+
+            testText.getScene().setRoot(root);
+        } catch (IOException ex) {
+
+
+            System.err.println(ex.getMessage());
+
+        }
+
+    }
+    @FXML
     public  void  ajouterPoste() {
         Post post =new Post(txtNom.getText(),txtPrenom.getText());
 

@@ -15,5 +15,7 @@
     <Button text="Hello!" onAction="#onHelloButtonClick"/>
     <Label fx:id="testText"/>
     <Button text="navigate!" onAction="#navigateVersAjouter"/>
+    <Button text="navigate!" onAction="#navigateVersafficher"/>
+
 
 </VBox>

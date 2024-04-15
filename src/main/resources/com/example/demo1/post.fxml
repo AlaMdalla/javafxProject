@@ -13,7 +13,7 @@
       <Text layoutX="251.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Id" />
       <Text layoutX="251.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Nom" />
       <Text layoutX="251.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Prenom" />
-      <Button layoutX="187.0" layoutY="283.0" mnemonicParsing="false" text="update" />
+      <Button layoutX="187.0" layoutY="283.0" mnemonicParsing="false" onAction="#navtoupdate" text="update" />
       <Button layoutX="285.0" layoutY="283.0" mnemonicParsing="false" onAction="#delete" text="delete" />
    </children>
 </AnchorPane>

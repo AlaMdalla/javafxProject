@@ -10,11 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import services.ServicePost;
 
+import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 
 
 public class postController {
@@ -25,12 +30,25 @@ public class postController {
     @FXML
     private TextField nomPost;
     @FXML
-    private TextField prenomPost;
+    private TextField ContenuPost;
+    @FXML
+    private TextField DatePost;
+    @FXML
+    private TextField TagPost;
+    @FXML
+    private ImageView imagePost;
     public void setData(Post post) {
         idPost.setText(String.valueOf(post.getId()));
         nomPost.setText(post.getNom());
-        prenomPost.setText(post.getPrenom());
+        ContenuPost.setText(post.getContenu());
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+        DatePost.setText(post.getDate().format(formatter));
+        TagPost.setText(post.getTag());
+        String imageurl=post.getImage();
+        System.out.println("imageurl"+imageurl);
+        Image image = new Image(imageurl.replace("\\","\\\\"));
 
+        imagePost.setImage(image);
     }
 
 
@@ -75,7 +93,7 @@ public class postController {
 
                 // Get the current stage and scene
                 Stage currentStage = (Stage) idPost.getScene().getWindow();
-                Scene currentScene = idPost.getScene();
+
 
                 // Set the new scene
                 currentStage.setScene(scene);
@@ -96,16 +114,16 @@ public class postController {
         Post post= new Post();
         post.setId(Integer.parseInt(idPost.getText()));
         post.setNom(nomPost.getText());
-        post.setPrenom(prenomPost.getText());
+        post.setContenu(ContenuPost.getText());
+        post.setDate();
+        post.setTag(TagPost.getText());
         service.modifier(post);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherpost.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
         Stage currentStage = (Stage) idPost.getScene().getWindow();
-        Scene currentScene = idPost.getScene();
 
-        // Set the new scene
         currentStage.setScene(scene);
         currentStage.setTitle("Post Details");
         currentStage.show();

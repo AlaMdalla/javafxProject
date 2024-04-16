@@ -5,16 +5,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f0f0f0; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.postController">
     <children>
-        <TextField fx:id="idPost" editable="false"  layoutX="185.0" layoutY="54.0" style="-fx-background-color: #ffffff;" />
-        <TextField fx:id="nomPost"  layoutX="186.0" layoutY="119.0" style="-fx-background-color: #ffffff;" />
-        <TextField fx:id="prenomPost" layoutX="187.0" layoutY="200.0" style="-fx-background-color: #ffffff;" />
+        <TextField fx:id="idPost" editable="false" layoutX="185.0" layoutY="54.0" style="-fx-background-color: #ffffff;" />
+        <TextField fx:id="nomPost" editable="true" layoutX="185.0" layoutY="105.0" style="-fx-background-color: #ffffff;" />
+        <TextField fx:id="ContenuPost" editable="true" layoutX="188.0" layoutY="164.0" style="-fx-background-color: #ffffff;" />
         <Text layoutX="251.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="od test" />
         <Text layoutX="251.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Nom" />
-        <Text layoutX="251.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Prenom" />
-        <Button layoutX="187.0" layoutY="283.0" mnemonicParsing="false" onAction="#update" text="update" />
-        <Button layoutX="285.0" layoutY="283.0" mnemonicParsing="false" onAction="#delete" text="delete" />
+        <Text layoutX="243.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="contenu" />
+        <Text layoutX="258.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tag" />
+        <TextField fx:id="TagPost" layoutX="190.0" layoutY="262.0" />
+        <Text layoutX="251.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="date" />
+        <TextField fx:id="DatePost" layoutX="190.0" layoutY="213.0" />
+        <Button layoutX="191.0" layoutY="296.0" mnemonicParsing="false" onAction="#update" text="update" />
+        <Button layoutX="290.0" layoutY="296.0" mnemonicParsing="false" onAction="#delete" text="delete" />
       <Text layoutX="261.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Id" />
+        <ImageView fx:id="imagePost" fitHeight="96.0" fitWidth="150.0" layoutX="217.0" layoutY="349.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../favicon.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

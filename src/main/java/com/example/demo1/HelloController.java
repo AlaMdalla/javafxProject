@@ -8,13 +8,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import services.ServicePost;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
 
 public class HelloController implements Initializable  {
     ServicePost service =new ServicePost();
@@ -24,7 +29,8 @@ public class HelloController implements Initializable  {
     private Label welcomeText;
     @FXML
     private TableColumn<Post, String> NomColum;
-
+    @FXML
+    private ImageView image;
     @FXML
     private AnchorPane PostTable;
 
@@ -39,7 +45,11 @@ public class HelloController implements Initializable  {
     @FXML
     private TextField txtNom;
     @FXML
-    private TextField txtPrenom;
+    private TextField txtContenu;
+    @FXML
+    private TextField txtTag;
+    String url ;
+    Post post =new Post();
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
@@ -78,8 +88,9 @@ public class HelloController implements Initializable  {
     }
     @FXML
     public  void  ajouterPoste() {
-        Post post =new Post(txtNom.getText(),txtPrenom.getText());
+        Post post =new Post(txtNom.getText(),txtContenu.getText(),txtTag.getText());
 
+post.setImage(this.url);
         try {
             service.ajouter(post);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -112,39 +123,38 @@ public class HelloController implements Initializable  {
 
     }
 
-    public void afficherPosts()  {
 
-       /* try{
-            Parent root =
-                    FXMLLoader.load(getClass().getResource("ajouterPost.fxml"));
-
-
-            testText.getScene().setRoot(root);
-        } catch (IOException ex) {
-
-
-            System.err.println(ex.getMessage());
-
-
-        }*/
-
-       try {
-            // TableView.setItems( service.getAll());
-            postTableView.setItems(service.getAll());
-            NomColum.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNom()));
-            prenomColum.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPrenom()));
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
-    }
 
 
 @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    //afficherPosts();
+    }
+
+    public String addimage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Image");
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+
+            String imagePath = selectedFile.getAbsolutePath();
+            System.out.println("addimage"+imagePath);
+
+            this.url="file:///"+imagePath.replace("\\","\\\\");
+            System.out.println("imaa"+url);
+            Image image0 = new Image(url.replace("\\","\\\\"));
+
+            image.setImage(image0);
+            return imagePath;
+
+                  } else {
+            System.out.println("no image selected");
+this.url="C:\\Users\\ufl\\Pictures\\favicon.png";
+            return "C:\\Users\\ufl\\Pictures\\favicon.png";
+        }
     }
 }

@@ -17,7 +17,7 @@ public class ServicePost implements Iservice<Post> {
 
     @Override
     public void ajouter(Post post) throws SQLException {
-        String sql = "INSERT INTO post (nom, prenom) VALUES ('" + post.getNom() + "', '" + post.getPrenom() + "')";
+        String sql = "INSERT INTO post (name, contenu,date,tag,image) VALUES ('" + post.getNom() + "', '" + post.getContenu() + "','"+post.getDate()+"','"+post.getTag()+"','"+post.getImage()+"')";
 
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
@@ -26,14 +26,16 @@ public class ServicePost implements Iservice<Post> {
 
     @Override
     public void modifier(Post post) throws SQLException {
-
-        String sql = "update post set nom = ?, prenom = ? where id = ?";
+        String sql = "UPDATE post SET name = ?, contenu = ?, date = ?, tag = ?, image = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, post.getNom());
-        preparedStatement.setString(2, post.getPrenom());
-        preparedStatement.setInt(3,post.getId());
-        preparedStatement.executeUpdate();
+        preparedStatement.setString(2, post.getContenu());
+        preparedStatement.setDate(3, Date.valueOf(post.getDate()));
+        preparedStatement.setString(4, post.getTag());
+        preparedStatement.setString(4, post.getImage());
 
+        preparedStatement.setInt(5, post.getId());
+        preparedStatement.executeUpdate();
     }
 
 
@@ -50,7 +52,7 @@ public class ServicePost implements Iservice<Post> {
         ResultSet rs = statement.executeQuery(sql);
 
         while (rs.next()){
-         Post post = new Post(rs.getInt("id"),rs.getString("nom"),rs.getString("prenom"));
+         Post post = new Post(rs.getInt("id"),rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(), rs.getString("tag"), rs.getString("image"));
          posts.add(post);
 
         }

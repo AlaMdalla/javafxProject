@@ -4,9 +4,14 @@ import entites.Post;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ServicePost;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -17,10 +22,11 @@ public class HelloApplication extends Application {
 //    sp.ajouter(post);
     @Override
     public void start(Stage stage) throws IOException {
-     // FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("afficherpost.fxml"));
-    FXMLLoader fxmlLoader0 = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
-        Scene scene = new Scene(fxmlLoader0.load(), 320, 240);
+    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("afficherpost.fxml"));
+ FXMLLoader fxmlLoader0 = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+
+        Scene scene = new Scene(fxmlLoader0.load(), 1080, 720);
 
         stage.setTitle("Hello!");
         stage.setScene(scene);
@@ -33,7 +39,7 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) throws SQLException {
         ServicePost sp = new ServicePost();
-        Post post =new Post(0,"ala","aaaa");
+        /*Post post =new Post(0,"ala","aaaa","11/22/2002","test");
 
 
   try {
@@ -43,7 +49,7 @@ public class HelloApplication extends Application {
         }
 
         System.out.println("Ajouter");
-        System.out.println(sp.getAll());
+        System.out.println(sp.getAll());*/
 launch();
     }
 }

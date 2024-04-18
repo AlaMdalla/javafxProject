@@ -130,6 +130,10 @@ public class postController implements Initializable {
         post.setTag(TagPost.getText());
 
         post.setImage(this.url);
+        if(this.url==null){
+            post.setImage(old_post.getImage());
+        }
+        service.modifier(post);
 
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherpost.fxml"));

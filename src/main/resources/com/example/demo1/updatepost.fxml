@@ -21,7 +21,9 @@
         <TextField fx:id="DatePost" layoutX="190.0" layoutY="213.0" />
         <Button layoutX="191.0" layoutY="296.0" mnemonicParsing="false" onAction="#update" text="update" />
         <Button layoutX="290.0" layoutY="296.0" mnemonicParsing="false" onAction="#delete" text="delete" />
-      <Text layoutX="261.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Id" />
+        <Button mnemonicParsing="false" onAction="#addimage" prefHeight="33.0" prefWidth="76.0" text="uppload" />
+
+        <Text layoutX="261.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Id" />
         <ImageView fx:id="imagePost" fitHeight="96.0" fitWidth="150.0" layoutX="217.0" layoutY="349.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../../../../../favicon.png" />

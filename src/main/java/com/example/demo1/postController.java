@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -12,17 +13,21 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ServicePost;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
 
 
-public class postController {
+public class postController implements Initializable {
     ServicePost service =new ServicePost();
 
     @FXML
@@ -37,6 +42,11 @@ public class postController {
     private TextField TagPost;
     @FXML
     private ImageView imagePost;
+
+    @FXML
+    private AnchorPane rootPane;
+
+    String url;
     public void setData(Post post) {
         idPost.setText(String.valueOf(post.getId()));
         nomPost.setText(post.getNom());
@@ -113,11 +123,15 @@ public class postController {
 
         Post post= new Post();
         post.setId(Integer.parseInt(idPost.getText()));
+        Post old_post= service.getPost(post.getId());
         post.setNom(nomPost.getText());
         post.setContenu(ContenuPost.getText());
         post.setDate();
         post.setTag(TagPost.getText());
-        service.modifier(post);
+
+        post.setImage(this.url);
+
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherpost.fxml"));
         Parent root = loader.load();
 
@@ -131,5 +145,34 @@ public class postController {
     }
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+    public String addimage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Image");
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+
+            String imagePath = selectedFile.getAbsolutePath();
+            System.out.println("addimage"+imagePath);
+
+            this.url="file:///"+imagePath.replace("\\","\\\\");
+            System.out.println("imaa"+url);
+            Image image0 = new Image(url.replace("\\","\\\\"));
+
+            imagePost.setImage(image0);
+            return imagePath;
+
+        } else {
+            System.out.println("no image selected");
+            this.url="C:\\Users\\ufl\\Pictures\\favicon.png";
+            return "C:\\Users\\ufl\\Pictures\\favicon.png";
+        }
+    }
 }

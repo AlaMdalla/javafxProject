@@ -1,31 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="526.0" prefWidth="600.0" style="-fx-background-color: #f0f0f0; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.postController">
+<AnchorPane fx:id="rootPane" prefHeight="431.0" prefWidth="805.0" style="-fx-background-color: #f0f0f0; -fx-padding: 10px;" styleClass="AnchorPane" stylesheets="@../../../post.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.postController">
    <children>
-      <TextField fx:id="idPost" editable="false" layoutX="185.0" layoutY="54.0" style="-fx-background-color: #ffffff;" />
-      <TextField fx:id="nomPost" editable="false" layoutX="185.0" layoutY="105.0" style="-fx-background-color: #ffffff;" />
-      <TextField fx:id="ContenuPost" editable="false" layoutX="187.0" layoutY="174.0" style="-fx-background-color: #ffffff;" />
-      <Text layoutX="251.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Id" />
-      <Text layoutX="247.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="nom" />
-      <Text layoutX="238.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="contenu" />
-      <Button layoutX="161.0" layoutY="456.0" mnemonicParsing="false" onAction="#navtoupdate" text="update" />
-      <Button layoutX="313.0" layoutY="456.0" mnemonicParsing="false" onAction="#delete" text="delete" />
-      <Text layoutX="250.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="date" />
-      <TextField fx:id="DatePost" layoutX="188.0" layoutY="227.0" />
-      <Text layoutX="249.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tag" />
-      <TextField fx:id="TagPost" layoutX="188.0" layoutY="296.0" />
-      <Text layoutX="239.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="image" />
-      <ImageView fx:id="imagePost" fitHeight="96.0" fitWidth="150.0" layoutX="217.0" layoutY="349.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../favicon.png" />
-         </image>
-      </ImageView>
+   <ImageView fx:id="imagePost" fitHeight="200.0" fitWidth="500.0" layoutX="203.0" pickOnBounds="true" preserveRatio="true" styleClass="postImage">
+
+      <image>
+         <Image url="@../../../../../../favicon.png" />
+      </image>
+   </ImageView>
+   <AnchorPane fx:id="postContent" layoutX="25.0" layoutY="200.0" prefHeight="210.0" prefWidth="412.0" styleClass="postContent">
+      <children>
+         <TextField fx:id="ContenuPost" editable="false" layoutX="10.0" layoutY="40.0" prefWidth="480.0" styleClass="postContentText">
+            <style>
+               -fx-background-color: transparent;
+               -fx-border: none;
+            </style>
+         </TextField>
+         <Label fx:id="postNameLabel" layoutX="30.0" layoutY="19.0" styleClass="postLabel" text="Name:" />
+         <TextField fx:id="nomPost" layoutX="86.0" layoutY="15.0" prefWidth="150.0" styleClass="postNameField">
+            <style>
+               -fx-background-color: transparent;
+               -fx-border: none;
+            </style>
+         </TextField>
+         <TextField fx:id="TagPost" editable="false" layoutX="476.0" layoutY="15.0" prefWidth="120.0" styleClass="postTagField">
+            <style>
+               -fx-background-color: transparent;
+               -fx-border: none;
+            </style>
+         </TextField>
+         <Button layoutX="380.0" layoutY="160.0" mnemonicParsing="false" onAction="#navtoupdate" styleClass="postButton" text="Update" />
+         <Button layoutX="440.0" layoutY="160.0" mnemonicParsing="false" onAction="#delete" styleClass="postButton" text="Delete" />
+            <TextField fx:id="DatePost" editable="false" layoutX="285.0" layoutY="15.0" styleClass="postDate">
+         <style>
+            -fx-background-color: transparent;
+            -fx-border: none;
+         </style>
+            </TextField>
+      </children>
+   </AnchorPane>
+   <Label fx:id="postIdLabel" layoutX="18.0" layoutY="25.0" styleClass="postLabel" text="ID:" />
+   <TextField fx:id="idPost" editable="false" layoutX="14.0" layoutY="49.0" prefWidth="80.0" styleClass="postIdField">
+      <style>
+               -fx-background-color: transparent;
+               -fx-border: none;
+            </style>
+   </TextField>
    </children>
 </AnchorPane>

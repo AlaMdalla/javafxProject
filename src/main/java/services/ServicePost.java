@@ -32,11 +32,11 @@ public class ServicePost implements Iservice<Post> {
         preparedStatement.setString(2, post.getContenu());
         preparedStatement.setDate(3, Date.valueOf(post.getDate()));
         preparedStatement.setString(4, post.getTag());
-        preparedStatement.setString(4, post.getImage());
-
-        preparedStatement.setInt(5, post.getId());
+        preparedStatement.setString(5, post.getImage()); // Set the image parameter
+        preparedStatement.setInt(6, post.getId()); // Corrected the index for id parameter
         preparedStatement.executeUpdate();
     }
+
 
 
 

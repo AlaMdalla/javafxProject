@@ -8,15 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ServicePost;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +34,7 @@ public class postController implements Initializable {
     @FXML
     private TextField nomPost;
     @FXML
-    private TextField ContenuPost;
+    private TextArea ContenuPost;
     @FXML
     private TextField DatePost;
     @FXML
@@ -45,6 +44,20 @@ public class postController implements Initializable {
 
     @FXML
     private AnchorPane rootPane;
+    @FXML
+    private Button menuButtonTop;
+    @FXML
+    private Button menuButtonBottom;
+    private boolean menuVisible = false;
+
+    @FXML
+    private AnchorPane menuPopup;
+
+    @FXML
+    public void handleMenuClick() {
+        menuVisible = !menuVisible;  // Toggle the visibility flag
+        menuPopup.setVisible(menuVisible);  // Update visibility based on flag
+    }
 
     String url;
     public void setData(Post post) {
@@ -151,6 +164,10 @@ public class postController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ContenuPost.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Adjust the height of the text field based on its content
+            ContenuPost.setPrefHeight(ContenuPost.getFont().getSize() * (1 + ContenuPost.getText().split("\n").length));
+        });
 
     }
     public String addimage() {
@@ -178,5 +195,8 @@ public class postController implements Initializable {
             this.url="C:\\Users\\ufl\\Pictures\\favicon.png";
             return "C:\\Users\\ufl\\Pictures\\favicon.png";
         }
+    }
+
+    public void handleMenuClick(ActionEvent actionEvent) {
     }
 }

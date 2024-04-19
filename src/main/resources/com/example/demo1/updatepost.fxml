@@ -7,11 +7,12 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.control.TextArea?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f0f0f0; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.postController">
     <children>
         <TextField fx:id="idPost" editable="false" layoutX="185.0" layoutY="54.0" style="-fx-background-color: #ffffff;" />
         <TextField fx:id="nomPost" editable="true" layoutX="185.0" layoutY="105.0" style="-fx-background-color: #ffffff;" />
-        <TextField fx:id="ContenuPost" editable="true" layoutX="188.0" layoutY="164.0" style="-fx-background-color: #ffffff;" />
+        <TextArea fx:id="ContenuPost" editable="true" layoutX="188.0" layoutY="164.0" style="-fx-background-color: #ffffff;" />
         <Text layoutX="251.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="od test" />
         <Text layoutX="251.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Nom" />
         <Text layoutX="243.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="contenu" />

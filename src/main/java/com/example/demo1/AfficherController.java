@@ -17,13 +17,15 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+
 public class AfficherController  implements Initializable {
     ServicePost service =new ServicePost();
 
     @FXML
     private FlowPane cardContainer;
 
-
+    @FXML
+    private Label testText;
 
 
     @Override
@@ -41,9 +43,26 @@ public class AfficherController  implements Initializable {
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 
 
+    @FXML
+    public  void  navigateVersafficher(ActionEvent event){
+        try{
+            Parent root =
+                    FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
+
+
+            testText.getScene().setRoot(root);
+        } catch (IOException ex) {
+
+
+            System.err.println(ex.getMessage());
+
+        }
+
+    }
 
 }
 

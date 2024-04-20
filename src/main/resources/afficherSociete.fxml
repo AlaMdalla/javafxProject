@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane prefHeight="434.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.afficherSociete">
+   <children>
+      <ListView fx:id="societeListView" layoutX="19.0" layoutY="29.0" prefHeight="287.0" prefWidth="492.0" styleClass="societeListView" stylesheets="@Afficher.css" />
+      <Button fx:id="deleteButton" layoutX="399.0" layoutY="336.0" mnemonicParsing="false" onAction="#supprimerSociete" prefHeight="34.0" prefWidth="147.0" styleClass="deleteButton" stylesheets="@Afficher.css" text="Supprimer" />
+      <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="399.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/delete.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

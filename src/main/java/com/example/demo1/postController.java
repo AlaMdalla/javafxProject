@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -18,7 +19,9 @@ import services.ServicePost;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -52,6 +55,10 @@ public class postController implements Initializable {
 
     @FXML
     private AnchorPane menuPopup;
+    @FXML
+    private ImageView editphoto ;
+    @FXML
+    private ImageView deletephoto ;
 
     @FXML
     public void handleMenuClick() {
@@ -75,31 +82,11 @@ public class postController implements Initializable {
     }
 
 
-    public void delete(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText("Delete Post"+idPost.getText());
-        alert.setContentText("Are you sure you want to delete this post?");
 
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                try {
-                    service.supprimer(Integer.parseInt(idPost.getText()));
-                    Parent root = FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
 
-                    Scene scene = idPost.getScene();
 
-                    Stage stage = (Stage) scene.getWindow();
 
-                    stage.setScene(new Scene(root));
-                } catch (IOException | SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-    }
-
-    public void navtoupdate(ActionEvent actionEvent) throws SQLException, IOException {
+    public void navigatetoPost(ActionEvent actionEvent) throws SQLException, IOException {
 
 
         String idText = idPost.getText();
@@ -107,7 +94,7 @@ public class postController implements Initializable {
             int id = Integer.parseInt(idText);
             Post p = service.getPost(id);
             if (p != null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("updatepost.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("postComments.fxml"));
                 Parent root = loader.load();
                 postController controller = loader.getController();
 
@@ -168,6 +155,37 @@ public class postController implements Initializable {
             // Adjust the height of the text field based on its content
             ContenuPost.setPrefHeight(ContenuPost.getFont().getSize() * (1 + ContenuPost.getText().split("\n").length));
         });
+     /*   String imagePath = "file:///C:\\\\Users\\\\ufl\\\\Downloads\\\\patient\\\\demo1\\\\src\\\\main\\\\resources\\\\images\\\\edit.png";
+        String imagePath_delete = "file:///C:\\\\Users\\\\ufl\\\\Downloads\\\\patient\\\\demo1\\\\src\\\\main\\\\resources\\\\images\\\\close.png";
+        String image_User_Url = "file:///C:\\\\Users\\\\ufl\\\\Downloads\\\\patient\\\\demo1\\\\src\\\\main\\\\resources\\\\images\\\\zlaga.png";*/
+
+/*
+        try {
+            //edit photo
+            Image image = new Image(imagePath);
+
+            ImageView imageView = new ImageView(image);
+
+            this.editphoto.setImage(imageView.getImage());
+
+            //userphoto
+
+            // Create an ImageView and set the image
+
+
+            Image image_delete = new Image(imagePath_delete);
+
+            // Create an ImageView and set the image
+            ImageView imageView_delete = new ImageView(image_delete);
+
+            // Now, you can use imageView as you wish, for example, setting it to likephoto
+            this.editphoto.setImage(imageView.getImage());
+            this.deletephoto.setImage(imageView_delete.getImage());
+        } catch (Exception e) {
+            // Print the stack trace to understand the problem
+            e.printStackTrace();
+        }
+*/
 
     }
     public String addimage() {
@@ -198,5 +216,58 @@ public class postController implements Initializable {
     }
 
     public void handleMenuClick(ActionEvent actionEvent) {
+    }
+
+    public void navtoupdate(MouseEvent mouseEvent) throws SQLException, IOException {
+
+        String idText = idPost.getText();
+        if (!idText.isEmpty()) {
+            int id = Integer.parseInt(idText);
+            Post p = service.getPost(id);
+            if (p != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("updatepost.fxml"));
+                Parent root = loader.load();
+                postController controller = loader.getController();
+
+                controller.setData(p);
+                Scene scene = new Scene(root);
+
+                // Get the current stage and scene
+                Stage currentStage = (Stage) idPost.getScene().getWindow();
+
+
+                // Set the new scene
+                currentStage.setScene(scene);
+                currentStage.setTitle("Post Details");
+                currentStage.show();
+
+
+            }
+        }
+
+    }
+
+    public void delete(MouseEvent mouseEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Delete Post"+idPost.getText());
+        alert.setContentText("Are you sure you want to delete this post?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                try {
+                    service.supprimer(Integer.parseInt(idPost.getText()));
+                    Parent root = FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
+
+                    Scene scene = idPost.getScene();
+
+                    Stage stage = (Stage) scene.getWindow();
+
+                    stage.setScene(new Scene(root));
+                } catch (IOException | SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 }

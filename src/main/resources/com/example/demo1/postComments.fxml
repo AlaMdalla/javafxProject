@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -15,32 +15,19 @@
     <children>
         <TextField fx:id="idPost" editable="false" layoutX="-100" layoutY="-100" prefWidth="80.0" visible="false" />
 
-        <ImageView  fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="profilePicture" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@profile_picture.png" />
             </image>
         </ImageView>
-        <VBox layoutX="75.0" layoutY="5.0" prefHeight="421.0" prefWidth="715.0" spacing="10.0" stylesheets="@../../../post.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="5.0">
+        <VBox layoutX="75.0" layoutY="5.0" prefHeight="421.0" prefWidth="715.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="5.0">
             <HBox alignment="CENTER_LEFT" spacing="10.0">
-                <ImageView fx:id="" fitHeight="63.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
-                    <clip>
-                        <Circle centerX="21.5" centerY="21.5" radius="20.0" /> <!-- Adjust radius as needed -->
-                    </clip>
-                    <image>
-                        <Image url="@../../../images/zlaga.png" />
-                    </image>
-                </ImageView>
+                <Circle fx:id="profilePicture" fill="#cccccc" radius="20.0" stroke="#cccccc">
 
-
-
-
-
-
+                </Circle>
 
                 <TextField fx:id="nomPost" prefHeight="26.0" prefWidth="87.0" styleClass="aggodStyle" text="John Doe">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin></TextField>
+                </TextField>
 
                 <AnchorPane fx:id="menuPopup" visible="false">
                     <children>
@@ -52,16 +39,11 @@
                 </TextField>
                 <TextField fx:id="TagPost" prefHeight="26.0" prefWidth="101.0" styleClass="aggodStyle" text="John Doe">
                 </TextField>
-                <ImageView fx:id="editphoto" fitHeight="31.0" fitWidth="47.0" onMouseClicked="#navtoupdate" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="25.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../images/edit.png" />
+                        <Image url="@../../../../../../../../ic_like.png" />
                     </image>
                 </ImageView>
-            <ImageView fx:id="deletephoto1" fitHeight="31.0" fitWidth="47.0" layoutX="288.0" layoutY="10.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/close.png" />
-               </image>
-            </ImageView>
 
             </HBox>
 
@@ -70,17 +52,27 @@
                 <ImageView fx:id="imagePost" fitHeight="150.0" fitWidth="200.0" layoutX="203.0" pickOnBounds="true" preserveRatio="true" styleClass="postImage">
 
                     <image>
-                        <Image url="@../../../../../favicon.png" />
+                        <Image url="@../../../../../fa.png" />
                     </image>
                 </ImageView>
                 <TextArea fx:id="ContenuPost" editable="false" prefHeight="150.0" prefWidth="350.0" style="-fx-border-color: #3b5998; -fx-border-width: 2px; -fx-alignment: top-left;" styleClass="postContent" wrapText="true" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
-                <Button fx:id="commentButton" onAction="#navigatetoPost" styleClass="commentButton" text="Comment" />
                 <Button fx:id="shareButton" styleClass="shareButton" text="Share" />
-
+                <Button fx:id="likeButton" styleClass="likeButton" text="Like" />
             </HBox>
+         <HBox prefHeight="118.0" prefWidth="585.0">
+            <children>
+               <TextArea prefHeight="118.0" prefWidth="618.0" />
+            </children>
+         </HBox>
         </VBox>
+      <Button fx:id="commentButton" layoutX="745.0" layoutY="315.0" stylesheets="@../../../post.css" text="Comment">
+         <styleClass>
+            <String fx:value="hboxContainer" />
+            <String fx:value="commentButtonPost" />
+         </styleClass>
+      </Button>
     </children>
 
 </AnchorPane>

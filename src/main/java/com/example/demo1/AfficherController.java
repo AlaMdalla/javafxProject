@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import services.ServicePost;
@@ -45,9 +46,24 @@ public class AfficherController  implements Initializable {
         }
 
     }
-
-
     @FXML
+    public  void  navigateVersAjouter(ActionEvent event) {
+        try {
+            Parent root =
+                    FXMLLoader.load(getClass().getResource("ajouterPost.fxml"));
+
+
+            cardContainer.getScene().setRoot(root);
+        } catch (IOException ex) {
+
+
+            System.err.println(ex.getMessage());
+
+        }
+    }
+
+
+        @FXML
     public  void  navigateVersafficher(ActionEvent event){
         try{
             Parent root =

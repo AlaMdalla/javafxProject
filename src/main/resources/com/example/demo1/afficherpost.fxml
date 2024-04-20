@@ -41,19 +41,19 @@
 
       <VBox fx:id="sideMenu" prefHeight="402.0" prefWidth="160.0" styleClass="sideMenu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Circle fx:id="profilePicture" fill="#cccccc" radius="38.0" stroke="#cccccc">
-
-            </Circle>
+            <ImageView fx:id="profile_image" fitHeight="52.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+               <clip>
+                  <Circle centerX="21.5" centerY="21.5" radius="21.0" /> <!-- Adjust radius as needed -->
+               </clip>
+               <image>
+                  <Image url="@../../../images/zlaga.png" />
+               </image>
+            </ImageView>
             <Button stylesheets="@../../../post.css" text="Ala" />
 
             <Button stylesheets="@../../../post.css" text="Home" />
             <Button text="Profile" />
-            <Button text="Settings" />
-            <ImageView fitHeight="150.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../favicon.png" />
-               </image>
-            </ImageView>
+            <Button text="new Post" onAction="#navigateVersAjouter" />
 
          </children>
       </VBox>

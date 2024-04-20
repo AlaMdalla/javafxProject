@@ -75,4 +75,20 @@
     -fx-text-fill: #007bff;            /* Text color on button hover */
     -fx-background-color: #e9ecef;      /* Slight background color on hover */
 }
+.commentButtonPost {
+    -fx-background-color: transparent;
+    -fx-border: 1px solid #ddd;
+    -fx-text-fill: #333;
+    -fx-cursor: hand;
 
+}
+.hboxContainer {
+    -fx-alignment: center; /* Align button horizontally in the center */
+}
+.profile_image {
+    -fx-background-radius: 50%;
+    -fx-background-color: transparent;
+}
+.circular-image {
+    -fx-clip-path: circle(50%);
+}

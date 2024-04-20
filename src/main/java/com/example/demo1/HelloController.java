@@ -28,6 +28,8 @@ public class HelloController implements Initializable  {
     @FXML
     private Label welcomeText;
     @FXML
+    private Button ajouterPosteButton;
+    @FXML
     private TableColumn<Post, String> NomColum;
     @FXML
     private ImageView image;
@@ -45,7 +47,7 @@ public class HelloController implements Initializable  {
     @FXML
     private TextField txtNom;
     @FXML
-    private TextField txtContenu;
+    private TextArea txtContenu;
     @FXML
     private TextField txtTag;
     String url ;
@@ -77,7 +79,7 @@ public class HelloController implements Initializable  {
                     FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
 
 
-            testText.getScene().setRoot(root);
+            ajouterPosteButton.getScene().setRoot(root);
         } catch (IOException ex) {
 
 

@@ -58,7 +58,7 @@ public class Societe {
                + id +
                   nomSociete + +
                  numTelephone +
-              adress
+                    adress
                 ;
     }
 }

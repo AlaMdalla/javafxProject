@@ -11,7 +11,7 @@ import java.util.Objects;
 public class MainFx extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouter.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPartenaire.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);

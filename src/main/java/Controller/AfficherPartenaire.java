@@ -4,17 +4,18 @@ import entities.Partenaire;
 import entities.Societe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.ComboBox;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import services.ServicePartenaire;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -31,25 +32,33 @@ public class AfficherPartenaire implements Initializable {
     @FXML
     private TextArea descriptionTextArea;
 
-
-
-
     private ObservableList<Partenaire> partenaireList;
     private final ServicePartenaire servicePartenaire = new ServicePartenaire();
+
+    private Partenaire currentPartenaire;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         partenaireList = FXCollections.observableArrayList();
         partenaireListView.setItems(partenaireList);
 
-        partenaireListView.setCellFactory(param -> new ListCell<Partenaire>() {
+        partenaireListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Partenaire partenaire, boolean empty) {
                 super.updateItem(partenaire, empty);
                 if (empty || partenaire == null) {
                     setText(null);
                 } else {
+                    Button modifierButton = new Button("Modifier");
+                    modifierButton.setOnAction(event -> {
+                        try {
+                            modifierPartenaire(partenaire);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
                     setText("Nom: " + partenaire.getNom() + ", Description: " + partenaire.getDescription() + ", Societe ID: " + partenaire.getSociete().getId());
+                    setGraphic(modifierButton);
                 }
             }
         });
@@ -63,7 +72,7 @@ public class AfficherPartenaire implements Initializable {
         String nom = nomTextField.getText();
         String description = descriptionTextArea.getText();
 
-        if (nom.isEmpty() || description.isEmpty() ) {
+        if (nom.isEmpty() || description.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs.");
             return;
         }
@@ -103,6 +112,18 @@ public class AfficherPartenaire implements Initializable {
         }
     }
 
+    private void modifierPartenaire(Partenaire partenaire) throws IOException {
+        currentPartenaire = partenaire;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierPartenaire.fxml"));
+        Parent root = loader.load();
+
+        ModifierPartenaire modifierPartenaireController = loader.getController();
+        modifierPartenaireController.setPartenaireData(partenaire);
+
+        Stage currentStage = (Stage) partenaireListView.getScene().getWindow();
+        currentStage.setScene(new Scene(root));
+    }
+
     private void afficherPartenaires() {
         try {
             partenaireList.clear();
@@ -116,13 +137,11 @@ public class AfficherPartenaire implements Initializable {
     private void clearFields() {
         nomTextField.clear();
         descriptionTextArea.clear();
-
     }
 
     private void initSocieteComboBox() {
         try {
             ObservableList<Societe> societeObservableList = FXCollections.observableArrayList(servicePartenaire.getAllSocietes());
-
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement des sociétés : " + e.getMessage());
@@ -135,4 +154,5 @@ public class AfficherPartenaire implements Initializable {
         alert.setContentText(contentText);
         alert.showAndWait();
     }
+
 }

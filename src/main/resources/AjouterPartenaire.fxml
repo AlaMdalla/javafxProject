@@ -7,14 +7,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AjouterPartenaire">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AjouterPartenaire" stylesheets="@AjouterPartenaire.css">
    <children>
-      <Text layoutX="47.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de partenaire" />
-      <TextField fx:id="nomField" layoutX="47.0" layoutY="65.0" />
-      <Text layoutX="47.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
-      <TextArea fx:id="descriptionField" layoutX="47.0" layoutY="145.0" prefHeight="151.0" prefWidth="500.0" />
-      <Text layoutX="397.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Société" />
-      <ChoiceBox fx:id="societeChoiceBox" layoutX="397.0" layoutY="65.0" prefWidth="150.0" />
-      <Button layoutX="482.0" layoutY="311.0" mnemonicParsing="false" onAction="#ajouterPartenaire" text="Ajouter" />
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0" styleClass="background">
+         <children>
+            <Text layoutX="47.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de partenaire" />
+            <TextField fx:id="nomField" layoutX="47.0" layoutY="65.0" />
+            <Text layoutX="47.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+            <TextArea fx:id="descriptionField" layoutX="47.0" layoutY="145.0" prefHeight="151.0" prefWidth="500.0" />
+            <Text layoutX="397.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Société" />
+            <ChoiceBox fx:id="societeChoiceBox" layoutX="397.0" layoutY="65.0" prefWidth="150.0" />
+            <HBox layoutX="397.0" layoutY="311.0" spacing="10" styleClass="button-bar">
+               <Button fx:id="ajouterButton" mnemonicParsing="false" onAction="#ajouterPartenaire" text="Ajouter" />
+            </HBox>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

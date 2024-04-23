@@ -175,33 +175,15 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="54.0" prefWidth="335.0">
                            <children>
-                              <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                              <ButtonBar prefHeight="46.0" prefWidth="178.0">
                                  <buttons>
-                                    <Button fx:id="btnsave" mnemonicParsing="false" onAction="#creatEvenement" stylesheets="@style.css" text="Ajouter">
+                                    <Button fx:id="btnsave" mnemonicParsing="false" onAction="#creatEvenement" prefHeight="36.0" prefWidth="176.0" stylesheets="@style.css" text="Ajouter Evenement">
                                        <styleClass>
                                           <String fx:value="search-box" />
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <font>
-                                          <Font name="Cambria Bold" size="15.0" />
-                                       </font>
-                                    </Button>
-                                    <Button layoutX="135.0" layoutY="21.0" mnemonicParsing="false" stylesheets="@style.css" text="Update">
-                                       <styleClass>
-                                          <String fx:value="search-box" />
-                                          <String fx:value="shadow" />
-                                       </styleClass>
-                                       <font>
-                                          <Font name="Cambria Bold" size="15.0" />
-                                       </font>
-                                    </Button>
-                                    <Button fx:id="btndelete" layoutX="135.0" layoutY="21.0" mnemonicParsing="false" stylesheets="@style.css" text="Delete">
-                                       <styleClass>
-                                          <String fx:value="search-box" />
-                                          <String fx:value="shadow" />
-                                       </styleClass>
-                                       <font>
-                                          <Font name="Cambria Bold" size="15.0" />
+                                          <Font name="Segoe UI Bold" size="15.0" />
                                        </font>
                                     </Button>
                                  </buttons>
@@ -211,6 +193,7 @@
                               </ButtonBar>
                            </children>
                         </HBox>
+
                      </children>
                   </VBox>
                </children>
@@ -253,7 +236,7 @@
                                     <Insets right="20.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <Label alignment="CENTER" text="Les meilleurs Evenements">
+                              <Label alignment="CENTER" prefWidth="221.0" text="Les meilleurs Event">
                                  <font>
                                     <Font name="Segoe UI Bold" size="19.0" />
                                  </font>
@@ -273,7 +256,7 @@
                                     <Insets right="20.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <Label alignment="CENTER" text="Choisir ton Evenement">
+                              <Label alignment="CENTER" prefHeight="24.0" prefWidth="240.0" text="Choisir ton Event">
                                  <font>
                                     <Font name="Segoe UI Bold" size="19.0" />
                                  </font>
@@ -300,11 +283,12 @@
                               <Insets top="10.0" />
                            </HBox.margin>
                            <content>
-                              <FlowPane fx:id="eventFlowPane" alignment="CENTER" prefHeight="629.0" prefWidth="784.0">
+                              <FlowPane fx:id="eventFlowPane" alignment="CENTER" prefHeight="629.0" prefWidth="784.0" hgap="10" vgap="10">
                                  <padding>
                                     <Insets top="20.0" />
                                  </padding>
                               </FlowPane>
+
                            </content>
                         </ScrollPane>
                      </children>

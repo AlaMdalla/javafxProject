@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -23,6 +24,7 @@ import org.w3c.dom.events.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.geometry.Insets;
 
 
 import java.io.*;
@@ -36,6 +38,7 @@ import com.example.demo1.evenement;
 import static com.example.demo1.DBconnexion.url;
 
 public class HelloController implements Initializable {
+
     Connection con = null;
     PreparedStatement st = null;
     ResultSet rs = null;
@@ -48,9 +51,6 @@ public class HelloController implements Initializable {
     private TextField tLocalisation;
 
 
-/*
-    @FXML
-    private File selectedImage;*/
     @FXML
     private TextField tNbParticipant;
     @FXML
@@ -73,36 +73,14 @@ public class HelloController implements Initializable {
     private ScrollPane scrollPane;
     @FXML
     private FlowPane eventFlowPane;
-
+    private HBox eventCard;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         con = com.example.demo1.DBconnexion.getCon();
         showEvenements();
 
-        //this.showEvenements();
-
-      /*  // Gestionnaire d'événements pour le bouton "Parcourir"
-        imageView.setOnMouseClicked(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Choisir une image");
-
-            // Filtres pour limiter la sélection aux fichiers image
-            FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Images", "*.jpg", "*.jpeg", "*.png", "*.gif");
-            fileChooser.getExtensionFilters().add(imageFilter);
-
-            // Afficher la boîte de dialogue de sélection de fichier
-            File selectedFile = fileChooser.showOpenDialog(imageView.getScene().getWindow());
-
-            // Charger l'image sélectionnée dans l'ImageView
-            if (selectedFile != null) {
-                Image image = new Image(selectedFile.toURI().toString());
-                imageView.setImage(image);
-            }
-        });*/
     }
-
-
 
 
     public ObservableList<evenement> getEvenements() {
@@ -114,6 +92,7 @@ public class HelloController implements Initializable {
             rs = st.executeQuery();
             while (rs.next()) {
                 evenement evenement = new evenement();
+                evenement.setId(rs.getInt("id"));
                 evenement.setTitre(rs.getString("Titre"));
                 evenement.setLocalisation(rs.getString("Localisation"));
                 evenement.setNbparticipant(rs.getInt("nb_participant"));
@@ -152,20 +131,30 @@ public class HelloController implements Initializable {
 
 
 
-
     private HBox showEvenement(evenement event) {
         HBox card = new HBox();
         card.getStyleClass().add("event-card");
         card.setPrefSize(500, 100); // Définir une taille préférée pour la carte
+        VBox root = new VBox();
+        Scene scene = new Scene(root, 800, 600);
+        eventCard = card;
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
         // Créer un conteneur pour les détails de l'événement
         VBox detailsBox = new VBox();
         detailsBox.setSpacing(10.0);
-        detailsBox.setPrefSize(300, 150); // Définir une taille préférée pour la boîte de détails
+        detailsBox.setPrefSize(300, 150);
 
+        // Créer le bouton de suppression
+        Button deleteButton = new Button("X");
+        deleteButton.setOnAction(this::deleteEvenement);
+        deleteButton.getStyleClass().add("button-delete"); // Ajouter la classe de style CSS au bouton
+        deleteButton.setUserData(event); // Stockez l'événement associé dans les données du bouton
+
+        root.getChildren().add(deleteButton);
         // Créer des labels pour les détails de l'événement
         Label eventNameLabel = new Label("Titre de l'evenement: " + event.getTitre());
-        Label eventDateLabel = new Label("Date de l'evenement: " + event.getDate());
+        Label eventDateLabel = new Label("Date : " + event.getDate());
         Label eventLocationLabel = new Label("Lieu de l'evenement: " + event.getLocalisation());
         Label eventParticipantsLabel = new Label("Nombre de participant: " + event.getNb_participant());
 
@@ -174,33 +163,25 @@ public class HelloController implements Initializable {
         imageafficher.setFitWidth(100); // Largeur de l'image
         imageafficher.setFitHeight(100); // Hauteur de l'image
 
-        // Créer une barre de boutons pour les actions
-        ButtonBar buttonBar = new ButtonBar();
-        Button deleteButton = new Button("Supprimer");
-        Button modifyButton = new Button("Modifier");
-        buttonBar.getButtons().addAll(deleteButton, modifyButton);
-
         // Ajouter les labels à la boîte de détails
         detailsBox.getChildren().addAll(eventNameLabel, eventDateLabel, eventLocationLabel, eventParticipantsLabel);
 
         // Ajouter les éléments à la carte
-        card.getChildren().addAll(detailsBox, imageafficher, buttonBar);
+        card.getChildren().addAll(detailsBox, imageafficher, deleteButton);
 
         // Ajouter des marges entre les éléments de la carte
         HBox.setMargin(detailsBox, new Insets(10)); // Marge entre les détails et l'image
-        HBox.setMargin(imageafficher, new Insets(10)); // Marge entre l'image et la barre de boutons
+        HBox.setMargin(imageafficher, new Insets(10)); // Marge entre l'image et le bouton de suppression
+
+        // Ajouter un gestionnaire d'événements sur la carte
+        card.setOnMouseClicked(mouseEvent -> {
+            // Mettez ici le code que vous souhaitez exécuter lorsque l'utilisateur clique sur la carte
+            System.out.println("Carte d'événement cliquée");
+        });
 
         return card;
     }
-    // Méthode pour créer un conteneur pour afficher plusieurs événements
-    private VBox createEventContainer(List<evenement> events) {
-        VBox eventContainer = new VBox();
-        eventContainer.setSpacing(20); // Ajouter une marge entre les cartes
-        for (evenement event : events) {
-            eventContainer.getChildren().add(showEvenement(event));
-        }
-        return eventContainer;
-    }
+
 
     @FXML
     void creatEvenement(ActionEvent event) {
@@ -243,10 +224,7 @@ public class HelloController implements Initializable {
         fileChooser.setTitle("Choose Image");
         fileChooser.setInitialDirectory(new File("C:/Users/elyes/Pictures"));
 
-;
-
         File selectedFile = fileChooser.showOpenDialog(null);
-
 
         if (selectedFile != null) {
 
@@ -270,35 +248,45 @@ public class HelloController implements Initializable {
     }
 
 
-
-
-
-
-
-
-
-
     @FXML
     void deleteEvenement(ActionEvent event) {
-        String delete = "DELETE FROM Evenements WHERE id = ?";
-        con = com.example.demo1.DBconnexion.getCon();
-        try {
-            st = con.prepareStatement(delete);
+        Button deleteButton = (Button) event.getSource(); // Récupérer le bouton sur lequel l'utilisateur a cliqué
+        evenement eventToDelete = (evenement) deleteButton.getUserData(); // Récupérer l'événement associé au bouton
 
-            int rowsAffected = st.executeUpdate();
-            if (rowsAffected > 0) {
-                // La suppression a réussi
-                System.out.println("Événement supprimé avec succès");
-                // showEvenements(); // Rafraîchir l'affichage des événements dans le TableView
-            } else {
-                // Aucune ligne n'a été supprimée, peut-être que l'ID n'existe pas dans la table
-                System.out.println("Aucun événement trouvé avec cet ID");
+        // Vérifier si l'objet evenement est null
+        if (eventToDelete != null) {
+            int eventId = eventToDelete.getId(); // Récupérer l'ID de l'événement à supprimer
+
+            String deleteQuery = "DELETE FROM Evenements WHERE id = ?";
+            try {
+                con = DBconnexion.getCon();
+                PreparedStatement st = con.prepareStatement(deleteQuery);
+                st.setInt(1, eventId);
+
+                int rowsAffected = st.executeUpdate();
+                if (rowsAffected > 0) {
+                    // La suppression a réussi
+                    System.out.println("Événement supprimé avec succès");
+
+                    // Supprimer la carte de l'événement directement en utilisant la référence stockée
+                    Node eventCard = (Node) deleteButton.getUserData(); // Récupérer la carte de l'événement depuis les données du bouton
+                    if (eventCard != null && eventCard.getParentNode() != null) {
+                        ((Pane) eventCard.getParentNode()).getChildren().remove(eventCard);
+                    }
+                } else {
+                    // Aucune ligne n'a été supprimée, peut-être que l'ID n'existe pas dans la table
+                    System.out.println("Aucun événement trouvé avec cet ID");
+                }
+            } catch (SQLException e) {
+                // Gérer spécifiquement les exceptions SQL et fournir une rétroaction à l'utilisateur
+                e.printStackTrace(); // À remplacer par une gestion appropriée des exceptions
             }
-        } catch (SQLException e) {
-            // Gérer spécifiquement les exceptions SQL et fournir une rétroaction à l'utilisateur
-            e.printStackTrace(); // À remplacer par une gestion appropriée des exceptions
+        } else {
+            // Si eventToDelete est null, afficher un message d'erreur ou effectuer une action appropriée
+            System.out.println("Aucun événement associé au bouton de suppression");
         }
     }
+
 
 
 

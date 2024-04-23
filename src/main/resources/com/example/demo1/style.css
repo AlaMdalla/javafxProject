@@ -32,9 +32,22 @@
 .other-element {
     -fx-background-color: #e0e0e0; /* Gris clair */
 }
-.event-card{
-    -fx-background-color: #7fe7dc; /* Violet */
-    -fx-background-radius: 20;
+.event-card {
+    -fx-background-color: lightblue; /* Changez la couleur de fond selon vos préférences */
+    -fx-background-radius: 5; /* Arrondir les coins de la carte */
+    -fx-padding: 10; /* Ajouter un remplissage intérieur pour l'espace autour du contenu */
+}
 
+.button-delete {
+    -fx-background-color: #ff3b30; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-padding: 8px 16px; /* Remplissage du bouton */
+    -fx-border-radius: 4px; /* Rayon de bordure */
+    -fx-background-radius: 4px; /* Rayon de fond */
+}
 
+/* Style du bouton de suppression lorsqu'il est survolé */
+.button-delete:hover {
+    -fx-background-color: #ff5f52; /* Couleur de fond au survol */
 }

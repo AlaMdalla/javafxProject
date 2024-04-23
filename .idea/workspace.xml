@@ -5,20 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06344ea9-917e-4696-8090-d4db696f70e0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo1/CommentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo1/comment.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo1/testcomment.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo1/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo1/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo1/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo1/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo1/postController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo1/postController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entites/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entites/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entites/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entites/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/ServiceComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ServiceComment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/ServicePost.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ServicePost.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo1/post.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo1/post.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo1/postComments.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo1/postComments.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo1/updatepost.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo1/updatepost.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +108,7 @@
       <workItem from="1713000270324" duration="16686000" />
       <workItem from="1713185849942" duration="22691000" />
       <workItem from="1713372547643" duration="21765000" />
-      <workItem from="1713517906266" duration="69798000" />
+      <workItem from="1713517906266" duration="73341000" />
     </task>
     <servers />
   </component>

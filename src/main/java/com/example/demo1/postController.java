@@ -75,6 +75,8 @@ public class postController implements Initializable {
 
     @FXML
     private TextField comment_time;
+    @FXML
+    private ScrollPane scroll ;
     public void setData_Comment(Comment comment) {
         System.out.println("test");
 
@@ -137,6 +139,7 @@ public class postController implements Initializable {
                 currentStage.show();
 
             }
+
         }
 
 
@@ -282,12 +285,19 @@ public class postController implements Initializable {
         }
 
         System.out.println("Ajouter");
-this.chagercomment();
+        scroll.setVisible(false);
+
+        this.chagercomment();
 
     }
 
 
 public void  chagercomment(){
+        if(scroll.isVisible())
+    scroll.setVisible(false);
+else
+        scroll.setVisible(true);
+
     try {
         for (Comment comment0 : serviceComment.getAll(Integer.parseInt(idPost.getText()))) {
             System.out.println(comment0);

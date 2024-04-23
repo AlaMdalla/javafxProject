@@ -147,36 +147,7 @@ public class postController implements Initializable {
 
 
     }
-    public void update(ActionEvent actionEvent) throws SQLException, IOException {
 
-
-
-        Post post= new Post();
-        post.setId(Integer.parseInt(idPost.getText()));
-        Post old_post= service.getPost(post.getId());
-        post.setNom(nomPost.getText());
-        post.setContenu(ContenuPost.getText());
-        post.setDate();
-        post.setTag(TagPost.getText());
-
-        post.setImage(this.url);
-        if(this.url==null){
-            post.setImage(old_post.getImage());
-        }
-        service.modifier(post);
-
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherpost.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage currentStage = (Stage) idPost.getScene().getWindow();
-
-        currentStage.setScene(scene);
-        currentStage.setTitle("Post Details");
-        currentStage.show();
-
-    }
 
 
     @Override
@@ -337,5 +308,38 @@ else
                 }
             }
         });
+    }
+
+    public void navigateVersafficher(MouseEvent mouseEvent) {
+    }
+
+    public void update(MouseEvent mouseEvent) throws SQLException, IOException {
+
+
+        Post post= new Post();
+        post.setId(Integer.parseInt(idPost.getText()));
+        Post old_post= service.getPost(post.getId());
+        post.setNom(nomPost.getText());
+        post.setContenu(ContenuPost.getText());
+        post.setDate();
+        post.setTag(TagPost.getText());
+
+        post.setImage(this.url);
+        if(this.url==null){
+            post.setImage(old_post.getImage());
+        }
+        service.modifier(post);
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherpost.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage currentStage = (Stage) idPost.getScene().getWindow();
+
+        currentStage.setScene(scene);
+        currentStage.setTitle("Post Details");
+        currentStage.show();
+
     }
 }

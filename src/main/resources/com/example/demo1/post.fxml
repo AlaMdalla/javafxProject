@@ -81,6 +81,11 @@
 
             </HBox>
         </VBox>
+      <ImageView fitHeight="39.0" fitWidth="35.0" layoutX="34.0" layoutY="31.0" onMouseClicked="#navigateVersafficher" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/th%20(1).jpg" />
+         </image>
+      </ImageView>
     </children>
 
 </AnchorPane>

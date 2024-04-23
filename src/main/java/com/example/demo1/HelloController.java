@@ -35,6 +35,7 @@ public class HelloController implements Initializable  {
     private TableColumn<Post, String> NomColum;
     @FXML
     private ImageView image;
+
     @FXML
     private AnchorPane PostTable;
 

@@ -1,5 +1,6 @@
 package com.example.demo1;
 
+import entites.Comment;
 import entites.Post;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import services.ServiceComment;
 import services.ServicePost;
 
 import java.io.File;
@@ -124,8 +126,6 @@ post.setImage(this.url);
 
 
     }
-
-
 
 
 @Override

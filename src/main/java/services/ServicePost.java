@@ -47,6 +47,7 @@ public class ServicePost implements Iservice<Post> {
 
 
         String sql = "select * from post";
+        //lena nzidou bch nraj3ou el ista m3 comments bel innner join
 
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);

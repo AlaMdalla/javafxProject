@@ -15,16 +15,16 @@
     <children>
         <TextField fx:id="idPost" editable="false" layoutX="-100" layoutY="-100" prefWidth="80.0" visible="false" />
 
-        <ImageView  fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="profilePicture" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@profile_picture.png" />
             </image>
         </ImageView>
         <VBox layoutX="75.0" layoutY="5.0" prefHeight="421.0" prefWidth="715.0" spacing="10.0" stylesheets="@../../../post.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="5.0">
             <HBox alignment="CENTER_LEFT" spacing="10.0">
-                <ImageView fx:id="" fitHeight="63.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="profile_image" fitHeight="55.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
                     <clip>
-                        <Circle centerX="21.5" centerY="21.5" radius="20.0" /> <!-- Adjust radius as needed -->
+                        <Circle centerX="21.5" centerY="21.5" radius="24.0" /> <!-- Adjust radius as needed -->
                     </clip>
                     <image>
                         <Image url="@../../../images/zlaga.png" />

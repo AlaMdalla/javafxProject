@@ -1,5 +1,6 @@
 package com.example.demo1;
 
+import entites.Comment;
 import entites.Post;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import services.ServiceComment;
 import services.ServicePost;
 
 import java.io.File;
@@ -38,7 +40,11 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) throws SQLException {
+
         ServicePost sp = new ServicePost();
+        ServiceComment sc = new ServiceComment();
+
+
         /*Post post =new Post(0,"ala","aaaa","11/22/2002","test");
 
 

@@ -4,6 +4,8 @@ import javafx.scene.image.Image;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Post {
     int id ;
@@ -12,6 +14,10 @@ public class Post {
     LocalDate date;
     String tag;
     String image;
+    private List<Comment> comments;
+
+
+
     public Post(int id, String nom, String contenu, LocalDate date, String tag, String image) {
         this.id = id;
         this.nom = nom;
@@ -20,6 +26,9 @@ public class Post {
         this.tag = tag;
         this.date = date;
         this.image =image;
+        this.comments=new ArrayList<>();
+
+
     }
     public Post(String nom, String contenu, String tag ,String image) {
         this.nom = nom;
@@ -27,12 +36,15 @@ public class Post {
         this.tag = tag;
         this.date = LocalDate.now();
         this.image =image;
+        this.comments=new ArrayList<>();
     }
     public Post(String nom, String contenu, String tag ) {
         this.nom = nom;
         this.contenu = contenu;
         this.tag = tag;
         this.date = LocalDate.now();
+        this.comments=new ArrayList<>();
+
 
     }
 
@@ -89,5 +101,14 @@ public class Post {
         this.image = image;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
 
+    public void addComment(Comment comment) {
+        if (comments == null) {
+            comments = new ArrayList<>();
+        }
+        comments.add(comment);
+    }
 }

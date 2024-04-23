@@ -2,11 +2,11 @@ package services;
 
 import entites.Comment;
 import entites.Post;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import util.Mydatabase;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class ServiceComment implements Iservice<Comment> {
     private Connection connection;
@@ -16,8 +16,7 @@ public class ServiceComment implements Iservice<Comment> {
     }
     @Override
     public void ajouter(Comment comment) throws SQLException {
-        String sql = "INSERT INTO comment (name, contenu,date,tag,image) VALUES ('" + comment.getName() + "', '" + comment.getContenu() + "','"+comment.getDate()+"','"+comment.getTime()+"')";
-
+        String sql = "INSERT INTO comment (id_post,name,contenu,date,time) VALUES ('" + comment.getId_post() + "','" + comment.getName() + "', '" + comment.getContenu() + "','"+comment.getDate()+"','"+comment.getTime()+"')";
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
 
@@ -30,6 +29,28 @@ public class ServiceComment implements Iservice<Comment> {
 
     @Override
     public void supprimer(int id) throws SQLException {
+
+    }
+
+    public ObservableList<Comment> getAll(int id) throws SQLException {
+        ObservableList<Comment> comments= FXCollections.observableArrayList();
+
+
+
+
+        String sql = "SELECT * FROM comment WHERE id_post = '" + id + "'";
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        while (rs.next()){
+            Comment comment = new Comment(rs.getInt("id"),rs.getInt("id_post"), rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(), Time.valueOf(rs.getString("time")));
+            comments.add(comment);
+
+        }
+        return comments;
+
+
 
     }
 }

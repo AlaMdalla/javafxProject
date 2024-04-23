@@ -1,7 +1,7 @@
 package com.example.demo1;
 
+import entites.Comment;
 import entites.Post;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,17 +13,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
+import services.ServiceComment;
 import services.ServicePost;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -31,9 +31,15 @@ import java.util.ResourceBundle;
 
 public class postController implements Initializable {
     ServicePost service =new ServicePost();
+    ServiceComment serviceComment =new ServiceComment();
+
 
     @FXML
     private TextField idPost;
+    @FXML
+    private TextArea commentContenu;
+    @FXML
+    private TextField Commentname;
     @FXML
     private TextField nomPost;
     @FXML
@@ -46,20 +52,39 @@ public class postController implements Initializable {
     private ImageView imagePost;
 
     @FXML
+    private FlowPane comment_Container;
+    ;
+    @FXML
     private AnchorPane rootPane;
-    @FXML
-    private Button menuButtonTop;
-    @FXML
-    private Button menuButtonBottom;
+
+
     private boolean menuVisible = false;
 
     @FXML
     private AnchorPane menuPopup;
-    @FXML
-    private ImageView editphoto ;
-    @FXML
-    private ImageView deletephoto ;
 
+
+    @FXML
+    private TextArea comment_contenu;
+
+    @FXML
+    private TextField comment_date;
+
+    @FXML
+    private TextField comment_name;
+
+    @FXML
+    private TextField comment_time;
+    public void setData_Comment(Comment comment) {
+        System.out.println("test");
+
+        comment_name.setText("aaa");
+        comment_contenu.setText(comment.getContenu());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+        comment_date.setText(comment.getDate().format(formatter));
+        comment_time.setText("test");
+
+    }
     @FXML
     public void handleMenuClick() {
         menuVisible = !menuVisible;  // Toggle the visibility flag
@@ -79,6 +104,7 @@ public class postController implements Initializable {
         Image image = new Image(imageurl.replace("\\","\\\\"));
 
         imagePost.setImage(image);
+
     }
 
 
@@ -110,10 +136,11 @@ public class postController implements Initializable {
                 currentStage.setTitle("Post Details");
                 currentStage.show();
 
-
-
             }
         }
+
+
+
 
 
     }
@@ -151,41 +178,11 @@ public class postController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ContenuPost.textProperty().addListener((observable, oldValue, newValue) -> {
-            // Adjust the height of the text field based on its content
-            ContenuPost.setPrefHeight(ContenuPost.getFont().getSize() * (1 + ContenuPost.getText().split("\n").length));
-        });
-     /*   String imagePath = "file:///C:\\\\Users\\\\ufl\\\\Downloads\\\\patient\\\\demo1\\\\src\\\\main\\\\resources\\\\images\\\\edit.png";
-        String imagePath_delete = "file:///C:\\\\Users\\\\ufl\\\\Downloads\\\\patient\\\\demo1\\\\src\\\\main\\\\resources\\\\images\\\\close.png";
-        String image_User_Url = "file:///C:\\\\Users\\\\ufl\\\\Downloads\\\\patient\\\\demo1\\\\src\\\\main\\\\resources\\\\images\\\\zlaga.png";*/
-
-/*
-        try {
-            //edit photo
-            Image image = new Image(imagePath);
-
-            ImageView imageView = new ImageView(image);
-
-            this.editphoto.setImage(imageView.getImage());
-
-            //userphoto
-
-            // Create an ImageView and set the image
 
 
-            Image image_delete = new Image(imagePath_delete);
 
-            // Create an ImageView and set the image
-            ImageView imageView_delete = new ImageView(image_delete);
 
-            // Now, you can use imageView as you wish, for example, setting it to likephoto
-            this.editphoto.setImage(imageView.getImage());
-            this.deletephoto.setImage(imageView_delete.getImage());
-        } catch (Exception e) {
-            // Print the stack trace to understand the problem
-            e.printStackTrace();
-        }
-*/
+
 
     }
     public String addimage() {
@@ -245,7 +242,68 @@ public class postController implements Initializable {
             }
         }
 
+
     }
+    @FXML
+    public  void  ajouterComment() {
+
+
+        Comment comment =new Comment( Commentname.getText(),commentContenu.getText());
+        comment.setId_post(Integer.parseInt(this.idPost.getText()));
+        comment.setDate();
+        comment.setTimeToCurrent();
+        Post postComments=new Post();
+        try {
+            postComments=  service.getPost(Integer.parseInt(this.idPost.getText()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("postcomments"+postComments.getComments());
+
+
+        try {
+            serviceComment.ajouter(comment);
+            postComments.addComment(comment);
+            System.out.println("ppcomments"+postComments.getComments());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succes");
+            alert.setContentText("post Ajouter avec succes");
+            alert.show();
+
+//afficherPosts();
+
+
+
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText(ex.getMessage());
+            alert.show();
+        }
+
+        System.out.println("Ajouter");
+this.chagercomment();
+
+    }
+
+
+public void  chagercomment(){
+    try {
+        for (Comment comment0 : serviceComment.getAll(Integer.parseInt(idPost.getText()))) {
+            System.out.println(comment0);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("comment.fxml"));
+            Parent card = loader.load();
+            postController controller = loader.getController();
+            controller.setData_Comment(comment0);
+            comment_Container.getChildren().add(card);}
+
+    } catch (IOException  e) {
+        throw new RuntimeException(e);
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+
+    }
+}
 
     public void delete(MouseEvent mouseEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

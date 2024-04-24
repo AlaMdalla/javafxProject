@@ -29,8 +29,13 @@ public class ServiceComment implements Iservice<Comment> {
 
     @Override
     public void supprimer(int id) throws SQLException {
+        String sql = "delete from comment where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        preparedStatement.executeUpdate();
 
     }
+
 
     public ObservableList<Comment> getAll(int id) throws SQLException {
         ObservableList<Comment> comments= FXCollections.observableArrayList();

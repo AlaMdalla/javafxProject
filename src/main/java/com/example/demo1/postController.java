@@ -76,15 +76,18 @@ public class postController implements Initializable {
     @FXML
     private TextField comment_time;
     @FXML
+
     private ScrollPane scroll  ;
+    int id;
     public void setData_Comment(Comment comment) {
         System.out.println("test");
-
+this.id=comment.getId();
         comment_name.setText("aaa");
         comment_contenu.setText(comment.getContenu());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
         comment_date.setText(comment.getDate().format(formatter));
         comment_time.setText("test");
+
 
     }
     @FXML
@@ -307,6 +310,25 @@ else
             }
         });
     }
+    public void delete_Comment(MouseEvent mouseEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Delete Post"+this.id);
+        alert.setContentText("Are you sure you want to delete this post?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                try {
+                    serviceComment.supprimer(Integer.parseInt(String.valueOf(this.id)));
+                    System.out.println("deleted");
+                } catch (  SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+    }
+
 
     public void navigateVersafficher(MouseEvent mouseEvent) {
         try{

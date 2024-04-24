@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import util.Mydatabase;
 
 import java.sql.*;
+import java.util.Collections;
 
 public class ServiceComment implements Iservice<Comment> {
     private Connection connection;
@@ -78,5 +79,24 @@ public class ServiceComment implements Iservice<Comment> {
 
 
 
+    }
+    @Override
+    public void modifier(Comment comment) throws SQLException {
+        String sql = "UPDATE comment SET name = ?, contenu = ?, date = ?, time = ?  WHERE id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, comment.getName());
+        preparedStatement.setString(2, comment.getContenu());
+        preparedStatement.setDate(3, Date.valueOf(comment.getDate()));
+        preparedStatement.setTime(4, Time.valueOf(String.valueOf(comment.getTime())));
+        preparedStatement.setInt(5, comment.getId()); // Corrected the index for id parameter
+        preparedStatement.executeUpdate();
+    }
+    public  Comment getComment(int id) throws SQLException {
+        for (Comment comment : Collections.unmodifiableList(this.getAll())) {
+            if (comment.getId()==id)
+                return  comment;
+
+        }
+        return  null;
     }
 }

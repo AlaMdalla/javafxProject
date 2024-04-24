@@ -170,4 +170,57 @@ id=comment.getId();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
+
+    public void update(MouseEvent mouseEvent) throws SQLException, IOException {
+
+        Comment comment= new Comment();
+        comment.setId(id);
+        comment.setName(comment_name.getText());
+        comment.setContenu(comment_contenu.getText());
+        comment.setDate();
+        comment.setTimeToCurrent();
+
+
+        serviceComment.modifier(comment);
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherpost.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage currentStage = (Stage) comment_name.getScene().getWindow();
+
+        currentStage.setScene(scene);
+        currentStage.setTitle("Post Details");
+        currentStage.show();
+
+    }
+    public void navToCommentUpdate(MouseEvent mouseEvent) throws SQLException, IOException {
+
+
+        if (id!=0) {
+            Comment comment = serviceComment.getComment(id);
+            if (comment != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("commentUpdate.fxml"));
+                Parent root = loader.load();
+                postController controller = loader.getController();
+
+                controller.setData_Comment(comment);
+                Scene scene = new Scene(root);
+
+                // Get the current stage and scene
+                Stage currentStage = (Stage) comment_name.getScene().getWindow();
+
+
+                // Set the new scene
+                currentStage.setScene(scene);
+                currentStage.setTitle("comment Details");
+                currentStage.show();
+
+
+            }
+        }
+
+
+    }
 }

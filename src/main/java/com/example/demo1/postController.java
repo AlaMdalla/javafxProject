@@ -218,6 +218,34 @@ this.id=comment.getId();
         }
 
 
+    }  public void navToCommentUpdate(MouseEvent mouseEvent) throws SQLException, IOException {
+
+
+        if (id!=0) {
+            System.out.println(id);
+            Comment comment = serviceComment.getComment(id);
+            if (comment != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("commentUpdate.fxml"));
+                Parent root = loader.load();
+                CommentController controller = loader.getController();
+
+                controller.setData_Comment(comment);
+                Scene scene = new Scene(root);
+
+                // Get the current stage and scene
+                Stage currentStage = (Stage) comment_name.getScene().getWindow();
+
+
+                // Set the new scene
+                currentStage.setScene(scene);
+                currentStage.setTitle("comment Details");
+                currentStage.show();
+
+
+            }
+        }
+
+
     }
     @FXML
     public  void  ajouterComment() {

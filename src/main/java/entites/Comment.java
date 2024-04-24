@@ -4,6 +4,10 @@ import java.sql.Time;
 import java.time.LocalDate;
 
 public class Comment {
+    public Comment() {
+
+    }
+
     public int getId() {
         return id;
     }

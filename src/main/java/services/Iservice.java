@@ -9,5 +9,7 @@ public interface Iservice<T> {
     void modifier (Post p) throws SQLException;
 
     void supprimer(int id) throws SQLException;
+    void modifier (T t) throws SQLException;
+
 
 }

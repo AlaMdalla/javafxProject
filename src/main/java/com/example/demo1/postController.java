@@ -297,6 +297,16 @@ else
             if (response == ButtonType.OK) {
                 try {
                     service.supprimer(Integer.parseInt(idPost.getText()));
+                    try {
+                        for (Comment comment0 : serviceComment.getAll(Integer.parseInt(idPost.getText()))) {
+
+                            serviceComment.supprimer(comment0.getId()); }
+
+
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+
+                    }
                     Parent root = FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
 
                     Scene scene = idPost.getScene();

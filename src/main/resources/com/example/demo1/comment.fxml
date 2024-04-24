@@ -4,12 +4,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="391.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.postController">
+<AnchorPane prefHeight="188.0" prefWidth="404.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.postController">
    <children>
-      <TextField fx:id="comment_name" layoutX="14.0" layoutY="56.0" prefHeight="26.0" prefWidth="74.0" text="a" />
+      <TextField fx:id="comment_name" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="120.0" promptText="Name" styleClass="text-field" />
+      <TextField fx:id="comment_date" editable="false" layoutX="14.0" layoutY="46.0" prefHeight="26.0" prefWidth="120.0" promptText="Date" styleClass="text-field" />
+      <TextField fx:id="comment_time" editable="false" layoutX="150.0" layoutY="46.0" prefHeight="26.0" prefWidth="120.0" promptText="Time" styleClass="text-field" />
+      <TextArea fx:id="comment_contenu" editable="false" layoutX="14.0" layoutY="78.0" prefHeight="90.0" prefWidth="380.0" promptText="Comment" styleClass="postContent" />
 
-      <TextField fx:id="comment_date" layoutX="96.0" layoutY="56.0" prefHeight="26.0" prefWidth="74.0" text="a" />
-      <TextField fx:id="comment_time" layoutX="191.0" layoutY="56.0" prefHeight="26.0" prefWidth="89.0" text="a" />
-      <TextArea fx:id="comment_contenu" layoutX="29.0" layoutY="93.0" prefHeight="65.0" prefWidth="224.0" text="a" />
    </children>
 </AnchorPane>

@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import services.ServiceComment;
@@ -76,7 +77,7 @@ public class HelloController implements Initializable  {
 
     }
     @FXML
-    public  void  navigateVersafficher(ActionEvent event){
+    public void navigateVersafficher(MouseEvent mouseEvent) {
         try{
             Parent root =
                     FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
@@ -88,9 +89,7 @@ public class HelloController implements Initializable  {
 
             System.err.println(ex.getMessage());
 
-        }
-
-    }
+        }}
     @FXML
     public  void  ajouterPoste() {
         Post post =new Post(txtNom.getText(),txtContenu.getText(),txtTag.getText());
@@ -106,7 +105,6 @@ post.setImage(this.url);
                 Parent root =
                         FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
 
-//afficherPosts();
                 testText.getScene().setRoot(root);
 
             } catch (IOException ex) {

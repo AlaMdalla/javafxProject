@@ -53,7 +53,8 @@
 
             <Button stylesheets="@../../../post.css" text="Home" />
             <Button text="Profile" />
-            <Button text="new Post" onAction="#navigateVersAjouter" />
+            <Button onAction="#navigateVersAjouter" text="new Post" />
+            <Button onAction="#navigatetoback" text="back" />
 
          </children>
       </VBox>

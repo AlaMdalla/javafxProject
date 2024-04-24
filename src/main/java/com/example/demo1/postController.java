@@ -76,7 +76,7 @@ public class postController implements Initializable {
     @FXML
     private TextField comment_time;
     @FXML
-    private ScrollPane scroll ;
+    private ScrollPane scroll  ;
     public void setData_Comment(Comment comment) {
         System.out.println("test");
 
@@ -152,8 +152,6 @@ public class postController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
 
 
 
@@ -311,6 +309,18 @@ else
     }
 
     public void navigateVersafficher(MouseEvent mouseEvent) {
+        try{
+            Parent root =
+                    FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
+
+
+            idPost.getScene().setRoot(root);
+        } catch (IOException ex) {
+
+
+            System.err.println(ex.getMessage());
+
+        }
     }
 
     public void update(MouseEvent mouseEvent) throws SQLException, IOException {

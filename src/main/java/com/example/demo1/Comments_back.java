@@ -1,16 +1,14 @@
 package com.example.demo1;
 
-import entites.Post;
-import javafx.beans.property.SimpleStringProperty;
+import entites.Comment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
+import services.ServiceComment;
 import services.ServicePost;
 
 import java.io.IOException;
@@ -19,67 +17,44 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
-public class AfficherController  implements Initializable {
-    ServicePost service =new ServicePost();
+
+public class  Comments_back implements Initializable {
+
     @FXML
     private FlowPane comment_Container;
 
     @FXML
-    private FlowPane cardContainer;
-
-    @FXML
-    private Label testText;
+    private ScrollPane scroll;
+    ServicePost service =new ServicePost();
+    ServiceComment serviceComment =new ServiceComment();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.chagercomment();
+    }
+
+    public void  chagercomment(){
+        if(scroll.isVisible())
+            scroll.setVisible(false);
+        else
+            scroll.setVisible(true);
 
         try {
-            for (Post post : service.getAll()) {
-                // Load card view for each post and add it to the container
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("post.fxml"));
+            for (Comment comment0 : serviceComment.getAll()) {
+                System.out.println(comment0);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("comment.fxml"));
                 Parent card = loader.load();
                 postController controller = loader.getController();
-                controller.setData(post);
-          cardContainer.getChildren().add(card);
-            }
-        } catch (IOException | SQLException e) {
+                controller.setData_Comment(comment0);
+                comment_Container.getChildren().add(card);}
+
+        } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-
-    }
-    @FXML
-    public  void  navigateVersAjouter(ActionEvent event) {
-        try {
-            Parent root =
-                    FXMLLoader.load(getClass().getResource("ajouterPost.fxml"));
-
-
-            cardContainer.getScene().setRoot(root);
-        } catch (IOException ex) {
-
-
-            System.err.println(ex.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
 
         }
-    }
-
-
-        @FXML
-    public  void  navigateVersafficher(ActionEvent event){
-        try{
-            Parent root =
-                    FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
-
-
-            testText.getScene().setRoot(root);
-        } catch (IOException ex) {
-
-
-            System.err.println(ex.getMessage());
-
-        }
-
     }
 
     public void navigatetoback(ActionEvent actionEvent) {
@@ -88,7 +63,7 @@ public class AfficherController  implements Initializable {
                     FXMLLoader.load(getClass().getResource("back/Posts.fxml"));
 
 
-            cardContainer.getScene().setRoot(root);
+            comment_Container.getScene().setRoot(root);
         } catch (IOException ex) {
 
 
@@ -104,7 +79,7 @@ public class AfficherController  implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("back/Comments.fxml"));
 
             // Set the loaded FXML as the root of the current scene
-            cardContainer.getScene().setRoot(root);
+            comment_Container.getScene().setRoot(root);
         } catch (IOException ex) {
             // Handle IOException (e.g., FXML file not found)
             System.err.println("Error loading Comments.fxml: " + ex.getMessage());
@@ -117,7 +92,3 @@ public class AfficherController  implements Initializable {
     }
 
 }
-
-
-
-

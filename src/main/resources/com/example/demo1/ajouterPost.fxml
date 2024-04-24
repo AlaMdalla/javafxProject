@@ -6,30 +6,35 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
-<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.HelloController">
-   <Rectangle arcHeight="20" arcWidth="20" fill="#f4f4f4" height="500" width="400" />
-   <VBox alignment="CENTER" maxWidth="400" spacing="20">
-      <Text text="Create a Post" />
-      <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="62.0" prefWidth="137.0" spacing="10">
-         <ImageView fitHeight="40.0" fitWidth="40.0">
-            <image>
-               <Image url="@../../../images/zlaga.png" />
-            </image>
-         </ImageView>
-         <Label text="Rayen" />
-      </HBox>
-      <TextField fx:id="txtNom" prefHeight="55.0" prefWidth="400.0" promptText="Nom" />
-      <TextField fx:id="txtTag" prefHeight="70.0" prefWidth="400.0" promptText="Tag" />
-      <TextArea fx:id="txtContenu" prefHeight="100.0" promptText="What's on your mind?" wrapText="true" />
-      <Button fx:id="addImageButton" onAction="#addimage" style="-fx-background-color: #007bff; -fx-text-fill: white;" text="Upload Image" />
-      <ImageView fx:id="image" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="ajouterPosteButton" onAction="#ajouterPoste" style="-fx-background-color: #007bff; -fx-text-fill: white;" text="Post" />
-   </VBox>
-   <Label fx:id="testText" />
 
-</StackPane>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.HelloController">
+   <children>
+      <VBox fx:id="root" layoutX="4.099999904632568" stylesheets="@../../../add.css" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+         <HBox alignment="CENTER_LEFT" spacing="20" stylesheets="@../../../add.css">
+            <ImageView fitHeight="39.0" fitWidth="35.0" onMouseClicked="#navigateVersafficher" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/th%20(1).jpg" />
+               </image>
+            </ImageView>
+            <Label fx:id="profileName" style="-fx-font-size: 18px;" text="Rayen" textFill="white" />
+         </HBox>
+      
+         <VBox alignment="CENTER_LEFT" spacing="10">
+            <Text fx:id="titleLabel" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Create a Post" />
+            <TextField fx:id="txtNom" promptText="Nom" styleClass="text-field" />
+            <TextField fx:id="txtTag" promptText="Tag" styleClass="text-field" />
+            <TextArea fx:id="txtContenu" promptText="What's on your mind?" styleClass="text-area" wrapText="true" />
+            <HBox fx:id="imageBox" alignment="CENTER_LEFT" spacing="10">
+               <Button fx:id="addImageButton" onAction="#addimage" styleClass="upload-button" text="Upload Image" />
+               <ImageView fx:id="image" fitHeight="100" fitWidth="100" pickOnBounds="true" preserveRatio="true" />
+            </HBox>
+            <Button fx:id="ajouterPosteButton" onAction="#ajouterPoste" styleClass="post-button" text="Post" />
+         </VBox>
+      </VBox>
+   </children>
+</AnchorPane>

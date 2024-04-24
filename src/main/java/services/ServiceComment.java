@@ -53,4 +53,25 @@ public class ServiceComment implements Iservice<Comment> {
 
 
     }
+    public ObservableList<Comment> getAll() throws SQLException {
+        ObservableList<Comment> comments= FXCollections.observableArrayList();
+
+
+
+
+        String sql = "SELECT * FROM comment ";
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        while (rs.next()){
+            Comment comment = new Comment(rs.getInt("id"),rs.getInt("id_post"), rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(), Time.valueOf(rs.getString("time")));
+            comments.add(comment);
+
+        }
+        return comments;
+
+
+
+    }
 }

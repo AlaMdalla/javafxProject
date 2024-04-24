@@ -50,7 +50,7 @@ public class ServiceComment implements Iservice<Comment> {
         ResultSet rs = statement.executeQuery(sql);
 
         while (rs.next()){
-            Comment comment = new Comment(rs.getInt("id"),rs.getInt("id_post"), rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(), Time.valueOf(rs.getString("time")));
+            Comment comment = new Comment(rs.getInt("id"),rs.getInt("id_post"), rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(),rs.getTime ("time").toLocalTime());
             comments.add(comment);
 
         }
@@ -71,7 +71,7 @@ public class ServiceComment implements Iservice<Comment> {
         ResultSet rs = statement.executeQuery(sql);
 
         while (rs.next()){
-            Comment comment = new Comment(rs.getInt("id"),rs.getInt("id_post"), rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(), Time.valueOf(rs.getString("time")));
+            Comment comment = new Comment(rs.getInt("id"),rs.getInt("id_post"), rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(),rs.getTime("time").toLocalTime());
             comments.add(comment);
 
         }
@@ -87,7 +87,7 @@ public class ServiceComment implements Iservice<Comment> {
         preparedStatement.setString(1, comment.getName());
         preparedStatement.setString(2, comment.getContenu());
         preparedStatement.setDate(3, Date.valueOf(comment.getDate()));
-        preparedStatement.setTime(4, Time.valueOf(String.valueOf(comment.getTime())));
+        preparedStatement.setTime(4,Time.valueOf(comment.getTime()));
         preparedStatement.setInt(5, comment.getId()); // Corrected the index for id parameter
         preparedStatement.executeUpdate();
     }

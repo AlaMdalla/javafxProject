@@ -1,7 +1,7 @@
 package entites;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Comment {
     public Comment() {
@@ -12,7 +12,7 @@ public class Comment {
         return id;
     }
 
-    public Comment(String name, String contenu, LocalDate date, Time time) {
+    public Comment(String name, String contenu, LocalDate date, LocalTime time) {
         this.name = name;
         this.contenu = contenu;
         this.date = date;
@@ -46,7 +46,7 @@ public class Comment {
 
 
 
-    public Time getTime() {
+    public LocalTime getTime() {
         return time;
     }
     public void setDate() {
@@ -54,7 +54,8 @@ public class Comment {
     }
 
     public void setTimeToCurrent() {
-        this.time = new Time(System.currentTimeMillis());
+        this.time = LocalTime.now();
+
     }
 
     int id;
@@ -78,7 +79,7 @@ public class Comment {
     String name;
     String contenu;
     LocalDate date;
-    Time time;
+    LocalTime time;
     int id_post;
 
     public int getId_post() {
@@ -89,7 +90,7 @@ public class Comment {
         this.id_post = id_post;
     }
 
-    public Comment(int id, int idPost, String name, String contenu, LocalDate date, Time time) {
+    public Comment(int id, int idPost, String name, String contenu, LocalDate date, LocalTime time) {
         this.id = id;
         this.name = name;
         this.contenu = contenu;
@@ -99,7 +100,7 @@ public class Comment {
 
     }
 
-    public Comment(int id, String name, String contenu, LocalDate date, Time time, int id_post) {
+    public Comment(int id, String name, String contenu, LocalDate date, LocalTime time, int id_post) {
         this.id = id;
         this.name = name;
         this.contenu = contenu;

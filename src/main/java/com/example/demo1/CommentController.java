@@ -70,16 +70,22 @@ public class CommentController implements Initializable {
     @FXML
     private TextField comment_name;
 int id;
+int post_id;
     @FXML
     private TextField comment_time;
     public void setData_Comment(Comment comment) {
         System.out.println("test");
 id=comment.getId();
-        comment_name.setText("aaa");
+        post_id=comment.getId_post();
+        comment_name.setText(comment.getName());
         comment_contenu.setText(comment.getContenu());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
         comment_date.setText(comment.getDate().format(formatter));
-        comment_time.setText("test");
+        DateTimeFormatter formatterr = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = comment.getTime().format(formatterr);
+        comment_time.setText(formattedTime);
+
+        comment_time.setText(comment.getTime().toString());
 
     }
 
@@ -177,23 +183,28 @@ id=comment.getId();
         comment.setId(id);
         comment.setName(comment_name.getText());
         comment.setContenu(comment_contenu.getText());
+
         comment.setDate();
         comment.setTimeToCurrent();
 
 
         serviceComment.modifier(comment);
-
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherpost.fxml"));
+Post p = service.getPost(this.post_id);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("postComments.fxml"));
         Parent root = loader.load();
+        postController controller = loader.getController();
 
+        controller.setData(p);
         Scene scene = new Scene(root);
+
+        // Get the current stage and scene
         Stage currentStage = (Stage) comment_name.getScene().getWindow();
 
+
+        // Set the new scene
         currentStage.setScene(scene);
         currentStage.setTitle("Post Details");
         currentStage.show();
-
     }
     public void navToCommentUpdate(MouseEvent mouseEvent) throws SQLException, IOException {
 

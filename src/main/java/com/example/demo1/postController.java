@@ -81,13 +81,14 @@ public class postController implements Initializable {
     int id;
     public void setData_Comment(Comment comment) {
         System.out.println("test");
-this.id=comment.getId();
-        comment_name.setText("aaa");
+        id=comment.getId();
+        comment_name.setText(comment.getName());
         comment_contenu.setText(comment.getContenu());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
         comment_date.setText(comment.getDate().format(formatter));
-        comment_time.setText("test");
-
+        DateTimeFormatter formatterr = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = comment.getTime().format(formatterr);
+        comment_time.setText(formattedTime);
 
     }
     @FXML

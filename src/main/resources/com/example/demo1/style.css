@@ -1,3 +1,6 @@
+
+
+
 .search-box {
     -fx-background-color: #e3f2fd; /* Bleu clair */
     -fx-background-radius: 20;
@@ -37,6 +40,7 @@
     -fx-background-radius: 5; /* Arrondir les coins de la carte */
     -fx-padding: 10; /* Ajouter un remplissage intérieur pour l'espace autour du contenu */
 }
+
 
 .button-delete {
     -fx-background-color: #ff3b30; /* Couleur de fond */

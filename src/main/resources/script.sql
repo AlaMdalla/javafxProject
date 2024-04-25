@@ -9,3 +9,10 @@ CREATE TABLE Evenements (
     Date DATE NOT NULL,
     Image VARCHAR(250) NOT NULL
 );
+
+CREATE TABLE Sponsor (
+    id_sponsor INT AUTO_INCREMENT PRIMARY KEY,
+    Nom VARCHAR(250) NOT NULL,
+    Type VARCHAR(250) NOT NULL
+
+);

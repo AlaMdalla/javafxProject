@@ -1,7 +1,10 @@
 package com.example.demo1;
 
+import utiles.DBconnexion;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
@@ -9,33 +12,24 @@ import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import org.w3c.dom.Node;
-import org.w3c.dom.events.MouseEvent;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.geometry.Insets;
 
 
 import java.io.*;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ResourceBundle;
-import com.example.demo1.evenement;
-
-import static com.example.demo1.DBconnexion.url;
+import entities.evenement;
 
 public class HelloController implements Initializable {
 
@@ -73,11 +67,11 @@ public class HelloController implements Initializable {
     private ScrollPane scrollPane;
     @FXML
     private FlowPane eventFlowPane;
-    private HBox eventCard;
+  private HBox eventCard;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        con = com.example.demo1.DBconnexion.getCon();
+        con = DBconnexion.getCon();
         showEvenements();
 
     }
@@ -150,8 +144,44 @@ public class HelloController implements Initializable {
         deleteButton.setOnAction(this::deleteEvenement);
         deleteButton.getStyleClass().add("button-delete"); // Ajouter la classe de style CSS au bouton
         deleteButton.setUserData(event); // Stockez l'événement associé dans les données du bouton
+        Button btnupdate = new Button("U");
 
-        root.getChildren().add(deleteButton);
+        root.getChildren().add(btnupdate);
+        btnupdate.setOnMouseClicked(mouseEvent -> {
+            // Get the selected event to update
+            evenement selectedEvent = (evenement) btnupdate.getUserData();
+
+            if (selectedEvent != null) {
+                try {
+                    // Load the update.fxml file
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("modifier.fxml"));
+                    Parent roott = loader.load();
+                    UpdateController controller = loader.getController();
+
+                    controller.initData(selectedEvent);
+                    Scene scenee = new Scene(roott);
+
+                    // Get the current stage and scene
+                    Stage currentStage = (Stage) card.getScene().getWindow();
+
+
+                    // Set the new scene
+                    currentStage.setScene(scenee);
+                    currentStage.setTitle("Post Details");
+                    currentStage.show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("Aucun événement sélectionné pour la mise à jour");
+            }
+        });
+
+
+        btnupdate.setUserData(event);
+
+
         // Créer des labels pour les détails de l'événement
         Label eventNameLabel = new Label("Titre de l'evenement: " + event.getTitre());
         Label eventDateLabel = new Label("Date : " + event.getDate());
@@ -167,7 +197,7 @@ public class HelloController implements Initializable {
         detailsBox.getChildren().addAll(eventNameLabel, eventDateLabel, eventLocationLabel, eventParticipantsLabel);
 
         // Ajouter les éléments à la carte
-        card.getChildren().addAll(detailsBox, imageafficher, deleteButton);
+        card.getChildren().addAll(detailsBox, imageafficher, deleteButton ,btnupdate);
 
         // Ajouter des marges entre les éléments de la carte
         HBox.setMargin(detailsBox, new Insets(10)); // Marge entre les détails et l'image
@@ -182,14 +212,36 @@ public class HelloController implements Initializable {
         return card;
     }
 
-
     @FXML
     void creatEvenement(ActionEvent event) {
+
         String insert = "INSERT INTO Evenements(Titre, Localisation, nb_participant, Date, Image) VALUES (?, ?, ?, ?, ?)";
         String imagePath = null; // Déclaration de la variable imagePath
 
+        String titre = tTitre.getText();
+        String localisation = tLocalisation.getText();
+        String nbParticipantText = tNbParticipant.getText();
+        LocalDate date = tDate.getValue();
+        // Validation des champs de saisie
+        if (titre.isEmpty() || localisation.isEmpty() || nbParticipantText.isEmpty() || date == null) {
+            showAlert(Alert.AlertType.ERROR, "Veuillez remplir tous les champs.");
+            return; // Arrête la méthode si l'un des champs est vide
+        }
+
+        // Validation du nombre de participants
+        if (!isValidNbParticipant(nbParticipantText)) {
+            showAlert(Alert.AlertType.ERROR, "Le nombre de participants doit être un entier positif.");
+            return; // Arrête la méthode si le nombre de participants n'est pas valide
+        }
+
+        // Validation de la date
+        if (!isValidDate(date)) {
+            showAlert(Alert.AlertType.ERROR, "La date doit être dans le présent ou le futur.");
+            return; // Arrête la méthode si la date n'est pas valide
+        }
+
         try {
-            con = com.example.demo1.DBconnexion.getCon();
+            con = DBconnexion.getCon();
             st = con.prepareStatement(insert);
             st.setString(1, tTitre.getText());
             st.setString(2, tLocalisation.getText());
@@ -202,12 +254,12 @@ public class HelloController implements Initializable {
             }
 
             // Récupérer la date sélectionnée du DatePicker
-            LocalDate date = tDate.getValue();
+            LocalDate Date = tDate.getValue();
             st.setDate(4, java.sql.Date.valueOf(date));
 
 
-                imagePath = this.url;
-                st.setString(5, imagePath);
+            imagePath = this.url;
+            st.setString(5, imagePath);
 
 
             st.executeUpdate();
@@ -215,7 +267,8 @@ public class HelloController implements Initializable {
 
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de l'ajout de l'événement", e);
-        }
+        }        showEvenements();
+
     }
 
 
@@ -230,8 +283,8 @@ public class HelloController implements Initializable {
 
             String image_Path = selectedFile.getAbsolutePath();
             System.out.println("addimage"+image_Path);
-           ;
-           this.url= "file:///" + image_Path.replace("\\", "/");
+            ;
+            this.url= "file:///" + image_Path.replace("\\", "/");
             Image image0 = new Image(this.url);
             System.out.println(this.url);
 
@@ -265,6 +318,7 @@ public class HelloController implements Initializable {
 
                 int rowsAffected = st.executeUpdate();
                 if (rowsAffected > 0) {
+                    showEvenements();
                     // La suppression a réussi
                     System.out.println("Événement supprimé avec succès");
 
@@ -285,34 +339,34 @@ public class HelloController implements Initializable {
             // Si eventToDelete est null, afficher un message d'erreur ou effectuer une action appropriée
             System.out.println("Aucun événement associé au bouton de suppression");
         }
+
+    }
+
+
+    private boolean isValidNbParticipant(String input) {
+        try {
+            int nbParticipants = Integer.parseInt(input);
+            return nbParticipants >= 0; // Vérifie que le nombre de participants n'est pas négatif
+        } catch (NumberFormatException e) {
+            return false; // Si la conversion en entier échoue, le format n'est pas valide
+        }
+    }
+
+    // Fonction de validation pour le DatePicker
+    private boolean isValidDate(LocalDate date) {
+        LocalDate currentDate = LocalDate.now();
+        return date != null && !date.isBefore(currentDate); // Vérifie que la date n'est pas dans le passé
+    }
+
+    // Méthode pour afficher une alerte en cas d'erreur de saisie
+    private void showAlert(Alert.AlertType alertType, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 
 
 
 
-
-   /* @FXML
-    void updateEvenement(ActionEvent event) {
-        // Vérifiez si un événement est sélectionné dans le TableView
-        evenement selectedEvenement = table.getSelectionModel().getSelectedItem();
-        if (selectedEvenement != null) {
-            String update = "UPDATE Evenements SET titre = ?, localisation = ?, nb_participant = ? WHERE id = ?";
-            con = com.example.demo1.DBconnexion.getCon();
-            try {
-                st = con.prepareStatement(update);
-                st.setString(1, tTitre.getText());
-                st.setString(2, tLocalisation.getText());
-                st.setInt(3, Integer.parseInt(tNombredeParticipant.getText()));
-                st.setInt(4, selectedEvenement.getId()); // Utilisation de l'ID de l'événement sélectionné
-                st.executeUpdate();
-               // showEvenements(); // Rafraîchir l'affichage des événements dans le TableView
-            } catch (SQLException e) {
-                // Gérer spécifiquement les exceptions SQL et fournir une rétroaction à l'utilisateur
-                e.printStackTrace(); // À remplacer par une gestion appropriée des exceptions
-            }
-        } else {
-            // Gérer le cas où aucun événement n'est sélectionné
-            System.out.println("Veuillez sélectionner un événement à mettre à jour.");
-        }*/
-    }
+}

@@ -1,4 +1,4 @@
-package com.example.demo1;
+package entities;
 
 import javafx.scene.image.Image;
 

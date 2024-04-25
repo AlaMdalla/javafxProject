@@ -23,15 +23,15 @@
         <TextField fx:id="DatePost" layoutX="190.0" layoutY="213.0" />
         <Button fx:id="addImageButton" onAction="#addimage" style="-fx-background-color: #007bff; -fx-text-fill: white;" text="Upload Image" />
         <ImageView fx:id="imagePost" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="deletephoto1" fitHeight="31.0" fitWidth="47.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/close.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="editphoto" fitHeight="31.0" fitWidth="47.0" onMouseClicked="#update" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/edit.png" />
-         </image>
-      </ImageView>
+        <ImageView fx:id="deletephoto1" fitHeight="31.0" fitWidth="47.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/close.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="editphoto" fitHeight="31.0" fitWidth="47.0" onMouseClicked="#update" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/edit.png" />
+            </image>
+        </ImageView>
     </VBox>
 </StackPane>

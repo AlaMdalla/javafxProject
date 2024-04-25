@@ -105,7 +105,7 @@ post.setImage(this.url);
                 Parent root =
                         FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
 
-                testText.getScene().setRoot(root);
+                txtNom.getScene().setRoot(root);
 
             } catch (IOException ex) {
 

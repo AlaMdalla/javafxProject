@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AjouterSociete">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #4F81BD, #1B365D);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AjouterSociete">
    <children>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@Ajouter.css">
+      <VBox alignment="CENTER" layoutX="45.0" layoutY="23.0" prefHeight="400.0" prefWidth="600.0" spacing="10" styleClass="form" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <VBox layoutX="45.0" layoutY="23.0" prefHeight="185.0" prefWidth="511.0" spacing="10" styleClass="form">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la société" />
-                  <TextField fx:id="fNS" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Numéro de téléphone" />
-                  <TextField fx:id="fNT" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse" />
-                  <TextField fx:id="fA" />
-               </children>
-            </VBox>
-            <Button fx:id="btnsave" layoutX="262.0" layoutY="243.0" mnemonicParsing="false" onAction="#createSociete" styleClass="save-button" text="Save" />
-            <ImageView fitHeight="30.0" fitWidth="42.0" layoutX="279.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/save.png" />
                </image>
             </ImageView>
+            <Button fx:id="btnsave" mnemonicParsing="false" onAction="#createSociete" prefHeight="30.0" prefWidth="177.0" styleClass="save-button" text="Save" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Nom de la société" />
+            <TextField fx:id="fNS" prefWidth="250.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Numéro de téléphone" />
+            <TextField fx:id="fNT" prefWidth="250.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Adresse" />
+            <TextField fx:id="fA" prefWidth="250.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Description" />
+            <TextField fx:id="fD" prefWidth="250.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Site web" />
+            <TextField fx:id="fSW" prefWidth="250.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Secteur" />
+            <TextField fx:id="fS" prefWidth="250.0" />
          </children>
-      </AnchorPane>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="45.0" layoutY="350.0" prefHeight="40.0" prefWidth="600.0" spacing="10" />
    </children>
+   <stylesheets>
+      <URL value="@Ajouter.css" />
+   </stylesheets>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </AnchorPane>

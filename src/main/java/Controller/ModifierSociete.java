@@ -28,9 +28,18 @@ public class ModifierSociete {
     @FXML
     private TextField fA;
 
+    @FXML
+    private TextField fD;
+
+    @FXML
+    private TextField fSW;
+
+    @FXML
+    private TextField fS;
+
     private boolean validateFields() {
-        if (fNS.getText().isEmpty() || fNT.getText().isEmpty() || fA.getText().isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Champs obligatoires", "OUPS ! Vous Avez Oublié Des Champs Vides");
+        if (fNS.getText().isEmpty() || fNT.getText().isEmpty() || fA.getText().isEmpty() || fD.getText().isEmpty() || fSW.getText().isEmpty() || fS.getText().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Champs obligatoires", "OUPS ! Vous avez oublié des champs vides.");
             return false;
         }
         return true;
@@ -52,10 +61,12 @@ public class ModifierSociete {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Aucune société sélectionnée");
             return;
         }
-        currentSociete.setNomSociete(fNS.getText());
-        // Assuming numTelephone is of type int in Societe class
-        currentSociete.setNumTelephone(Integer.parseInt(fNT.getText()));
-        currentSociete.setAdress(fA.getText());
+        currentSociete.setNom(fNS.getText());
+        currentSociete.setNumtel(Integer.parseInt(fNT.getText()));
+        currentSociete.setLocalisation(fA.getText());
+        currentSociete.setDescription(fD.getText());
+        currentSociete.setSiteweb(fSW.getText());
+        currentSociete.setSecteur(fS.getText());
 
         ServiceSociete serviceSociete = new ServiceSociete();
         try {
@@ -68,27 +79,25 @@ public class ModifierSociete {
 
     @FXML
     void retour(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherSociete.fxml"));
-            Parent root = loader.load();
-
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentStage.setScene(new Scene(root));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        returnToSocieteListView(event);
     }
 
     public void setSocieteData(Societe societe) {
         this.currentSociete = societe;
         if (societe != null) {
-            fNS.setText(societe.getNomSociete());
-            fNT.setText(String.valueOf(societe.getNumTelephone()));
-            fA.setText(societe.getAdress());
+            fNS.setText(societe.getNom());
+            fNT.setText(String.valueOf(societe.getNumtel()));
+            fA.setText(societe.getLocalisation());
+            fD.setText(societe.getDescription());
+            fSW.setText(societe.getSiteweb());
+            fS.setText(societe.getSecteur());
         } else {
             fNS.setText("");
             fNT.setText("");
             fA.setText("");
+            fD.setText("");
+            fSW.setText("");
+            fS.setText("");
         }
     }
 

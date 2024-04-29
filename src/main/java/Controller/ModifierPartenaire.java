@@ -1,6 +1,7 @@
 package Controller;
 
 import entities.Partenaire;
+import entities.Societe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,13 +51,28 @@ public class ModifierPartenaire implements Initializable {
 
         currentPartenaire.setNom(nomField.getText());
         currentPartenaire.setDescription(descriptionField.getText());
+        Societe societe = currentPartenaire.getSociete(); // Retrieve the current societe
+        currentPartenaire.setSociete(societe);
 
         try {
             servicePartenaire.modifier(currentPartenaire);
             showAlert(Alert.AlertType.INFORMATION, "Modification réussie", "Le partenaire a été modifié avec succès.");
-            closeWindow(actionEvent);
+            navigateToPartnerList(actionEvent);
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la modification du partenaire : " + e.getMessage());
+        }
+    }
+
+    private void navigateToPartnerList(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPartenaire.fxml"));
+            Parent root = loader.load();
+
+            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 

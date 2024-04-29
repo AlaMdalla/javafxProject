@@ -3,28 +3,32 @@ package Controller;
 import entities.Societe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import services.ServiceSociete;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
+import java.util.Comparator;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class afficherSociete implements Initializable {
 
     @FXML
     private ListView<Societe> societeListView;
+    @FXML
+    private TextField searchField;
 
     private ObservableList<Societe> societeList;
+    private ObservableList<Societe> originalSocieteList; // Store the original list of Societe objects
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,7 +47,7 @@ public class afficherSociete implements Initializable {
                     setGraphic(null);
                 } else {
                     // Create a label to display the Societe information
-                    Label label = new Label(societe.getNomSociete() + " - " + societe.getNumTelephone() + " - " + societe.getAdress());
+                    Label label = new Label(societe.getNom() + " - " + societe.getNumtel() + " - " + societe.getLocalisation() + " - " + societe.getDescription()+ " - " + societe.getSecteur()+ " - " + societe.getSiteweb());
 
                     // Create button
                     Button button = new Button("Modifier");
@@ -70,12 +74,14 @@ public class afficherSociete implements Initializable {
 
         // Apply stylesheet
         societeListView.getStylesheets().add(getClass().getResource("/Afficher.css").toExternalForm());
+
+        // Store the original list of Societe objects
+        originalSocieteList = FXCollections.observableArrayList(societeList);
     }
 
     private void loadSocietes() {
         ServiceSociete serviceSociete = new ServiceSociete();
         try {
-            // Assuming 'afficher' method returns a list of Societe objects
             societeList.addAll(serviceSociete.afficher());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,8 +98,8 @@ public class afficherSociete implements Initializable {
             modifierSocieteController.setSocieteData(societe); // Pass selected Societe object to ModifierSociete controller
             Stage currentStage = (Stage) societeListView.getScene().getWindow();
             currentStage.setScene(new Scene(root));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -128,5 +134,29 @@ public class afficherSociete implements Initializable {
         } else {
             showAlert(Alert.AlertType.WARNING, "Aucune sélection", "Veuillez sélectionner une société à supprimer.");
         }
+    }
+
+    @FXML
+    void rechercherParTitre() {
+        String recherche = searchField.getText().toLowerCase();
+        ObservableList<Societe> resultatRecherche = FXCollections.observableArrayList();
+        for (Societe societe : originalSocieteList) {
+            if (societe.getNom().toLowerCase().contains(recherche)) {
+                resultatRecherche.add(societe);
+            }
+        }
+
+        societeListView.setItems(resultatRecherche);
+    }
+
+    @FXML
+    void trierParMatiere() {
+        societeList.sort(Comparator.comparing(Societe::getNom));
+    }
+
+    @FXML
+    void resetList(ActionEvent event) {
+        societeListView.setItems(originalSocieteList);
+        searchField.clear();
     }
 }

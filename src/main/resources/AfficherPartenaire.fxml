@@ -8,12 +8,17 @@
 <?import javafx.scene.control.TextField?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AfficherPartenaire">
     <children>
-        <ListView fx:id="partenaireListView" layoutX="29.0" layoutY="14.0" prefHeight="358.0" prefWidth="405.0" />
-
-        <Button fx:id="deleteButton" layoutX="399.0" layoutY="336.0" mnemonicParsing="false" onAction="#supprimerPartenaire" prefHeight="34.0" prefWidth="147.0" styleClass="deleteButton" stylesheets="@Afficher.css" text="Supprimer" />
-
-
-        <HBox layoutX="448.0" layoutY="271.0" alignment="BASELINE_RIGHT">
-        </HBox>
+        <VBox alignment="TOP_LEFT" spacing="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="10">
+            <ListView fx:id="partenaireListView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <HBox spacing="10">
+                <TextField fx:id="nomTextField" promptText="Recherche par Nom" />
+                <Button fx:id="rechercherParnom" onAction="#rechercherParTitre" text="Search" />
+            </HBox>
+            <HBox spacing="10">
+                <Button fx:id="deleteButton" onAction="#supprimerPartenaire" text="Supprimer" />
+                <Button onAction="#trierParMatiere" text="Trier par Nom" />
+                <Button onAction="#resetList" text="Réinitialiser" />
+            </HBox>
+        </VBox>
     </children>
 </AnchorPane>

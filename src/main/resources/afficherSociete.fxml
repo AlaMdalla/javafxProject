@@ -10,12 +10,17 @@
 
 <AnchorPane prefHeight="434.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.afficherSociete">
    <children>
-      <ListView fx:id="societeListView" layoutX="19.0" layoutY="29.0" prefHeight="287.0" prefWidth="492.0" styleClass="societeListView" stylesheets="@Afficher.css" />
-      <Button fx:id="deleteButton" layoutX="399.0" layoutY="336.0" mnemonicParsing="false" onAction="#supprimerSociete" prefHeight="34.0" prefWidth="147.0" styleClass="deleteButton" stylesheets="@Afficher.css" text="Supprimer" />
-      <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="399.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/delete.png" />
-         </image>
-      </ImageView>
+      <VBox alignment="TOP_CENTER" spacing="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="10">
+         <ListView fx:id="societeListView" prefHeight="300.0" prefWidth="500.0" styleClass="societeListView" stylesheets="@Afficher.css" />
+         <HBox spacing="10" alignment="CENTER">
+            <TextField fx:id="searchField" prefHeight="33.0" prefWidth="300.0" promptText="Recherche par Nom" />
+            <Button fx:id="rechercherParNom" onAction="#rechercherParTitre" prefHeight="33.0" prefWidth="100.0" text="Search" />
+         </HBox>
+         <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="deleteButton" onAction="#supprimerSociete" prefHeight="33.0" prefWidth="147.0" styleClass="deleteButton" stylesheets="@Afficher.css" text="Supprimer" />
+            <Button onAction="#trierParMatiere" prefHeight="33.0" prefWidth="143.0" text="Trier par Nom" />
+            <Button onAction="#resetList" prefHeight="33.0" prefWidth="143.0" text="Réinitialiser" />
+         </HBox>
+      </VBox>
    </children>
 </AnchorPane>

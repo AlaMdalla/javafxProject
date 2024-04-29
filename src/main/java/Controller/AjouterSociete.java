@@ -1,5 +1,7 @@
 package Controller;
 
+
+import com.google.protobuf.Message;
 import entities.Societe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,19 +34,31 @@ public class AjouterSociete {
     private TextField fNT;
 
     @FXML
+    private TextField fD;
+
+    @FXML
+    private TextField fSW;
+
+    @FXML
+    private TextField fS;
+
+    @FXML
     void createSociete(ActionEvent event) {
         String nomSociete = fNS.getText().trim();
         String numTelephoneStr = fNT.getText().trim();
         String adress = fA.getText().trim();
+        String description = fD.getText().trim();
+        String siteweb = fSW.getText().trim();
+        String secteur = fS.getText().trim();
 
-        if (nomSociete.isEmpty() || numTelephoneStr.isEmpty() || adress.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Champs Obligatoires", "OUPS ! Vous Avez Oublié Des Champs Vides");
+        if (nomSociete.isEmpty() || numTelephoneStr.isEmpty() || adress.isEmpty() || description.isEmpty() || siteweb.isEmpty() || secteur.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Champs Obligatoires", "OUPS ! Vous avez oublié des champs vides.");
             return;
         }
 
         try {
             int numTelephone = Integer.parseInt(numTelephoneStr);
-            serviceSociete.ajouter(new Societe(nomSociete, numTelephone, adress));
+            serviceSociete.ajouter(new Societe(nomSociete, adress, description, siteweb, numTelephone, secteur));
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Société ajoutée avec succès.");
             navigateToAfficherSociete(event);
             clearFields();
@@ -77,5 +91,9 @@ public class AjouterSociete {
         fNS.clear();
         fNT.clear();
         fA.clear();
+        fD.clear();
+        fSW.clear();
+        fS.clear();
     }
+
 }

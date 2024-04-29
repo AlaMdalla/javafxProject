@@ -22,9 +22,9 @@ public class Main {
             serviceSociete.ajouter(societe);
 
             // Modification de la societe
-            societe.setNomSociete("NouveauNomSociete");
-            societe.setNumTelephone(987654321);
-            societe.setAdress("NouvelleAdresse");
+            societe.setNom("NouveauNomSociete");
+            societe.setNumtel(987654321);
+            societe.setSecteur("NouvelleAdresse");
             serviceSociete.modifier(societe);
 
             // Affichage des societes (pas nécessaire pour cette partie du code)

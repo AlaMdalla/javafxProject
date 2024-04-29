@@ -19,11 +19,15 @@ public class ServiceSociete implements IService<Societe> {
 
     @Override
     public void ajouter(Societe societe) throws SQLException {
-        String req = "insert into societes (NomSociete, NumTelephone, Adress) values (?, ?, ?)";
+        String req = "insert into societe (id, nom, localisation, descreption, siteweb, numtel, secteur) values (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pre = con.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
-            pre.setString(1, societe.getNomSociete());
-            pre.setInt(2, societe.getNumTelephone());
-            pre.setString(3, societe.getAdress());
+            pre.setInt(1, societe.getId());
+            pre.setString(2, societe.getNom());
+            pre.setString(3, societe.getLocalisation());
+            pre.setString(4, societe.getDescription());
+            pre.setString(5, societe.getSiteweb());
+            pre.setInt(6, societe.getNumtel());
+            pre.setString(7, societe.getSecteur());
             pre.executeUpdate();
 
             ResultSet rs = pre.getGeneratedKeys();
@@ -37,18 +41,21 @@ public class ServiceSociete implements IService<Societe> {
     @Override
     public void modifier(Societe societe) throws SQLException {
         try {
-            String req = "update societes set NomSociete=?, NumTelephone=?, Adress=? where id=?";
+            String req = "update societe set nom=?, localisation=?, descreption=?, siteweb=?, numtel=?, secteur=? where id=?";
             PreparedStatement pre = con.prepareStatement(req);
-            pre.setString(1, societe.getNomSociete());
-            pre.setInt(2, societe.getNumTelephone());
-            pre.setString(3, societe.getAdress());
-            pre.setInt(4, societe.getId());
+            pre.setString(1, societe.getNom());
+            pre.setString(2, societe.getLocalisation());
+            pre.setString(3, societe.getDescription());
+            pre.setString(4, societe.getSiteweb());
+            pre.setInt(5, societe.getNumtel());
+            pre.setString(6, societe.getSecteur());
+            pre.setInt(7, societe.getId());
 
             int rowsAffected = pre.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("La societe est modifiée !");
+                System.out.println("La société est modifiée !");
             } else {
-                System.out.println("Aucune societe n'a été modifiée.");
+                System.out.println("Aucune société n'a été modifiée.");
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -58,28 +65,31 @@ public class ServiceSociete implements IService<Societe> {
     @Override
     public void supprimer(Societe societe) throws SQLException {
         try {
-            String reqDeleteCour = "DELETE FROM societes WHERE id = ?";
+            String reqDeleteCour = "DELETE FROM societe WHERE id = ?";
             try (PreparedStatement preDeleteCour = con.prepareStatement(reqDeleteCour)) {
                 preDeleteCour.setInt(1, societe.getId());
                 preDeleteCour.executeUpdate();
             }
         } catch (SQLException ex) {
-            throw new SQLException("Erreur lors de la suppression du cours : " + ex.getMessage());
+            throw new SQLException("Erreur lors de la suppression de la société : " + ex.getMessage());
         }
     }
 
     @Override
     public Set<Societe> afficher() throws SQLException {
         Set<Societe> societes = new HashSet<>();
-        String query = "SELECT * FROM societes";
+        String query = "SELECT * FROM societe";
         try (Statement stm = con.createStatement();
              ResultSet rs = stm.executeQuery(query)) {
             while (rs.next()) {
                 Societe a = new Societe();
                 a.setId(rs.getInt("id"));
-                a.setNomSociete(rs.getString("NomSociete"));
-                a.setNumTelephone(rs.getInt("NumTelephone"));
-                a.setAdress(rs.getString("Adress"));
+                a.setNom(rs.getString("nom"));
+                a.setLocalisation(rs.getString("localisation"));
+                a.setDescription(rs.getString("descreption"));
+                a.setSiteweb(rs.getString("siteweb"));
+                a.setNumtel(rs.getInt("numtel"));
+                a.setSecteur(rs.getString("secteur"));
                 societes.add(a);
             }
         }

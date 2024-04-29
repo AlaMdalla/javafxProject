@@ -20,8 +20,6 @@
 
 .form TextField {
     -fx-font-size: 14px;
-    -fx-pref-height: 40px;
-    -fx-pref-width: 300px;
 }
 
 /* Button styles */
@@ -29,8 +27,6 @@
     -fx-background-color: #2196f3; /* Blue color */
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-pref-height: 40px;
-    -fx-pref-width: 200px;
     -fx-border-radius: 5px;
     -fx-cursor: hand;
 }

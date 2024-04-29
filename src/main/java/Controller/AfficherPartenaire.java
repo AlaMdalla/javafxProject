@@ -4,11 +4,9 @@ import entities.Partenaire;
 import entities.Societe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,6 +16,7 @@ import services.ServicePartenaire;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -31,18 +30,21 @@ public class AfficherPartenaire implements Initializable {
 
     @FXML
     private TextArea descriptionTextArea;
-
+    @FXML
+    private TextArea dureeTextArea;
     private ObservableList<Partenaire> partenaireList;
     private final ServicePartenaire servicePartenaire = new ServicePartenaire();
-
+    @FXML
+    private TextField searchField;
     private Partenaire currentPartenaire;
+    private ObservableList<Partenaire> originalPartenaireList; // Store the original list of Partenaire objects
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         partenaireList = FXCollections.observableArrayList();
         partenaireListView.setItems(partenaireList);
 
-        partenaireListView.setCellFactory(param -> new ListCell<>() {
+        partenaireListView.setCellFactory(param -> new ListCell<Partenaire>() {
             @Override
             protected void updateItem(Partenaire partenaire, boolean empty) {
                 super.updateItem(partenaire, empty);
@@ -57,7 +59,7 @@ public class AfficherPartenaire implements Initializable {
                             e.printStackTrace();
                         }
                     });
-                    setText("Nom: " + partenaire.getNom() + ", Description: " + partenaire.getDescription() + ", Societe ID: " + partenaire.getSociete().getId());
+                    setText("Nom: " + partenaire.getNom() + ", Description: " + partenaire.getDescription() + ",duree:" + partenaire.getDuree() + ", Societe ID: " + partenaire.getSociete().getId());
                     setGraphic(modifierButton);
                 }
             }
@@ -65,26 +67,44 @@ public class AfficherPartenaire implements Initializable {
 
         afficherPartenaires();
         initSocieteComboBox();
+
+        // Store the original list of Partenaire objects
+        originalPartenaireList = FXCollections.observableArrayList(partenaireList);
     }
 
     @FXML
     private void ajouterPartenaire() {
         String nom = nomTextField.getText();
         String description = descriptionTextArea.getText();
-
+        String duree = dureeTextArea.getText();
         if (nom.isEmpty() || description.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs.");
             return;
         }
 
-        Partenaire partenaire = new Partenaire(nom, description);
+        Partenaire partenaire = new Partenaire(nom, description, duree);
         try {
             servicePartenaire.ajouter(partenaire);
-            afficherPartenaires();
+            afficherPartenaires(); // Refresh partner list
             clearFields();
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de l'ajout du partenaire.");
+            return; // Return to prevent further execution
+        }
+
+        // Load the partner list view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPartenaire.fxml"));
+        Parent root;
+        try {
+            root = loader.load();
+            AfficherPartenaire afficherPartenaireController = loader.getController();
+            afficherPartenaireController.initialize(null, null); // Call initialize method of the controller
+            Stage currentStage = (Stage) nomTextField.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement de la liste des partenaires.");
         }
     }
 
@@ -155,4 +175,27 @@ public class AfficherPartenaire implements Initializable {
         alert.showAndWait();
     }
 
+    public void rechercherParTitre() {
+        String recherche = nomTextField.getText().toLowerCase();
+        ObservableList<Partenaire> partenaires = partenaireListView.getItems();
+        ObservableList<Partenaire> resultatRecherche = FXCollections.observableArrayList();
+        for (Partenaire partenaire : partenaires) {
+            if (partenaire.getNom().toLowerCase().contains(recherche)) {
+                resultatRecherche.add(partenaire);
+            }
+        }
+
+        partenaireListView.setItems(resultatRecherche);
+    }
+
+    @FXML
+    void trierParMatiere() {
+        partenaireList.sort(Comparator.comparing(Partenaire::getNom));
+    }
+
+    @FXML
+    void resetList() {
+        partenaireListView.setItems(originalPartenaireList);
+        nomTextField.clear();
+    }
 }

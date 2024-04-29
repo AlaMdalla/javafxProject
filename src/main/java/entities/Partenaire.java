@@ -6,22 +6,32 @@ import javafx.beans.property.StringProperty;
 public class Partenaire {
     private final StringProperty nom;
     private final StringProperty description;
+    private final StringProperty duree;
     private Societe societe;
     private int id_Partenaire;
     private int id; // id_societe
 
+
+
     public Partenaire() {
-        this(null, null);
+        this(null, null, null);
     }
 
-    public Partenaire(String nom, String description) {
-        this(nom, description, null);
+    public Partenaire(String nom, String description, String duree) {
+        this(nom, description, duree, null);
     }
 
-    public Partenaire(String nom, String description, Societe societe) {
+    public Partenaire(String nom, String description, String duree, Societe societe) {
         this.nom = new SimpleStringProperty(nom);
         this.description = new SimpleStringProperty(description);
+        this.duree = new SimpleStringProperty(duree);
         this.societe = societe;
+    }
+    public Partenaire(String nom, String description, String duree, int  id) {
+        this.nom = new SimpleStringProperty(nom);
+        this.description = new SimpleStringProperty(description);
+        this.duree = new SimpleStringProperty(duree);
+        this.id = id;
     }
 
     public int getId_Partenaire() {
@@ -64,6 +74,18 @@ public class Partenaire {
         this.description.set(description);
     }
 
+    public String getDuree() {
+        return duree.get();
+    }
+
+    public StringProperty dureeProperty() {
+        return duree;
+    }
+
+    public void setDuree(String duree) {
+        this.duree.set(duree);
+    }
+
     public Societe getSociete() {
         return societe;
     }
@@ -74,6 +96,6 @@ public class Partenaire {
 
     @Override
     public String toString() {
-        return id_Partenaire + " " + nom + " " + description + " " + societe;
+        return id_Partenaire + " " + nom.get() + " " + description.get() + " " + duree.get() + " " + societe;
     }
 }

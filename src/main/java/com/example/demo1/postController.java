@@ -2,6 +2,7 @@ package com.example.demo1;
 
 import entites.Comment;
 import entites.Post;
+import entites.post_reactions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,8 @@ import javafx.stage.Stage;
 import org.w3c.dom.Text;
 import services.ServiceComment;
 import services.ServicePost;
+import services.ServivePostReactions;
+
 
 
 import java.io.File;
@@ -32,6 +35,8 @@ import java.util.ResourceBundle;
 public class postController implements Initializable {
     ServicePost service =new ServicePost();
     ServiceComment serviceComment =new ServiceComment();
+    ServivePostReactions ServivePostReactions =new ServivePostReactions();
+
 
 
     @FXML
@@ -50,7 +55,10 @@ public class postController implements Initializable {
     private TextField TagPost;
     @FXML
     private ImageView imagePost;
-
+    @FXML
+    private TextField likes;
+    @FXML
+    private TextField dislikes;
     @FXML
     private FlowPane comment_Container;
     ;
@@ -90,6 +98,7 @@ public class postController implements Initializable {
         String formattedTime = comment.getTime().format(formatterr);
         comment_time.setText(formattedTime);
 
+
     }
     @FXML
     public void handleMenuClick() {
@@ -98,7 +107,7 @@ public class postController implements Initializable {
     }
 
     String url;
-    public void setData(Post post) {
+    public void setData(Post post)  {
         idPost.setText(String.valueOf(post.getId()));
         nomPost.setText(post.getNom());
         ContenuPost.setText(post.getContenu());
@@ -110,6 +119,8 @@ public class postController implements Initializable {
         Image image = new Image(imageurl.replace("\\","\\\\"));
 
         imagePost.setImage(image);
+
+
 
     }
 
@@ -252,7 +263,16 @@ public class postController implements Initializable {
     public  void  ajouterComment() {
 
 
+
         Comment comment =new Comment( Commentname.getText(),commentContenu.getText());
+
+        if ( commentContenu.getText().isEmpty() ) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Please fill in all fields");
+            alert.show();
+            return;
+        }
         comment.setId_post(Integer.parseInt(this.idPost.getText()));
         comment.setDate();
         comment.setTimeToCurrent();
@@ -375,7 +395,7 @@ else
                     FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
 
 
-            idPost.getScene().setRoot(root);
+            nomPost.getScene().setRoot(root);
         } catch (IOException ex) {
 
 
@@ -385,7 +405,12 @@ else
     }
 
     public void update(MouseEvent mouseEvent) throws SQLException, IOException {
-
+        if (nomPost.getText().isEmpty() || ContenuPost.getText().isEmpty() || TagPost.getText().isEmpty()||this.url=="") {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Please fill in all fields");
+            alert.show();
+        }
 
         Post post= new Post();
         post.setId(Integer.parseInt(idPost.getText()));
@@ -413,4 +438,53 @@ else
         currentStage.show();
 
     }
+    public void incrementlikes() throws SQLException {
+        int id= Integer.parseInt(idPost.getText());
+        System.out.println(id);
+        post_reactions postR =  ServivePostReactions.getPosReeactiont(id);
+
+        System.out.println("id:"+postR.getId());
+
+        postR.setLikes(postR.getLikes()+1);
+        System.out.println("likes"+postR.getLikes());
+        ServivePostReactions.modifier(postR);
+        likes.setText(String.valueOf(postR.getLikes()));
+
+
+
+
+
+    }
+    public void incrementdislikes() throws SQLException {
+        int id= Integer.parseInt(idPost.getText());
+        System.out.println(id);
+        post_reactions postR =  ServivePostReactions.getPosReeactiont(id);
+
+        System.out.println("dislikes:"+postR.getDislike());
+
+        postR.setDislike(postR.getDislike()+1);
+        ServivePostReactions.modifier(postR);
+
+
+        dislikes.setText(String.valueOf(postR.getDislike()));
+
+
+
+    }
+    public void setreactions(Post post) throws SQLException {
+        int id= Integer.parseInt(idPost.getText());
+        System.out.println(id);
+        post_reactions postR =  ServivePostReactions.getPosReeactiont(id);
+
+
+
+
+        dislikes.setText(String.valueOf(postR.getDislike()));
+        likes.setText(String.valueOf(postR.getLikes()));
+
+
+
+
+    }
+
 }

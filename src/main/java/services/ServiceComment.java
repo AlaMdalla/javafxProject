@@ -17,7 +17,7 @@ public class ServiceComment implements Iservice<Comment> {
     }
     @Override
     public void ajouter(Comment comment) throws SQLException {
-        String sql = "INSERT INTO comment (id_post,name,contenu,date,time) VALUES ('" + comment.getId_post() + "','" + comment.getName() + "', '" + comment.getContenu() + "','"+comment.getDate()+"','"+comment.getTime()+"')";
+        String sql = "INSERT INTO comment (post_id,name,contenu,date,time) VALUES ('" + comment.getId_post() + "','" + comment.getName() + "', '" + comment.getContenu() + "','"+comment.getDate()+"','"+comment.getTime()+"')";
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
 
@@ -44,13 +44,13 @@ public class ServiceComment implements Iservice<Comment> {
 
 
 
-        String sql = "SELECT * FROM comment WHERE id_post = '" + id + "'";
+        String sql = "SELECT * FROM comment WHERE post_id = '" + id + "'";
 
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
 
         while (rs.next()){
-            Comment comment = new Comment(rs.getInt("id"),rs.getInt("id_post"), rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(),rs.getTime ("time").toLocalTime());
+            Comment comment = new Comment(rs.getInt("id"),rs.getInt("post_id"), rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(),rs.getTime ("time").toLocalTime());
             comments.add(comment);
 
         }
@@ -71,7 +71,7 @@ public class ServiceComment implements Iservice<Comment> {
         ResultSet rs = statement.executeQuery(sql);
 
         while (rs.next()){
-            Comment comment = new Comment(rs.getInt("id"),rs.getInt("id_post"), rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(),rs.getTime("time").toLocalTime());
+            Comment comment = new Comment(rs.getInt("id"),rs.getInt("post_id"), rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(),rs.getTime("time").toLocalTime());
             comments.add(comment);
 
         }

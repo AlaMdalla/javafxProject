@@ -41,6 +41,7 @@ public class AfficherController  implements Initializable {
                 Parent card = loader.load();
                 postController controller = loader.getController();
                 controller.setData(post);
+                controller.setreactions(post);
           cardContainer.getChildren().add(card);
             }
         } catch (IOException | SQLException e) {

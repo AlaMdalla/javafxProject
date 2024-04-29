@@ -2,6 +2,7 @@ package com.example.demo1;
 
 import entites.Comment;
 import entites.Post;
+import entites.post_reactions;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -92,11 +93,20 @@ public class HelloController implements Initializable  {
         }}
     @FXML
     public  void  ajouterPoste() {
+        if (txtNom.getText().isEmpty() || txtContenu.getText().isEmpty() || txtTag.getText().isEmpty()||this.url=="") {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Please fill in all fields");
+            alert.show();
+            return;
+        }
         Post post =new Post(txtNom.getText(),txtContenu.getText(),txtTag.getText());
 
 post.setImage(this.url);
         try {
+
             service.ajouter(post);
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succes");
             alert.setContentText("post Ajouter avec succes");
@@ -154,7 +164,7 @@ post.setImage(this.url);
 
                   } else {
             System.out.println("no image selected");
-this.url="C:\\Users\\ufl\\Pictures\\favicon.png";
+this.url="";
             return "C:\\Users\\ufl\\Pictures\\favicon.png";
         }
     }

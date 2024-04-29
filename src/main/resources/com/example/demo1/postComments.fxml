@@ -28,7 +28,7 @@
 
                 </Circle>
 
-                <TextField fx:id="nomPost" prefHeight="26.0" prefWidth="87.0" styleClass="aggodStyle" text="John Doe">
+                <TextField fx:id="nomPost" editable="false" prefHeight="26.0" prefWidth="87.0" style="-fx-border-color: transparent;" text="John Doe">
                 </TextField>
 
                 <AnchorPane fx:id="menuPopup" visible="false">
@@ -37,9 +37,9 @@
                 </AnchorPane>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="490.0" spacing="10.0">
-                <TextField fx:id="DatePost" prefHeight="26.0" prefWidth="114.0" styleClass="aggodStyle" text="time">
+                <TextField fx:id="DatePost" editable="false" prefHeight="26.0" prefWidth="114.0" style="-fx-border-color: transparent;" text="time">
                 </TextField>
-                <TextField fx:id="TagPost" prefHeight="26.0" prefWidth="101.0" styleClass="aggodStyle" text="John Doe">
+                <TextField fx:id="TagPost" editable="false" prefHeight="26.0" prefWidth="101.0" style="-fx-border-color: transparent;" text="John Doe">
                 </TextField>
                 <ImageView fitHeight="25.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                     <image>

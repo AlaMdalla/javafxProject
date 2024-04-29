@@ -20,7 +20,35 @@ public class ServicePost implements Iservice<Post> {
         String sql = "INSERT INTO post (name, contenu,date,tag,image) VALUES ('" + post.getNom() + "', '" + post.getContenu() + "','"+post.getDate()+"','"+post.getTag()+"','"+post.getImage()+"')";
 
         Statement statement = connection.createStatement();
-        statement.executeUpdate(sql);
+        int rowsAffected = statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+
+        int postId = -1; // Default value for postId if no key is generated
+
+        // Check if the insert was successful and auto-generated keys are available
+        if (rowsAffected > 0) {
+            // Retrieve the auto-generated keys
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                postId = resultSet.getInt(1); // Retrieve the first auto-generated key
+
+                String updateSql = "UPDATE post SET post_reactions_id = ? WHERE id = ?";
+                PreparedStatement updateStatement = connection.prepareStatement(updateSql);
+                updateStatement.setInt(1, postId); // Set postId as the value for the first parameter
+                updateStatement.setInt(2, postId); // Set postId as the value for the second parameter
+                int rowsAffected0 = updateStatement.executeUpdate();
+                updateStatement.close();
+
+            }
+            resultSet.close();
+        }
+
+
+
+        statement.close();
+        String sql0 = "INSERT INTO post_reactions (id, likes,dislike) VALUES ('" + postId + "', '" + 0 + "','"+ 0 +"')";
+
+        Statement statement0 = connection.createStatement();
+        statement0.executeUpdate(sql0);
 
     }
 

@@ -70,6 +70,9 @@ public class AfficherPartenaire implements Initializable {
 
         // Store the original list of Partenaire objects
         originalPartenaireList = FXCollections.observableArrayList(partenaireList);
+
+        // Add listener to search field
+        nomTextField.textProperty().addListener((observable, oldValue, newValue) -> rechercherParTitre());
     }
 
     @FXML
@@ -177,7 +180,7 @@ public class AfficherPartenaire implements Initializable {
 
     public void rechercherParTitre() {
         String recherche = nomTextField.getText().toLowerCase();
-        ObservableList<Partenaire> partenaires = partenaireListView.getItems();
+        ObservableList<Partenaire> partenaires = originalPartenaireList;
         ObservableList<Partenaire> resultatRecherche = FXCollections.observableArrayList();
         for (Partenaire partenaire : partenaires) {
             if (partenaire.getNom().toLowerCase().contains(recherche)) {

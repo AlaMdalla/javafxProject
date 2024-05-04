@@ -77,6 +77,9 @@ public class afficherSociete implements Initializable {
 
         // Store the original list of Societe objects
         originalSocieteList = FXCollections.observableArrayList(societeList);
+
+        // Add listener to search field
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> rechercherParTitre());
     }
 
     private void loadSocietes() {

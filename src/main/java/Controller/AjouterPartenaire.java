@@ -1,5 +1,8 @@
 package Controller;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import entities.Partenaire;
 import entities.Societe;
 import javafx.event.ActionEvent;
@@ -15,8 +18,15 @@ import javafx.stage.Stage;
 import services.ServicePartenaire;
 import services.ServiceSociete;
 
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.Set;
 
 public class AjouterPartenaire {
@@ -54,20 +64,26 @@ public class AjouterPartenaire {
         String description = descriptionField.getText();
         String duree = dureeField.getText();
         Societe selectedSociete = societeChoiceBox.getValue();
-        int id =selectedSociete.getId();
+        int id = selectedSociete.getId();
 
         if (nom.isEmpty() || description.isEmpty() || selectedSociete == null) {
             showAlert(Alert.AlertType.WARNING, "Champs obligatoires", "OUPS ! Vous avez oublié des champs vides ou vous n'avez pas sélectionné de société.");
             return;
         }
 
-        Partenaire partenaire = new Partenaire(nom, description,duree,id);
+        Partenaire partenaire = new Partenaire(nom, description, duree, id);
         partenaire.setSociete(selectedSociete);
 
         try {
             servicePartenaire.ajouter(partenaire);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Le partenaire a été ajouté avec succès.");
             clearFields();
+
+            // Send SMS
+            sendSMS("+21628178182", partenaire);
+
+            // Send Email
+            sendEmail(partenaire);
 
             // Load the partner list view
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherPartenaire.fxml"));
@@ -84,6 +100,7 @@ public class AjouterPartenaire {
     }
 
 
+
     private void clearFields() {
         nomField.clear();
         descriptionField.clear();
@@ -95,4 +112,66 @@ public class AjouterPartenaire {
         alert.setContentText(contentText);
         alert.showAndWait();
     }
+    private void sendSMS(String recipientNumber, Partenaire newPartenaire) {
+        // Initialize Twilio library with your account information
+        String ACCOUNT_SID = "ACbed9c3e48616651cdcdcf8cbd1770f8e";
+        String AUTH_TOKEN = "d0fe91f7e8b9902e638f5c61d7987d2d";
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+        String PhoneNumber ="+21628178182";
+        String message = "Bonjour,\n"
+                + "Nous sommes ravis de vous informer qu'une nouvelle partenaire a été ajoutée.\n"
+                + "Nom de la société: " + newPartenaire.getNom() + "\n"
+                + "Description: " + newPartenaire.getDescription() + "\n"
+                + "Site Web: " + newPartenaire.getDuree() + "\n"
+                + "Merci et à bientôt.\n"
+                + "Cordialement,\n"
+                + "jobflow";
+
+        // Send the SMS message
+        Message twilioMessage = Message.creator(
+                new PhoneNumber(PhoneNumber),
+                new PhoneNumber("+12569803965"),
+                message).create();
+
+        System.out.println("SMS envoyé : " + twilioMessage.getSid());
+    }
+    private void sendEmail(Partenaire newPartenaire) {
+        final String username = "rayenfarhani9@gmail.com"; // Enter your email here
+        final String password = "zxyd omhl obhs xfhv"; // Enter your password here
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+            javax.mail.Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(javax.mail.Message.RecipientType.TO,
+                    InternetAddress.parse("rayenfarhani9@gmail.com")); // Enter recipient email
+            message.setSubject("Nouvelle partenaire ajoutée");
+            message.setText("Bonjour,\n"
+                    + "Nous sommes ravis de vous informer qu'une nouvelle partenaire a été ajoutée.\n"
+                    + "Nom de la société: " + newPartenaire.getNom() + "\n"
+                    + "Description: " + newPartenaire.getDescription() + "\n"
+                    + "Site Web: " + newPartenaire.getDuree() + "\n"
+                    + "Merci et à bientôt.\n"
+                    + "Cordialement,\n"
+                    + "jobflow");
+
+            Transport.send(message);
+            System.out.println("Email envoyé");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

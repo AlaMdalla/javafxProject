@@ -23,183 +23,200 @@
    <children>
       <BorderPane layoutX="-5.0" layoutY="-4.0" prefHeight="830.0" prefWidth="1298.0" stylesheets="@style.css" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="-5.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="-4.0">
          <left>
-            <VBox prefHeight="830.0" prefWidth="507.0" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="151.0" prefWidth="446.0" stylesheets="@style.css">
+            <VBox prefHeight="830.0" prefWidth="507.0" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">               <children>
+               <HBox alignment="CENTER" prefHeight="151.0" prefWidth="446.0" stylesheets="@style.css">
+                  <children>
+                     <Label styleClass="search-box" stylesheets="@style.css" text="Evenements" textFill="#878787">
+                        <font>
+                           <Font name="Segoe UI Bold" size="40.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </HBox>
+               <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0">
+                  <VBox.margin>
+                     <Insets left="30.0" right="30.0" />
+                  </VBox.margin>
+                  <children>
+                     <TextField fx:id="tsearch" prefHeight="40.0" prefWidth="245.0" promptText="chercher Evenement" styleClass="transparent" stylesheets="@../../../../../../../demo/src/main/java/values/style.css">
+                        <HBox.margin>
+                           <Insets left="20.0" />
+                        </HBox.margin>
+                        <font>
+                           <Font name="Segoe UI Bold" size="18.0" />
+                        </font>
+                     </TextField>
+                     <Button fx:id="btnSort" mnemonicParsing="false" prefHeight="40.0" prefWidth="116.0" styleClass="search-button" stylesheets="@../../../../../../../demo/src/main/java/values/style.css" text="Trier" textFill="WHITE">
+                        <font>
+                           <Font name="Segoe UI Bold" size="15.0" />
+                        </font>
+                     </Button>
+
+                  </children>
+                  <styleClass>
+                     <String fx:value="search-box" />
+                     <String fx:value="shadow" />
+                  </styleClass>
+                  <stylesheets>
+                     <URL value="@../../../../../../../demo/src/main/java/values/style.css" />
+                     <URL value="@style.css" />
+                  </stylesheets>
+               </HBox>
+               <Pane prefHeight="85.0" prefWidth="435.0">
                      <children>
-                        <Label styleClass="search-box" stylesheets="@style.css" text="Evenements" textFill="#878787">
-                           <font>
-                              <Font name="Segoe UI Bold" size="40.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets left="30.0" right="30.0" />
-                     </VBox.margin>
-                     <children>
-                        <TextField prefHeight="40.0" prefWidth="245.0" promptText="chercher Evenement" styleClass="transparent" stylesheets="@../../../../../../../demo/src/main/java/values/style.css">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="Segoe UI Bold" size="18.0" />
-                           </font>
-                        </TextField>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="116.0" styleClass="search-button" stylesheets="@../../../../../../../demo/src/main/java/values/style.css" text="Chercher" textFill="WHITE">
+                        <Button fx:id="btnOpenMap" layoutX="205.0" layoutY="-3.0" onAction="#openMap" styleClass="search-button" stylesheets="@style.css" text="Voir la Map">
                            <font>
                               <Font name="Segoe UI Bold" size="15.0" />
                            </font>
                         </Button>
                      </children>
-                     <styleClass>
-                        <String fx:value="search-box" />
-                        <String fx:value="shadow" />
-                     </styleClass>
-                     <stylesheets>
-                        <URL value="@../../../../../../../demo/src/main/java/values/style.css" />
-                        <URL value="@style.css" />
-                     </stylesheets>
-                  </HBox>
-                  <Pane prefHeight="85.0" prefWidth="435.0" />
-                  <VBox prefHeight="635.0" prefWidth="414.0" styleClass="chosen-evenement-card" stylesheets="@style.css">
                      <VBox.margin>
-                        <Insets bottom="10.0" left="50.0" right="50.0" />
-                     </VBox.margin>
-                     <children>
-                        <HBox alignment="CENTER" prefHeight="54.0" prefWidth="335.0" stylesheets="@style.css">
-                           <children>
-                              <Label prefHeight="65.0" prefWidth="132.0" text="Titre">
-                                 <font>
-                                    <Font name="Segoe UI Bold" size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <TextField fx:id="tTitre" alignment="TOP_LEFT" prefHeight="39.0" prefWidth="254.0" promptText="Donner le Titre" styleClass="search-box" stylesheets="@style.css">
-                                 <font>
-                                    <Font name="Segoe UI Bold" size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </TextField>
-                           </children>
-                           <VBox.margin>
-                              <Insets top="30.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="335.0" stylesheets="@style.css">
-                           <children>
-                              <Label prefHeight="65.0" prefWidth="197.0" text="Localisation">
-                                 <font>
-                                    <Font name="Segoe UI Bold" size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <TextField fx:id="tLocalisation" alignment="TOP_LEFT" prefHeight="39.0" prefWidth="321.0" promptText="Donner la localisation" styleClass="search-box" stylesheets="@../../../../../../../demo/src/main/java/values/style.css">
-                                 <font>
-                                    <Font name="Segoe UI Bold" size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </TextField>
-                           </children>
-                           <VBox.margin>
-                              <Insets top="30.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="58.0" prefWidth="354.0" stylesheets="@style.css">
-                           <children>
-                              <Label prefHeight="58.0" prefWidth="204.0" text="Les participant">
-                                 <font>
-                                    <Font name="Segoe UI Bold" size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <TextField fx:id="tNbParticipant" alignment="TOP_LEFT" prefHeight="39.0" prefWidth="320.0" promptText="Donner le nombre" styleClass="search-box" stylesheets="@style.css">
-                                 <font>
-                                    <Font name="Segoe UI Bold" size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </TextField>
-                           </children>
-                           <VBox.margin>
-                              <Insets top="30.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="54.0" prefWidth="335.0" stylesheets="@../../../../../../../demo/src/main/java/values/style.css">
-                           <children>
-                              <Label prefHeight="65.0" prefWidth="132.0" text="Date">
-                                 <font>
-                                    <Font name="Segoe UI Bold" size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <DatePicker fx:id="tDate" prefHeight="31.0" prefWidth="198.0" styleClass="shadow" stylesheets="@style.css">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin></DatePicker>
-                           </children>
-                           <VBox.margin>
-                              <Insets top="30.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="335.0">
-                           <children>
-                              <Label text="Image de l'evenement">
-                                 <font>
-                                    <Font name="Segoe UI Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="191.0" prefWidth="335.0">
-                           <children>
-                              <ImageView fx:id="TImage" fitHeight="170.0" fitWidth="235.0" onMouseClicked="#ajouterImage" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="54.0" prefWidth="335.0">
-                           <children>
-                              <ButtonBar prefHeight="46.0" prefWidth="178.0">
-                                 <buttons>
-                                    <Button fx:id="btnsave" mnemonicParsing="false" onAction="#creatEvenement" prefHeight="36.0" prefWidth="176.0" stylesheets="@style.css" text="Ajouter Evenement">
-                                       <styleClass>
-                                          <String fx:value="search-box" />
-                                          <String fx:value="shadow" />
-                                       </styleClass>
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="15.0" />
-                                       </font>
-                                    </Button>
-                                 </buttons>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </ButtonBar>
-                           </children>
-                        </HBox>
+                        <Insets top="20.0" />
+                     </VBox.margin></Pane>
+               <VBox prefHeight="635.0" prefWidth="414.0" styleClass="chosen-evenement-card" stylesheets="@style.css">
+                  <VBox.margin>
+                     <Insets bottom="10.0" left="50.0" right="50.0" />
+                  </VBox.margin>
+                  <children>
+                     <HBox alignment="CENTER" prefHeight="54.0" prefWidth="335.0" stylesheets="@style.css">
+                        <children>
+                           <Label prefHeight="65.0" prefWidth="132.0" text="Titre">
+                              <font>
+                                 <Font name="Segoe UI Bold" size="18.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets left="10.0" />
+                              </HBox.margin>
+                           </Label>
+                           <TextField fx:id="tTitre" alignment="TOP_LEFT" prefHeight="39.0" prefWidth="254.0" promptText="Donner le Titre" styleClass="search-box" stylesheets="@style.css">
+                              <font>
+                                 <Font name="Segoe UI Bold" size="18.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets right="10.0" />
+                              </HBox.margin>
+                           </TextField>
+                        </children>
+                        <VBox.margin>
+                           <Insets top="30.0" />
+                        </VBox.margin>
+                     </HBox>
+                     <HBox alignment="CENTER" prefHeight="60.0" prefWidth="335.0" stylesheets="@style.css">
+                        <children>
+                           <Label prefHeight="65.0" prefWidth="197.0" text="Localisation">
+                              <font>
+                                 <Font name="Segoe UI Bold" size="18.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets left="10.0" />
+                              </HBox.margin>
+                           </Label>
+                           <TextField fx:id="tLocalisation" alignment="TOP_LEFT" prefHeight="39.0" prefWidth="321.0" promptText="Donner la localisation" styleClass="search-box" stylesheets="@../../../../../../../demo/src/main/java/values/style.css">
+                              <font>
+                                 <Font name="Segoe UI Bold" size="18.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets right="10.0" />
+                              </HBox.margin>
+                           </TextField>
+                        </children>
+                        <VBox.margin>
+                           <Insets top="30.0" />
+                        </VBox.margin>
+                     </HBox>
+                     <HBox alignment="CENTER" prefHeight="58.0" prefWidth="354.0" stylesheets="@style.css">
+                        <children>
+                           <Label prefHeight="58.0" prefWidth="204.0" text="Les participant">
+                              <font>
+                                 <Font name="Segoe UI Bold" size="18.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets left="10.0" />
+                              </HBox.margin>
+                           </Label>
+                           <TextField fx:id="tNbParticipant" alignment="TOP_LEFT" prefHeight="39.0" prefWidth="320.0" promptText="Donner le nombre" styleClass="search-box" stylesheets="@style.css">
+                              <font>
+                                 <Font name="Segoe UI Bold" size="18.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets right="10.0" />
+                              </HBox.margin>
+                           </TextField>
+                        </children>
+                        <VBox.margin>
+                           <Insets top="30.0" />
+                        </VBox.margin>
+                     </HBox>
+                     <HBox alignment="CENTER" prefHeight="54.0" prefWidth="335.0" stylesheets="@../../../../../../../demo/src/main/java/values/style.css">
+                        <children>
+                           <Label prefHeight="65.0" prefWidth="132.0" text="Date">
+                              <font>
+                                 <Font name="Segoe UI Bold" size="18.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets left="10.0" />
+                              </HBox.margin>
+                           </Label>
+                           <DatePicker fx:id="tDate" prefHeight="31.0" prefWidth="198.0" styleClass="shadow" stylesheets="@style.css">
+                              <HBox.margin>
+                                 <Insets right="10.0" />
+                              </HBox.margin></DatePicker>
+                        </children>
+                        <VBox.margin>
+                           <Insets top="30.0" />
+                        </VBox.margin>
+                     </HBox>
+                     <HBox alignment="CENTER" prefHeight="47.0" prefWidth="335.0">
+                        <children>
+                           <Label text="Image de l'evenement">
+                              <font>
+                                 <Font name="Segoe UI Bold" size="18.0" />
+                              </font>
+                           </Label>
+                        </children>
+                        <VBox.margin>
+                           <Insets top="20.0" />
+                        </VBox.margin>
+                     </HBox>
+                     <HBox alignment="CENTER" prefHeight="191.0" prefWidth="335.0">
+                        <children>
+                           <ImageView fx:id="TImage" fitHeight="170.0" fitWidth="235.0" onMouseClicked="#ajouterImage" pickOnBounds="true" preserveRatio="true" />
+                        </children>
 
-                     </children>
-                  </VBox>
-               </children>
+                     </HBox>
+                     <HBox alignment="CENTER" prefHeight="46.0" prefWidth="433.0">
+                        <children>
+                           <ButtonBar prefHeight="46.0" prefWidth="178.0">
+                              <buttons>
+                                 <Button fx:id="btnsave" mnemonicParsing="false" onAction="#creatEvenement" prefHeight="36.0" prefWidth="171.0" styleClass="search-button" stylesheets="@style.css" text="Ajouter Evenement">
+                                    <font>
+                                       <Font name="Segoe UI Bold" size="15.0" />
+                                    </font>
+                                 </Button>
+                              </buttons>
+                              <HBox.margin>
+                                 <Insets right="20.0" />
+                              </HBox.margin>
+                           </ButtonBar>
+                           <Button fx:id="bntsponsor" mnemonicParsing="false" onAction="#loadSponsorPageView" prefHeight="40.0" prefWidth="116.0" styleClass="search-button" stylesheets="@../../../../../../../demo/src/main/java/values/style.css" text="Sponsor" textFill="WHITE">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </Button>
+
+                        </children>
+                     </HBox>
+
+                  </children>
+               </VBox>
+            </children>
             </VBox>
          </left>
          <center>
+
             <VBox prefHeight="830.0" prefWidth="813.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="TOP_CENTER" prefHeight="65.0" prefWidth="200.0">
@@ -287,16 +304,22 @@
                                  <padding>
                                     <Insets top="20.0" />
                                  </padding>
+
                               </FlowPane>
+
+
 
                            </content>
                         </ScrollPane>
                      </children>
+
                   </HBox>
 
                </children>
             </VBox>
+
          </center>
       </BorderPane>
+
    </children>
 </AnchorPane>

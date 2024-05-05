@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Map with Directions</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+</head>
+
+<body style="margin: 0; padding: 0;">
+
+<div id="map" style="height: 100vh;"></div>
+<script>
+    var map = L.map('map').setView([51.505, -0.09], 13);
+
+ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+ }).addTo(map);
+
+ L.marker([51.5, -0.09]).addTo(map)
+     .bindPopup('A pretty CSS popup.<br> Easily customizable.')
+     .openPopup();
+
+     // Ajouter un marqueur
+
+     var geocoder = L.Control.geocoder({
+       defaultMarkGeocode: false
+     })
+     .on('markgeocode', function(e) {
+       var bbox = e.geocode.bbox;
+       var poly = L.polygon([
+         bbox.getSouthEast(),
+         bbox.getNorthEast(),
+         bbox.getNorthWest(),
+         bbox.getSouthWest()
+       ]).addTo(map);
+       map.fitBounds(poly.getBounds());
+     })
+     .addTo(map);
+
+     // Ajout du contrôle de géolocalisation
+     map.locate({setView: true, maxZoom: 16});
+
+     function onLocationFound(e) {
+         var radius = e.accuracy / 2;
+         L.marker(e.latlng).addTo(map)
+             .bindPopup("Vous êtes ici, avec une précision de " + radius + " mètres").openPopup();
+         L.circle(e.latlng, radius).addTo(map);
+     }
+
+     map.on('locationfound', onLocationFound);
+
+     function onLocationError(e) {
+         alert(e.message);
+     }
+
+     map.on('locationerror', onLocationError);
+</script>
+
+</body>
+</html>

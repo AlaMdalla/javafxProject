@@ -1,6 +1,7 @@
 package com.example.demo1;
 
 import javafx.scene.control.Alert;
+import javafx.scene.layout.*;
 import utiles.DBconnexion;
 import entities.sponsor;
 import javafx.collections.FXCollections;
@@ -15,10 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.w3c.dom.Node;
 
@@ -45,6 +42,8 @@ public class HelloControllersponsor implements Initializable {
     @FXML
     private FlowPane eventFlowPane;
     private HBox eventCard;
+    @FXML
+    private AnchorPane sponsorPane;
 
 
     @Override
@@ -108,6 +107,9 @@ public class HelloControllersponsor implements Initializable {
         deleteButton.getStyleClass().add("button-delete"); // Ajouter la classe de style CSS au bouton
         deleteButton.setUserData(sponsor); // Stockez le sponsor associé dans les données du bouton
         Button btnUpdates = new Button("U");
+        // Créer le bouton de mise à jour
+        btnUpdates.getStyleClass().add("button-update"); // Ajouter la classe de style CSS au bouton
+
 
         root.getChildren().add(btnUpdates);
         btnUpdates.setOnMouseClicked(mouseEvent -> {
@@ -116,7 +118,7 @@ public class HelloControllersponsor implements Initializable {
 
             if (selectedEvent != null) {
                 try {
-                    // Load the update.fxml file
+                    //Charger le fichier update.fxml
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("modifiersponsor.fxml"));
                     Parent roott = loader.load();
                     UpdateSponsor controller = loader.getController();
@@ -130,7 +132,7 @@ public class HelloControllersponsor implements Initializable {
 
                     // Set the new scene
                     currentStage.setScene(scenee);
-                    currentStage.setTitle("Post Details");
+                    currentStage.setTitle("Update");
                     currentStage.show();
 
                 } catch (IOException e) {

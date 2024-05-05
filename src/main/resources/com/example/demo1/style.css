@@ -49,9 +49,30 @@
     -fx-padding: 8px 16px; /* Remplissage du bouton */
     -fx-border-radius: 4px; /* Rayon de bordure */
     -fx-background-radius: 4px; /* Rayon de fond */
+    -fx-pref-width: 40px; /* Largeur préférée */
+        -fx-pref-height: 40px; /* Hauteur préférée */
 }
 
 /* Style du bouton de suppression lorsqu'il est survolé */
 .button-delete:hover {
     -fx-background-color: #ff5f52; /* Couleur de fond au survol */
+}
+/* style.css */
+
+/* Bouton de mise à jour */
+.button-update {
+    -fx-background-color: #4CAF50; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-pref-width: 40px; /* Largeur préférée */
+    -fx-pref-height: 40px; /* Hauteur préférée */
+    -fx-border-radius: 20px; /* Bord arrondi */
+    -fx-border-color: #4CAF50; /* Couleur de la bordure */
+    -fx-border-width: 2px; /* Largeur de la bordure */
+}
+
+/* Style lorsque survolé */
+.button-update:hover {
+    -fx-background-color: #45a049; /* Couleur de fond au survol */
+    -fx-border-color: #45a049; /* Couleur de la bordure au survol */
 }

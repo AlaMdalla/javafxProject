@@ -1,5 +1,9 @@
 package com.example.demo1;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.scene.layout.*;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import utiles.DBconnexion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,19 +13,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 
+
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.w3c.dom.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.util.Comparator;
+import java.util.function.Predicate;
 
 
 import java.io.*;
@@ -29,10 +34,14 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+
 import entities.evenement;
 
 public class HelloController implements Initializable {
 
+    public TextField tserach;
+    public Button btnsponsor;
     Connection con = null;
     PreparedStatement st = null;
     ResultSet rs = null;
@@ -67,14 +76,201 @@ public class HelloController implements Initializable {
     private ScrollPane scrollPane;
     @FXML
     private FlowPane eventFlowPane;
-  private HBox eventCard;
+    @FXML
+    private WebView mapWebView;
+
+    @FXML
+    private Button btnOuvrirCarte;
+
+
+
+    private HBox eventCard;
+    @FXML
+    private TextField textField;
+
+    @FXML
+    private TextField tsearch; // Assurez-vous que l'ID FX est correctement défini dans votre fichier FXML
+
+    @FXML
+    private Button btnsearch;
+    @FXML
+    private Button btnSort;
+    @FXML
+    private Button bntsponsor;
+    @FXML
+    private Button btnSponsor;// Assurez-vous que l'ID FX est correctement défini dans votre fichier FXML
+
+    private ObservableList<evenement> evenements;
+
+
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         con = DBconnexion.getCon();
+        evenements = getEvenements();
         showEvenements();
+        setupDynamicSearch(tsearch, evenements);
+        // Associer le gestionnaire d'événements au bouton de tri
+        btnSort.setOnAction(event -> sortEventsByTitle());
+        bntsponsor.setOnAction(event -> loadSponsorPageView());
+    }
+
+    // Méthode pour trier les événements par titre dans l'ordre alphabétique
+    @FXML
+    private void sortEventsByTitle() {
+        // Trier la liste d'événements par titre
+        evenements.sort(Comparator.comparing(evenement::getTitre));
+
+        // Mettre à jour l'affichage des cartes avec les événements triés
+        updateDisplayedCards(new FilteredList<>(evenements));
+    }
+
+    // Méthode pour mettre en place la recherche dynamique
+    public void setupDynamicSearch(TextField searchField, ObservableList<evenement> evenements) {
+        // Création d'une liste filtrée pour la recherche dynamique
+        FilteredList<evenement> filteredList = new FilteredList<>(evenements, null);
+
+        // Ajout d'un écouteur sur le champ de recherche pour mettre à jour la liste filtrée et l'affichage
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(createPredicate(newValue));
+            updateDisplayedCards(filteredList); // Mettre à jour l'affichage avec les éléments filtrés
+        });
+    }
+
+    // Méthode pour mettre à jour l'affichage des cartes avec les éléments filtrés
+    private void updateDisplayedCards(FilteredList<evenement> filteredList) {
+        // Vider le contenu actuel du FlowPane
+        eventFlowPane.getChildren().clear();
+
+        // Pour chaque événement dans la liste filtrée, créer une carte et l'ajouter au FlowPane
+        for (evenement event : filteredList) {
+            HBox card = showEvenement(event);
+            eventFlowPane.getChildren().add(card);
+        }
+    }
+
+    // Méthode pour créer un prédicat en fonction de la chaîne de recherche
+    private Predicate<evenement> createPredicate(String searchText) {
+        if (searchText == null || searchText.trim().isEmpty()) {
+            // Si la chaîne de recherche est vide, retourner vrai pour inclure tous les événements
+            return event -> true;
+        } else {
+            // Sinon, créer un prédicat pour filtrer les événements en fonction du titre
+            String lowerCaseSearchText = searchText.toLowerCase();
+            return event -> event.getTitre().toLowerCase().startsWith(lowerCaseSearchText);
+        }
+    }
+    @FXML
+    private void loadSponsorPageView() {
+        try {
+            // Obtenez la fenêtre (Stage) à partir du Node du bouton
+            Stage currentStage = (Stage) bntsponsor.getScene().getWindow();
+
+            // Chargez la nouvelle page des sponsors
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sponsor.fxml"));
+            AnchorPane sponsorPage = fxmlLoader.load();
+
+            // Créer une nouvelle scène avec la page des sponsors chargée
+            Scene newScene = new Scene(sponsorPage);
+
+            // Définissez la nouvelle scène sur la fenêtre actuelle
+            currentStage.setScene(newScene);
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement de la vue de la page des sponsors : " + e.getMessage());
+        }
+    }
+
+
+
+
+
+    @FXML
+    private void openMap() {
+        // Création de WebView et WebEngine
+        WebView webView = new WebView();
+        WebEngine webEngine = webView.getEngine();
+
+
+        String htmlContent = "<!DOCTYPE html>"
+                + "<html lang=\"en\">"
+                + "<head>"
+                + "    <meta charset=\"UTF-8\">"
+                + "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+                + "    <title>Leaflet Map with Directions</title>"
+                + "    <link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.css\" integrity=\"sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=\" crossorigin=\"\" />"
+                + "    <link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css\" />"
+                + "</head>"
+                + "<body style=\"margin: 0; padding: 0;\">"
+                + "<div id=\"map\" style=\"height: 100vh;\"></div>"
+                + "<script src=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.js\" integrity=\"sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=\" crossorigin=\"\"></script>"
+                + "    <script src=\"https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js\"></script>"
+                + "<script>"
+                + "   var map = L.map('map').setView([51.505, -0.09], 13);"
+
+                + "    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {"
+                + "        attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'"
+                + "    }).addTo(map);"
+
+                + "    L.marker([51.5, -0.09]).addTo(map)"
+                + "        .bindPopup('A pretty CSS popup.<br> Easily customizable.')"
+                + "        .openPopup();"
+
+                + "    // Ajouter un contrôle de géocodage"
+                + "    var geocoder = L.Control.geocoder({"
+                + "        defaultMarkGeocode: false"
+                + "    })"
+                + "    .on('markgeocode', function(e) {"
+                + "        var bbox = e.geocode.bbox;"
+                + "        var poly = L.polygon(["
+                + "            bbox.getSouthEast(),"
+                + "            bbox.getNorthEast(),"
+                + "            bbox.getNorthWest(),"
+                + "            bbox.getSouthWest()"
+                + "        ]).addTo(map);"
+                + "        map.fitBounds(poly.getBounds());"
+                + "    })"
+                + "    .addTo(map);"
+
+                + "    // Ajout du contrôle de géolocalisation"
+                + "    map.locate({setView: true, maxZoom: 16});"
+
+                + "    function onLocationFound(e) {"
+                + "        var radius = e.accuracy / 2;"
+                + "        L.marker(e.latlng).addTo(map)"
+                + "            .bindPopup(\"Vous êtes ici, avec une précision de \" + radius + \" mètres\").openPopup();"
+                + "        L.circle(e.latlng, radius).addTo(map);"
+                + "    }"
+                + "    map.on('locationfound', onLocationFound);"
+
+                + "    function onLocationError(e) {"
+                + "        alert(e.message);"
+                + "    }"
+                + "    map.on('locationerror', onLocationError);"
+                + "</script>"
+                + "</body>"
+                + "</html>";
+
+        webEngine.loadContent(htmlContent);
+        // Efface le cache après avoir initialisé le WebEngine
+
+
+        // Création de la scène et du stage
+        Stage mapStage = new Stage();
+        Scene scene = new Scene(webView, 1000, 800); // Taille de la WebView
+        mapStage.setScene(scene);
+        mapStage.setTitle("Map Viewer");
+        mapStage.show();
 
     }
+
+
+    // Assurez-vous d'appeler cette méthode après avoir initialisé votre WebEngine
+
+
+
 
 
     public ObservableList<evenement> getEvenements() {
@@ -107,6 +303,7 @@ public class HelloController implements Initializable {
         }
         return evenements;
     }
+
 
     public void showEvenements() {
         ObservableList<evenement> list = getEvenements();
@@ -145,6 +342,7 @@ public class HelloController implements Initializable {
         deleteButton.getStyleClass().add("button-delete"); // Ajouter la classe de style CSS au bouton
         deleteButton.setUserData(event); // Stockez l'événement associé dans les données du bouton
         Button btnupdate = new Button("U");
+        btnupdate.getStyleClass().add("button-update");
 
         root.getChildren().add(btnupdate);
         btnupdate.setOnMouseClicked(mouseEvent -> {
@@ -364,8 +562,6 @@ public class HelloController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
 
 
 

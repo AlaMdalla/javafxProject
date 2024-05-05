@@ -34,7 +34,7 @@ public class UpdateController {
 
     public void initData(evenement event) {
         selectedEvent = event;
-        // Set the fields with the details of the selected event
+        //Définir les champs avec les détails de l'événement sélectionné
         tTitreUpdate.setText(selectedEvent.getTitre());
         tLocalisationUpdate.setText(selectedEvent.getLocalisation());
         tNbParticipantUpdate.setText(String.valueOf(selectedEvent.getNb_participant()));

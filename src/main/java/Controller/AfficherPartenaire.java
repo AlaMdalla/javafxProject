@@ -4,6 +4,7 @@ import entities.Partenaire;
 import entities.Societe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -200,5 +201,17 @@ public class AfficherPartenaire implements Initializable {
     void resetList() {
         partenaireListView.setItems(originalPartenaireList);
         nomTextField.clear();
+    }
+
+    @FXML
+    void goToMainWindow(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
+            Parent root = loader.load();
+            Stage currentStage = (Stage) partenaireListView.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import services.ServiceSociete;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Comparator;
@@ -162,4 +163,16 @@ public class afficherSociete implements Initializable {
         societeListView.setItems(originalSocieteList);
         searchField.clear();
     }
+    @FXML
+    void goToMainWindow(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
+            Parent root = loader.load();
+            Stage currentStage = (Stage) societeListView.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

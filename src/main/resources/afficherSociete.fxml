@@ -15,6 +15,8 @@
          <HBox spacing="10" alignment="CENTER">
             <TextField fx:id="searchField" prefHeight="33.0" prefWidth="300.0" promptText="Recherche par Nom" />
             <Button fx:id="rechercherParNom" onAction="#rechercherParTitre" prefHeight="33.0" prefWidth="100.0" text="Search" />
+            <Button onAction="#goToMainWindow" prefHeight="33.0" prefWidth="143.0" text="Retour à l'accueil" />
+
          </HBox>
          <HBox spacing="10" alignment="CENTER">
             <Button fx:id="deleteButton" onAction="#supprimerSociete" prefHeight="33.0" prefWidth="147.0" styleClass="deleteButton" stylesheets="@Afficher.css" text="Supprimer" />

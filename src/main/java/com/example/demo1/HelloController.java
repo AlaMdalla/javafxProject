@@ -1,6 +1,11 @@
 package com.example.demo1;
 
+
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -11,6 +16,22 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+
+
+import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+
 
 
 
@@ -25,7 +46,12 @@ import org.w3c.dom.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Comparator;
+import java.util.Hashtable;
 import java.util.function.Predicate;
 
 
@@ -37,6 +63,8 @@ import java.util.ResourceBundle;
 
 
 import entities.evenement;
+
+import javax.imageio.ImageIO;
 
 public class HelloController implements Initializable {
 
@@ -89,7 +117,7 @@ public class HelloController implements Initializable {
     private TextField textField;
 
     @FXML
-    private TextField tsearch; // Assurez-vous que l'ID FX est correctement défini dans votre fichier FXML
+    private TextField tsearch;
 
     @FXML
     private Button btnsearch;
@@ -187,91 +215,6 @@ public class HelloController implements Initializable {
 
 
 
-    @FXML
-    private void openMap() {
-        // Création de WebView et WebEngine
-        WebView webView = new WebView();
-        WebEngine webEngine = webView.getEngine();
-
-
-        String htmlContent = "<!DOCTYPE html>"
-                + "<html lang=\"en\">"
-                + "<head>"
-                + "    <meta charset=\"UTF-8\">"
-                + "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-                + "    <title>Leaflet Map with Directions</title>"
-                + "    <link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.css\" integrity=\"sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=\" crossorigin=\"\" />"
-                + "    <link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css\" />"
-                + "</head>"
-                + "<body style=\"margin: 0; padding: 0;\">"
-                + "<div id=\"map\" style=\"height: 100vh;\"></div>"
-                + "<script src=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.js\" integrity=\"sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=\" crossorigin=\"\"></script>"
-                + "    <script src=\"https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js\"></script>"
-                + "<script>"
-                + "   var map = L.map('map').setView([51.505, -0.09], 13);"
-
-                + "    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {"
-                + "        attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'"
-                + "    }).addTo(map);"
-
-                + "    L.marker([51.5, -0.09]).addTo(map)"
-                + "        .bindPopup('A pretty CSS popup.<br> Easily customizable.')"
-                + "        .openPopup();"
-
-                + "    // Ajouter un contrôle de géocodage"
-                + "    var geocoder = L.Control.geocoder({"
-                + "        defaultMarkGeocode: false"
-                + "    })"
-                + "    .on('markgeocode', function(e) {"
-                + "        var bbox = e.geocode.bbox;"
-                + "        var poly = L.polygon(["
-                + "            bbox.getSouthEast(),"
-                + "            bbox.getNorthEast(),"
-                + "            bbox.getNorthWest(),"
-                + "            bbox.getSouthWest()"
-                + "        ]).addTo(map);"
-                + "        map.fitBounds(poly.getBounds());"
-                + "    })"
-                + "    .addTo(map);"
-
-                + "    // Ajout du contrôle de géolocalisation"
-                + "    map.locate({setView: true, maxZoom: 16});"
-
-                + "    function onLocationFound(e) {"
-                + "        var radius = e.accuracy / 2;"
-                + "        L.marker(e.latlng).addTo(map)"
-                + "            .bindPopup(\"Vous êtes ici, avec une précision de \" + radius + \" mètres\").openPopup();"
-                + "        L.circle(e.latlng, radius).addTo(map);"
-                + "    }"
-                + "    map.on('locationfound', onLocationFound);"
-
-                + "    function onLocationError(e) {"
-                + "        alert(e.message);"
-                + "    }"
-                + "    map.on('locationerror', onLocationError);"
-                + "</script>"
-                + "</body>"
-                + "</html>";
-
-        webEngine.loadContent(htmlContent);
-        // Efface le cache après avoir initialisé le WebEngine
-
-
-        // Création de la scène et du stage
-        Stage mapStage = new Stage();
-        Scene scene = new Scene(webView, 1000, 800); // Taille de la WebView
-        mapStage.setScene(scene);
-        mapStage.setTitle("Map Viewer");
-        mapStage.show();
-
-    }
-
-
-    // Assurez-vous d'appeler cette méthode après avoir initialisé votre WebEngine
-
-
-
-
 
     public ObservableList<evenement> getEvenements() {
         ObservableList<evenement> evenements = FXCollections.observableArrayList();
@@ -303,8 +246,6 @@ public class HelloController implements Initializable {
         }
         return evenements;
     }
-
-
     public void showEvenements() {
         ObservableList<evenement> list = getEvenements();
 
@@ -319,8 +260,6 @@ public class HelloController implements Initializable {
             eventFlowPane.getChildren().add(card);
         }
     }
-
-
 
     private HBox showEvenement(evenement event) {
         HBox card = new HBox();
@@ -391,6 +330,15 @@ public class HelloController implements Initializable {
         imageafficher.setFitWidth(100); // Largeur de l'image
         imageafficher.setFitHeight(100); // Hauteur de l'image
 
+        // Créer le QR code avec une taille spécifiée
+
+
+
+        // Ajouter le bouton à la carte
+
+
+        // Créer une imageView pour afficher le QR code
+
         // Ajouter les labels à la boîte de détails
         detailsBox.getChildren().addAll(eventNameLabel, eventDateLabel, eventLocationLabel, eventParticipantsLabel);
 
@@ -410,6 +358,17 @@ public class HelloController implements Initializable {
         return card;
     }
 
+
+
+    @FXML
+    private void openMap() {
+        // Créez une instance de la classe CustomMapLayer
+        CustomMapLayer mapLayer = new CustomMapLayer();
+
+        // Appelez la méthode start() pour afficher la carte
+        Stage mapStage = new Stage();
+        mapLayer.start(mapStage);
+    }
     @FXML
     void creatEvenement(ActionEvent event) {
 
@@ -462,12 +421,16 @@ public class HelloController implements Initializable {
 
             st.executeUpdate();
 
-
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de l'ajout de l'événement", e);
         }        showEvenements();
 
     }
+    // Méthode pour créer un QR code à partir du texte fourni
+
+
+
+
 
 
     public String ajouterImage() {
@@ -481,7 +444,7 @@ public class HelloController implements Initializable {
 
             String image_Path = selectedFile.getAbsolutePath();
             System.out.println("addimage"+image_Path);
-            ;
+
             this.url= "file:///" + image_Path.replace("\\", "/");
             Image image0 = new Image(this.url);
             System.out.println(this.url);

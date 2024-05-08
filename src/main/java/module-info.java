@@ -4,6 +4,8 @@ module com.example.demo1 {
     requires mysql.connector.j;
     requires java.sql;
     requires javafx.web;
+    requires java.desktop;
+    requires com.gluonhq.maps;
 
 
     opens com.example.demo1 to javafx.fxml;

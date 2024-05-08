@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class UpdateController {
 
@@ -30,25 +31,34 @@ public class UpdateController {
     @FXML
     private DatePicker tDateUpdate;
 
+    @FXML
+    private TextField tHeureUpdate;
+
     private evenement selectedEvent;
 
     public void initData(evenement event) {
         selectedEvent = event;
-        //Définir les champs avec les détails de l'événement sélectionné
+        // Définir les champs avec les détails de l'événement sélectionné
         tTitreUpdate.setText(selectedEvent.getTitre());
         tLocalisationUpdate.setText(selectedEvent.getLocalisation());
         tNbParticipantUpdate.setText(String.valueOf(selectedEvent.getNb_participant()));
 
-        // Convert java.sql.Date to LocalDate
+        // Convertir java.sql.Date en LocalDate
         tDateUpdate.setValue(LocalDate.parse(selectedEvent.getDate().toString()));
+
+        // Convertir java.sql.Time en LocalTime
+        tHeureUpdate.setText(selectedEvent.getHeure().toString());
     }
+
+
+
 
 
     @FXML
     void updateEvenement() {
         if (selectedEvent != null) {
             try {
-                String updateQuery = "UPDATE Evenements SET Titre=?, Localisation=?, nb_participant=?, Date=? WHERE id=?";
+                String updateQuery = "UPDATE Evenements SET Titre=?, Localisation=?, nb_participant=?, Date=?, heure=? WHERE id=?";
                 Connection con = DBconnexion.getCon();
                 PreparedStatement st = con.prepareStatement(updateQuery);
                 st.setString(1, tTitreUpdate.getText());
@@ -64,23 +74,27 @@ public class UpdateController {
                 LocalDate date = tDateUpdate.getValue();
                 st.setDate(4, java.sql.Date.valueOf(date));
 
+                // Récupérer l'heure depuis le champ de texte
+                LocalTime heure = LocalTime.parse(tHeureUpdate.getText());
+                st.setTime(5, java.sql.Time.valueOf(heure));
+
                 // Set the id of the event to update
-                st.setInt(5, selectedEvent.getId());
+                st.setInt(6, selectedEvent.getId());
 
                 int rowsAffected = st.executeUpdate();
                 if (rowsAffected > 0) {
-                    // The update was successful
+                    // La mise à jour a réussi
                     System.out.println("Événement mis à jour avec succès");
-                    // Navigate to hello.fxml
+                    // Naviguer vers hello.fxml
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
                     Parent root = loader.load();
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) tDateUpdate.getScene().getWindow(); // Assuming btnUpdate is a button in the current scene
                     stage.setScene(scene);
                     stage.show();
-                    // Close the update window or do any other necessary actions
+                    // Fermer la fenêtre de mise à jour ou effectuer d'autres actions nécessaires
                 } else {
-                    // No event found with the given ID
+                    // Aucun événement trouvé avec l'ID donné
                     System.out.println("Aucun événement trouvé avec cet ID");
                 }
             } catch (SQLException e) {
@@ -92,4 +106,5 @@ public class UpdateController {
             System.out.println("Aucun événement sélectionné pour la mise à jour");
         }
     }
+
 }

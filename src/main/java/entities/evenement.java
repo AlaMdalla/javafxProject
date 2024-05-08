@@ -2,6 +2,7 @@ package entities;
 
 import javafx.scene.image.Image;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class evenement {
@@ -11,6 +12,15 @@ public class evenement {
     private int nb_participant;
     private Date Date;
     private String image;
+    private Time heure;
+
+    public void setHeure(Time heure) {
+        this.heure = heure;
+    }
+
+    public Time getHeure() {
+        return heure;
+    }
 
     public int getId() {
         return id;

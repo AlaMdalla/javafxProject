@@ -147,6 +147,29 @@
                            <Insets top="30.0" />
                         </VBox.margin>
                      </HBox>
+                        <HBox alignment="CENTER" prefHeight="58.0" prefWidth="354.0" stylesheets="@style.css">
+                           <children>
+                              <Label prefHeight="58.0" prefWidth="204.0" text="heure">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="theure" alignment="TOP_LEFT" prefHeight="39.0" prefWidth="320.0" promptText="HH:mm:ss" styleClass="search-box" stylesheets="@style.css">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </HBox>
                      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="335.0" stylesheets="@../../../../../../../demo/src/main/java/values/style.css">
                         <children>
                            <Label prefHeight="65.0" prefWidth="132.0" text="Date">

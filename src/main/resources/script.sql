@@ -7,7 +7,8 @@ CREATE TABLE Evenements (
     Localisation VARCHAR(250) NOT NULL,
     nb_participant INT,
     Date DATE NOT NULL,
-    Image VARCHAR(250) NOT NULL
+    Image VARCHAR(250) NOT NULL,
+    heure TIME NOT NULL
 );
 
 CREATE TABLE Sponsor (

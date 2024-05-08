@@ -27,6 +27,8 @@ import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -111,6 +113,8 @@ public class HelloController implements Initializable {
     private FlowPane eventFlowPane;
     @FXML
     private WebView mapWebView;
+    @FXML
+    private TextField theure;
 
     @FXML
     private Button btnOuvrirCarte;
@@ -236,21 +240,26 @@ public class HelloController implements Initializable {
                 evenement.setNbparticipant(rs.getInt("nb_participant"));
                 evenement.setDate(Date.valueOf(rs.getDate("Date").toLocalDate()));
 
+                // Récupération de la valeur de la colonne "heure"
+                Time heureTime = rs.getTime("heure");
+                evenement.setHeure(heureTime); // Utilisation de la méthode setHeure pour définir l'heure de l'événement
+
                 // Ajout de la récupération du chemin de l'image
                 String imagePath = rs.getString("Image").replace("\\", "/");
-                System.out.println("imagePath"+imagePath);
+                System.out.println("imagePath" + imagePath);
                 evenement.setImage(imagePath);
-
-
 
                 evenements.add(evenement);
             }
+
+
 
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de la récupération des événements", e);
         }
         return evenements;
     }
+
     public void showEvenements() {
         ObservableList<evenement> list = getEvenements();
 
@@ -325,10 +334,13 @@ public class HelloController implements Initializable {
 
 
         // Créer des labels pour les détails de l'événement
+        // Créer des labels pour les détails de l'événement
         Label eventNameLabel = new Label("Titre de l'evenement: " + event.getTitre());
         Label eventDateLabel = new Label("Date : " + event.getDate());
+        Label eventHeureLabel = new Label("Heure : " + event.getHeure()); // Ajout du label pour afficher l'heure
         Label eventLocationLabel = new Label("Lieu de l'evenement: " + event.getLocalisation());
         Label eventParticipantsLabel = new Label("Nombre de participant: " + event.getNb_participant());
+
 
         // Créer une image affichant l'événement
         ImageView imageafficher = new ImageView(event.getImage());
@@ -353,7 +365,7 @@ public class HelloController implements Initializable {
         // Créer une imageView pour afficher le QR code
 
         // Ajouter les labels à la boîte de détails
-        detailsBox.getChildren().addAll(eventNameLabel, eventDateLabel, eventLocationLabel, eventParticipantsLabel);
+        detailsBox.getChildren().addAll(eventNameLabel, eventDateLabel,eventHeureLabel ,eventLocationLabel, eventParticipantsLabel);
 
         // Ajouter les éléments à la carte
         card.getChildren().addAll(detailsBox, imageafficher, deleteButton ,btnupdate);
@@ -393,77 +405,74 @@ public class HelloController implements Initializable {
         Stage mapStage = new Stage();
         mapLayer.start(mapStage);
     }
-        @FXML
-        void creatEvenement(ActionEvent event) {
+    @FXML
+    void creatEvenement(ActionEvent event) {
+        String insert = "INSERT INTO Evenements(Titre, Localisation, nb_participant, Date, Image, heure) VALUES (?, ?, ?, ?, ?, ?)";
+        String imagePath = null;
 
-            String insert = "INSERT INTO Evenements(Titre, Localisation, nb_participant, Date, Image) VALUES (?, ?, ?, ?, ?)";
-            String imagePath = null; // Déclaration de la variable imagePath
+        String titre = tTitre.getText();
+        String localisation = tLocalisation.getText();
+        String nbParticipantText = tNbParticipant.getText();
+        LocalDate date = tDate.getValue();
 
-            String titre = tTitre.getText();
-            String localisation = tLocalisation.getText();
-            String nbParticipantText = tNbParticipant.getText();
-            LocalDate date = tDate.getValue();
-            // Validation des champs de saisie
-            if (titre.isEmpty() || localisation.isEmpty() || nbParticipantText.isEmpty() || date == null) {
-                showAlert(Alert.AlertType.ERROR, "Veuillez remplir tous les champs.");
-                return; // Arrête la méthode si l'un des champs est vide
-            }
+        // Récupérer l'heure depuis le champ de texte
+        String heureText = theure.getText();
 
-            // Validation du nombre de participants
-            if (!isValidNbParticipant(nbParticipantText)) {
-                showAlert(Alert.AlertType.ERROR, "Le nombre de participants doit être un entier positif.");
-                return; // Arrête la méthode si le nombre de participants n'est pas valide
-            }
+        if (titre.isEmpty() || localisation.isEmpty() || nbParticipantText.isEmpty() || date == null || heureText.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Veuillez remplir tous les champs.");
+            return;
+        }
 
-            // Validation de la date
-            if (!isValidDate(date)) {
-                showAlert(Alert.AlertType.ERROR, "La date doit être dans le présent ou le futur.");
-                return; // Arrête la méthode si la date n'est pas valide
-            }
+        // Validation du format de l'heure
+        if (!isValidHourFormat(heureText)) {
+            showAlert(Alert.AlertType.ERROR, "Format d'heure invalide. Veuillez saisir l'heure au format HH:mm:ss.");
+            return;
+        }
+
+        // Convertir l'heure texte en LocalTime
+        LocalTime heure = LocalTime.parse(heureText);
+
+        try {
+            con = DBconnexion.getCon();
+            st = con.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
+
+            st.setString(1, tTitre.getText());
+            st.setString(2, tLocalisation.getText());
 
             try {
-                con = DBconnexion.getCon();
-                st = con.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
+                int nbParticipants = Integer.parseInt(tNbParticipant.getText());
+                st.setInt(3, nbParticipants);
+            } catch (NumberFormatException e) {
+                System.out.println("Erreur : le champ de texte ne contient pas un entier valide.");
+            }
 
-                st.setString(1, tTitre.getText());
-                st.setString(2, tLocalisation.getText());
+            st.setDate(4, java.sql.Date.valueOf(date));
 
-                try {
-                    int nbParticipants = Integer.parseInt(tNbParticipant.getText());
-                    st.setInt(3, nbParticipants);
-                } catch (NumberFormatException e) {
-                    System.out.println("Erreur : le champ de texte ne contient pas un entier valide.");
+            imagePath = this.url;
+            st.setString(5, imagePath);
+
+            // Set the heure column
+            st.setTime(6, java.sql.Time.valueOf(heure));
+
+            st.executeUpdate();
+
+            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int eventId = generatedKeys.getInt(1);
+                    generateQRCodeForEvent(eventId);
+                } else {
+                    throw new SQLException("Échec de la création de l'événement, aucun ID obtenu.");
                 }
-
-                // Récupérer la date sélectionnée du DatePicker
-                LocalDate Date = tDate.getValue();
-                st.setDate(4, java.sql.Date.valueOf(date));
-
-
-                imagePath = this.url;
-                st.setString(5, imagePath);
-
-
-                st.executeUpdate();
-                // Récupérer l'ID de l'événement nouvellement inséré
-                try (ResultSet generatedKeys = st.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        int eventId = generatedKeys.getInt(1);
-
-                        // Générer le QR code après l'insertion de l'événement
-                        generateQRCodeForEvent(eventId);
-                    } else {
-                        throw new SQLException("Échec de la création de l'événement, aucun ID obtenu.");
-                    }
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException("Erreur lors de l'ajout de l'événement", e);
-            }        showEvenements();
-
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur lors de l'ajout de l'événement", e);
         }
-        // Méthode pour créer un QR code à partir du texte fourni
 
-        private void generateQRCodeForEvent(int eventId) {
+        showEvenements();
+    }
+
+
+    private void generateQRCodeForEvent(int eventId) {
             // Générer le texte du QR code en utilisant l'ID de l'événement
             String qrCodeText = "https://www.example.com/event?id=" + eventId;
             String path = "C:\\Users\\elyes\\Desktop\\QrCode\\event_" + eventId + ".jpg";
@@ -573,6 +582,16 @@ public class HelloController implements Initializable {
         Alert alert = new Alert(alertType);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    // Validation du format de l'heure
+    private boolean isValidHourFormat(String hourText) {
+        try {
+            // Tentative de conversion de l'heure texte en LocalTime
+            LocalTime.parse(hourText);
+            return true; // Si aucune exception n'est levée, l'heure est au format valide
+        } catch (DateTimeParseException e) {
+            return false; // Si une exception est levée, l'heure n'est pas au format valide
+        }
     }
 
 

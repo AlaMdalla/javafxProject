@@ -1,6 +1,15 @@
 package com.example.demo1;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import entities.evenement;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import utiles.DBconnexion;
 import entities.sponsor;
@@ -19,10 +28,15 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.w3c.dom.Node;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.*;
+import java.util.Comparator;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 
 public class HelloControllersponsor implements Initializable {
@@ -44,13 +58,97 @@ public class HelloControllersponsor implements Initializable {
     private HBox eventCard;
     @FXML
     private AnchorPane sponsorPane;
+    @FXML
+    private Button btnSortsponsor; // Champ pour le bouton de tri par nom
+    @FXML
+    private TextField tsearchsponsor;
+    @FXML
+    private Button bntevenement;
 
+    private ObservableList<sponsor> sponsors;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         con = DBconnexion.getCon();
         showSponsors();
+        setupDynamicSearch(tsearchsponsor, getSponsor());
+        btnSortsponsor.setOnAction(event -> sortSponsorsByName());
     }
+
+    // Méthode pour trier les sponsors par nom
+    private void sortSponsorsByName() {
+        // Récupérer la liste des sponsors
+        ObservableList<sponsor> sponsors = getSponsor();
+
+        // Utiliser la méthode sort de la classe FXCollections avec un comparateur
+        FXCollections.sort(sponsors, Comparator.comparing(sponsor::getNom));
+
+        // Mettre à jour l'affichage des sponsors après le tri
+        updateDisplayedSponsors(new FilteredList<>(sponsors));
+    }
+    private Predicate<sponsor> createPredicate(String searchText) {
+        if (searchText == null || searchText.trim().isEmpty()) {
+            // Si la chaîne de recherche est vide, retourner vrai pour inclure tous les sponsors
+            return sponsor -> true;
+        } else {
+            // Sinon, créer un prédicat pour filtrer les sponsors en fonction du nom
+            String lowerCaseSearchText = searchText.toLowerCase();
+            return sponsor -> sponsor.getNom().toLowerCase().startsWith(lowerCaseSearchText);
+        }
+    }
+
+    public void setupDynamicSearch(TextField tsearchponsor, ObservableList<sponsor> sponsors) {
+        // Création d'une liste filtrée pour la recherche dynamique
+        FilteredList<sponsor> filteredList = new FilteredList<>(sponsors, null);
+
+        // Ajout d'un écouteur sur le champ de recherche pour mettre à jour la liste filtrée et l'affichage
+        tsearchponsor.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(createPredicate(newValue));
+            updateDisplayedSponsors(filteredList); // Mettre à jour l'affichage avec les sponsors filtrés
+        });
+    }
+
+
+
+    private void updateDisplayedSponsors(ObservableList<sponsor> filteredSponsors) {
+        // Vider le contenu actuel du FlowPane
+        eventFlowPane.getChildren().clear();
+
+        // Pour chaque sponsor dans la liste filtrée, créer une carte et l'ajouter au FlowPane
+        for (sponsor sponsor : filteredSponsors) {
+            HBox card = showSponsor(sponsor);
+            eventFlowPane.getChildren().add(card);
+        }
+    }
+    private void generateQRCodeForSponsor(int sponsorId) {
+        // Générer le texte du QR code en utilisant l'ID du sponsor
+        String qrCodeText = "https://www.example.com/sponsor?id=" + sponsorId;
+        String path = "C:\\Users\\elyes\\Desktop\\QrCode\\sponsor_" + sponsorId + ".jpg";
+
+        try {
+            BitMatrix matrix = new MultiFormatWriter().encode(qrCodeText, BarcodeFormat.QR_CODE, 500, 500);
+
+            // Écrire le code QR dans un fichier
+            MatrixToImageWriter.writeToPath(matrix, "jpg", Paths.get(path));
+            System.out.println("Code QR enregistré avec succès pour l'ID du sponsor : " + sponsorId);
+        } catch (IOException | WriterException ex) {
+            ex.printStackTrace();
+        }
+    }
+    private Image createQRCodeImage(String qrCodeText, int width, int height) {
+        try {
+            BitMatrix matrix = new MultiFormatWriter().encode(qrCodeText, BarcodeFormat.QR_CODE, width, height);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            MatrixToImageWriter.writeToStream(matrix, "jpg", out);
+            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+            return new Image(in);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
     public ObservableList<sponsor> getSponsor() {
         ObservableList<sponsor> sponsors = FXCollections.observableArrayList();
@@ -86,6 +184,26 @@ public class HelloControllersponsor implements Initializable {
             eventFlowPane.getChildren().add(card);
         }
     }
+    @FXML
+    private void loadSponsorPageView() {
+        try {
+            // Obtenez la fenêtre (Stage) à partir du Node du bouton
+            Stage currentStage = (Stage) bntevenement.getScene().getWindow();
+
+            // Chargez la nouvelle page des sponsors
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+            AnchorPane EvenementPage = fxmlLoader.load();
+
+            // Créer une nouvelle scène avec la page des sponsors chargée
+            Scene newScene = new Scene(EvenementPage);
+
+            // Définissez la nouvelle scène sur la fenêtre actuelle
+            currentStage.setScene(newScene);
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement de la vue de la page des Evenement : " + e.getMessage());
+        }
+    }
+
 
     private HBox showSponsor(sponsor sponsor) {
         HBox card = new HBox();
@@ -152,6 +270,18 @@ public class HelloControllersponsor implements Initializable {
         // Créer des labels pour les détails du sponsor
         Label sponsorNameLabel = new Label("Nom du sponsor: " + sponsor.getNom());
         Label sponsorTypeLabel = new Label("Type de sponsor: " + sponsor.getType());
+
+        String qrCodeText = "VotreQrCode/sponsor?id=" + sponsor.getId_sponsor(); // L'URL de l'événement avec son ID
+
+        ImageView qrCodeImageView = new ImageView();
+        qrCodeImageView.setPreserveRatio(true);
+        qrCodeImageView.setFitWidth(100); // Largeur de l'image
+        qrCodeImageView.setFitHeight(100); // Hauteur de l'image
+        qrCodeImageView.setImage(createQRCodeImage(qrCodeText, 100, 100)); // Génération du QR code
+
+        card.getChildren().add(qrCodeImageView);
+
+
 
         // Ajouter les labels à la boîte de détails
         detailsBox.getChildren().addAll(sponsorNameLabel, sponsorTypeLabel);
@@ -233,14 +363,24 @@ public class HelloControllersponsor implements Initializable {
 
         try {
             con = DBconnexion.getCon();
-            st = con.prepareStatement(insertSponsor);
+            st = con.prepareStatement(insertSponsor, Statement.RETURN_GENERATED_KEYS);
+
             st.setString(1, nom);
             st.setString(2, type);
 
             st.executeUpdate();
+            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int sponsorId = generatedKeys.getInt(1);
+                    generateQRCodeForSponsor(sponsorId);
+                } else {
+                    throw new SQLException("Échec de la création de l'événement, aucun ID obtenu.");
+                }
+            }
 
             // Afficher une alerte pour confirmer que le sponsor a été ajouté avec succès
             showAlert(Alert.AlertType.INFORMATION, "Sponsor ajouté avec succès.");
+
 
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de l'ajout du sponsor", e);

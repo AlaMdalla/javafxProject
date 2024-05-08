@@ -1,7 +1,6 @@
 package Controller;
 
 import com.twilio.Twilio;
-import com.twilio.exception.ApiException;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
@@ -16,13 +15,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import services.ServiceSociete;
+
 import javax.mail.*;
-import javax.mail.internet.*;
-import java.util.Properties;
-
-
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class AjouterSociete {
 
@@ -81,8 +80,8 @@ public class AjouterSociete {
 
     private void sendSMS(String recipientNumber, Societe newSociete) {
         // Initialize Twilio library with your account information
-        String ACCOUNT_SID = "ACbed9c3e48616651cdcdcf8cbd1770f8e";
-        String AUTH_TOKEN = "d0fe91f7e8b9902e638f5c61d7987d2d";
+        String ACCOUNT_SID = "ACa0f21dcd8850e53c6475d30b715ef089";
+        String AUTH_TOKEN = "305ec5031a579bd4e6b4b53a87cef473";
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         String PhoneNumber ="+21628178182";
         String message = "Bonjour,\n"
@@ -98,7 +97,7 @@ public class AjouterSociete {
         // Send the SMS message
         Message twilioMessage = Message.creator(
                 new PhoneNumber(PhoneNumber),
-                new PhoneNumber("+12569803965"),
+                new PhoneNumber("+12563630943"),
                 message).create();
 
         System.out.println("SMS envoyé : " + twilioMessage.getSid());
@@ -149,20 +148,38 @@ public class AjouterSociete {
                 });
 
         try {
-            javax.mail.Message message = new MimeMessage(session);
+            MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
-            message.setRecipients(javax.mail.Message.RecipientType.TO,
-                    InternetAddress.parse("rayenfarhani9@gmail.com")); // Enter recipient email
+            message.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse("rayenfarhani9@gmail.com")); // Enter recipient email
             message.setSubject("Nouvelle société ajoutée");
-            message.setText("Bonjour,\n"
-                    + "Nous sommes ravis de vous informer qu'une nouvelle société a été ajoutée.\n"
-                    + "Nom de la société: " + newSociete.getNom() + "\n"
-                    + "Description: " + newSociete.getDescription() + "\n"
-                    + "Site Web: " + newSociete.getSiteweb() + "\n"
-                    + "Secteur: " + newSociete.getSecteur() + "\n"
-                    + "Merci et à bientôt.\n"
-                    + "Cordialement,\n"
-                    + "jobflow");
+
+            // HTML email content
+            String htmlContent = "<html>" +
+                    "<head>" +
+                    "<style>" +
+                    "h1 { color: #3498db; }" +
+                    "p { font-size: 16px; }" +
+                    "ul { list-style-type: none; }" +
+                    "li strong { font-weight: bold; }" +
+                    "</style>" +
+                    "</head>" +
+                    "<body>" +
+                    "<h1>Nouvelle société ajoutée</h1>" +
+                    "<p>Bonjour,</p>" +
+                    "<p>Nous sommes ravis de vous informer qu'une nouvelle société a été ajoutée.</p>" +
+                    "<ul>" +
+                    "<li><strong>Nom de la société:</strong> " + newSociete.getNom() + "</li>" +
+                    "<li><strong>Description:</strong> " + newSociete.getDescription() + "</li>" +
+                    "<li><strong>Site Web:</strong> " + newSociete.getSiteweb() + "</li>" +
+                    "<li><strong>Secteur:</strong> " + newSociete.getSecteur() + "</li>" +
+                    "</ul>" +
+                    "<p>Merci et à bientôt.</p>" +
+                    "<p>Cordialement,<br/>jobflow</p>" +
+                    "</body>" +
+                    "</html>";
+
+            // Set the email content as HTML
+            message.setContent(htmlContent, "text/html");
 
             Transport.send(message);
             System.out.println("Email envoyé");
@@ -170,4 +187,5 @@ public class AjouterSociete {
             throw new RuntimeException(e);
         }
     }
+
 }

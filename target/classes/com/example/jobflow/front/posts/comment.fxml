@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="188.0" prefWidth="404.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jobflow.controllers.front.posts.postController">
+   <children>
+      <TextField fx:id="comment_name"  style="-fx-border-color: transparent;" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="120.0" promptText="Name" styleClass="text-field" />
+      <TextField fx:id="comment_date"  style="-fx-border-color: transparent;" editable="false" layoutX="14.0" layoutY="46.0" prefHeight="26.0" prefWidth="120.0" promptText="Date" styleClass="text-field" />
+      <TextField fx:id="comment_time"   style="-fx-border-color: transparent;" editable="false" layoutX="150.0" layoutY="46.0" prefHeight="26.0" prefWidth="120.0" promptText="Time" styleClass="text-field" />
+      <TextArea fx:id="comment_contenu"  style="-fx-border-color: transparent;" editable="false" layoutX="14.0" layoutY="78.0" prefHeight="90.0" prefWidth="380.0" promptText="Comment" styleClass="postContent" />
+      <ImageView fx:id="editphoto" fitHeight="31.0"  style="-fx-border-color: transparent;" fitWidth="47.0" layoutX="150.0" layoutY="12.0" onMouseClicked="#navToCommentUpdate" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/edit.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="deletephoto1" fitHeight="31.0" fitWidth="47.0" layoutX="195.0" layoutY="12.0" onMouseClicked="#delete_Comment" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/close.png" />
+         </image>
+      </ImageView>
+
+   </children>
+</AnchorPane>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="666.0" prefWidth="524.0" style="-fx-background-color: white" stylesheets="@./MainStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jobflow.controllers.front.posts.HelloController">
+   <TextField fx:id="txtNom" layoutY="130.0" prefHeight="50.0" promptText="Tapez votre titre" styleClass="form-control" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+   <TextField fx:id="txtTag" layoutY="220.0" prefHeight="50.0" promptText="Tapez votre tag" styleClass="form-control" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+   <TextArea fx:id="txtContenu" layoutY="310.0" prefHeight="50.0" promptText="Tapez votre tag" styleClass="form-control" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+   <Button fx:id="ajouterPosteButton" layoutX="150.0" layoutY="570.0" mnemonicParsing="false" onAction="#ajouterPoste" prefHeight="50.0" prefWidth="207.0" styleClass="success-button" stylesheets="@MainStyle.css" text="post" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+   <HBox fx:id="imageBox" alignment="CENTER_LEFT" layoutX="204.0" layoutY="462.0" spacing="10" />
+   <Text layoutX="200.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="add post" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="32.626953125">
+      <font>
+         <Font name="Segoe UI" size="30.0" />
+      </font>
+   </Text>
+   <VBox fx:id="root" layoutX="4.099999904632568" stylesheets="@../../../add.css" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+
+<HBox alignment="CENTER_LEFT" layoutX="43.0" layoutY="14.0" spacing="20" stylesheets="@../../../add.css">
+      <ImageView fitHeight="54.0" fitWidth="49.0" onMouseClicked="#navigateVersafficher" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/th%20(1).jpg" />
+         </image></ImageView>
+   </HBox>
+   <ImageView fx:id="image" fitHeight="105.0" fitWidth="117.0" layoutX="204.0" layoutY="443.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="203.20000000000005" AnchorPane.topAnchor="443.0" />
+
+   
+      <Button fx:id="addImageButton" layoutX="150.0" layoutY="383.0" mnemonicParsing="false" onAction="#addimage" prefHeight="50.0" prefWidth="207.0" styleClass="success-button" text="addimage" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+
+</AnchorPane>

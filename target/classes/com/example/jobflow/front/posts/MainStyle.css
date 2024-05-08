@@ -1,0 +1,55 @@
+/* facebook_post.css */
+
+/* Post container styles */
+.stack-pane {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-background-radius: 10px; /* Rounded corners */
+    -fx-padding: 10px; /* Add some padding */
+}
+
+/* Profile image styles */
+.image-view {
+    -fx-background-color: #f0f0f0; /* Light gray background */
+    -fx-background-radius: 50%; /* Circular shape */
+    -fx-border-color: #d3d3d3; /* Light border color */
+    -fx-border-width: 2px; /* Border width */
+}
+
+/* Text field styles */
+.text-field {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-color: transparent; /* Transparent border */
+    -fx-font-size: 14px; /* Font size */
+}
+
+/* Text area styles */
+.text-area {
+    -fx-background-color: #f5f6f7; /* Light background */
+    -fx-background-radius: 5px; /* Rounded corners */
+    -fx-border-color: #d3d3d3; /* Light border color */
+    -fx-border-width: 1px; /* Border width */
+    -fx-font-size: 14px; /* Font size */
+    -fx-padding: 5px; /* Add some padding */
+}
+
+/* Button styles */
+.button {
+    -fx-background-color: #1877f2; /* Facebook blue */
+    -fx-text-fill: #ffffff; /* White text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-padding: 6px 12px; /* Padding */
+}
+
+/* Like and dislike icon styles */
+.image-view.like-icon, .image-view.dislike-icon {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-padding: 5px; /* Add some padding */
+}
+
+/* Like and dislike count styles */
+.text-field.likes, .text-field.dislikes {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-font-size: 14px; /* Font size */
+    -fx-padding: 5px; /* Add some padding */
+}

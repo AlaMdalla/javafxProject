@@ -26,44 +26,40 @@
       </ImageView>
       <AnchorPane prefHeight="876.0" prefWidth="262.0" style="-fx-background-color: #40E0D0;">
          <children>
+
+            <HBox spacing="10" />
+
             <Button layoutX="119.0" layoutY="456.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="37.0" style="-fx-background-color: #40E0D0;" />
-            <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="106.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="714.0" fitWidth="332.0" layoutX="-57.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/GestionCour.png" />
-               </image>
-            </ImageView>
-            <Button layoutX="98.0" layoutY="601.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="37.0" style="-fx-background-color: #40E0D0;" />
-            <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="87.0" layoutY="584.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/update.png" />
+                  <Image url="@images/jobflow.png" />
                </image>
             </ImageView>
          </children></AnchorPane>
-      <ImageView fitHeight="315.0" fitWidth="217.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/jobflow.png" />
-         </image>
-      </ImageView>
 
             <Button fx:id="supprimerProjet" layoutX="345.0" layoutY="731.0" onAction="#delete" prefHeight="54.0" prefWidth="398.0" style="-fx-background-color: #40E0D0; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-padding: 8px 16px; -fx-text-fill: #1B365D;" text="Supprimer" />
+      <Button layoutX="303.0" layoutY="615.0" onAction="#trierParMatiere" prefHeight="31.0" prefWidth="287.0" style="-fx-background-image: #40E0D0;" text="Trier par Nom" />
 
-            <Text fill="#150eda" layoutX="885.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LISTE DES PROJETS" wrappingWidth="136.0">
+            <Text fill="#150eda" layoutX="872.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LISTE DES PROJETS" wrappingWidth="136.0">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
       <Button layoutX="102.0" layoutY="238.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="47.0" style="-fx-background-color: #40E0D0;" />
-      <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="98.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/GestionEvaluation.png" />
-         </image>
-      </ImageView>
       <Button layoutX="46.0" layoutY="47.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="37.0" style="-fx-background-image:  -fx-background-color: #40E0D0;" />
-      <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="32.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="290.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/back.png" />
          </image>
       </ImageView>
-      <Button fx:id="retour" layoutX="33.0" layoutY="57.0"   onAction="#retour"  mnemonicParsing="false" opacity="0.0" text="Button" />
+      <Button fx:id="retour" layoutX="291.0" layoutY="32.0" mnemonicParsing="false" onAction="#retour" opacity="0.0" text="Button" />
+      <HBox layoutX="618.0" layoutY="598.0" spacing="10">
+         <children>
+   
+         <TextField fx:id="searchField" layoutX="727.0" layoutY="598.0" prefHeight="66.0" prefWidth="332.0" promptText="Recherche par Nom" style="-fx-background-color: #40E0D0;" />
+            <Button fx:id="rechercherParnom" onAction="#rechercherParTitre" text="Search" />
+         </children>
+
+      </HBox>
    </children>
 </AnchorPane>

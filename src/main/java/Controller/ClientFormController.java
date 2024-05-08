@@ -41,6 +41,7 @@
     import javafx.scene.control.Alert;
     import javafx.scene.control.ButtonType;
     import javafx.scene.control.Alert;
+    import com.jfoenix.controls.JFXTextField;
 
     public class ClientFormController {
         public AnchorPane pane;
@@ -58,7 +59,7 @@
         private String clientName = "Client";
 
         @FXML
-        private TextField txtSearch; // Assuming txtSearch is a TextField
+        public JFXTextField txtSearch;
         public void initialize() {
             txtLabel.setText(clientName);
 

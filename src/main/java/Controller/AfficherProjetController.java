@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import service.ProjetService;
+import java.util.Comparator;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,9 +41,9 @@ public class AfficherProjetController implements Initializable {
 
     private ProjetService projetService; // Add this line
     private Object connection;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Set up the cell factory for listProjet
         listProjet.setCellFactory(listView -> new ListCell<projet>() {
             @Override
             protected void updateItem(projet projet, boolean empty) {
@@ -55,8 +56,14 @@ public class AfficherProjetController implements Initializable {
             }
         });
 
-        loadProjet();
+        // Load initial data or perform other initializations
+        loadProjet(); // Assuming this method loads initial data into the projetList
+
+        // Bind search functionality to text field change event
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> rechercherParTitre());
     }
+
+
 
     public void setProjetService(ProjetService projetService) { // Add this method
         this.projetService = projetService;
@@ -108,6 +115,39 @@ public class AfficherProjetController implements Initializable {
             alert.showAndWait();
         }
     }
+
+    public void rechercherParTitre() {
+        // Clear any previous search results
+        ObservableList<projet> resultatRecherche = FXCollections.observableArrayList();
+
+        // Get the search text from the searchField
+        String recherche = searchField.getText().toLowerCase();
+
+        // If the search text is not empty
+        if (!recherche.isEmpty()) {
+            // Filter the projetList based on the search text
+            for (projet projet : projetList) {
+                if (projet.getPrname().toLowerCase().contains(recherche)) {
+                    resultatRecherche.add(projet);
+                }
+            }
+        } else {
+            // If the search text is empty, show all projects
+            resultatRecherche.addAll(projetList);
+        }
+
+        // Set the filtered list as the items of the listProjet
+        listProjet.setItems(resultatRecherche);
+    }
+
+    @FXML
+    void trierParMatiere() {
+        projetList.sort(Comparator.comparing(projet::getPrname));
+        listProjet.setItems(projetList); // Update the ListView with the sorted list
+    }
+
+
+
     @FXML
     void retour(ActionEvent event) {
         try {

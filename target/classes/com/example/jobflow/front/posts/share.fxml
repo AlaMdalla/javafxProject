@@ -8,51 +8,82 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<StackPane alignment="CENTER" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jobflow.controllers.front.posts.postController">
-    <AnchorPane>
+<AnchorPane fx:id="rootPane" style="-fx-background-color: #f0f0f0; -fx-padding: 10px;" styleClass="AnchorPane" stylesheets="@post.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jobflow.controllers.front.posts.postController">
+    <children>
+        <TextField fx:id="idPost" editable="false" layoutX="-100" layoutY="-100" prefWidth="80.0" style="-fx-border-color: transparent;" visible="false" />
 
-        <VBox alignment="CENTER" spacing="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="15.0">
-            <HBox spacing="10.0">
-                <TextField fx:id="idPost" editable="false" layoutX="-100" layoutY="-100" prefWidth="80.0" style="-fx-border-color: transparent;" visible="false" />
-
-                <ImageView fx:id="profilePicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="profilePicture" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@profile_picture.png" />
+            </image>
+        </ImageView>
+        <VBox layoutX="31.200000000000003" layoutY="25.6" prefHeight="561.0" prefWidth="854.0" spacing="10.0" stylesheets="@../../../post.css" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="15.0">
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <ImageView fx:id="profile_image" fitHeight="55.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
+                    <clip>
+                        <Circle centerX="21.5" centerY="21.5" radius="24.0" /> <!-- Adjust radius as needed -->
+                    </clip>
                     <image>
-                        <Image url="@profile_picture.png" />
+                        <Image url="@../../../images/zlaga.png" />
                     </image>
                 </ImageView>
-                <VBox spacing="5.0">
-                    <TextField fx:id="SharName" layoutX="178.0" layoutY="4.0" visible="true"  />
-                    <TextField fx:id="ShareComment" layoutX="384.0" layoutY="9.0" visible="true"  />
-                    <HBox spacing="10.0">
-                        <TextField fx:id="nomPost" prefHeight="26.0" prefWidth="87.0" styleClass="aggodStyle" text="John Doe" editable="false" />
-                        <TextField fx:id="DatePost" prefHeight="26.0" prefWidth="114.0" styleClass="aggodStyle" text="time" editable="false" />
-                        <TextField fx:id="TagPost" prefHeight="26.0" prefWidth="101.0" styleClass="aggodStyle" text="John Doe" editable="false" />
-                    </HBox>
-                    <HBox spacing="10.0">
 
-                    </HBox>
-                </VBox>
+
+
+
+
+
+
+                <TextField fx:id="nomPost" prefHeight="26.0" prefWidth="87.0" styleClass="aggodStyle" text="John Doe">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin></TextField>
+
+                <AnchorPane fx:id="menuPopup" visible="false">
+                    <children>
+                    </children>
+                </AnchorPane>
             </HBox>
-            <!-- Content -->
-            <StackPane prefWidth="400.0">
-                <HBox spacing="10.0">
-                    <ImageView fx:id="imagePost" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="postImage">
-                        <image>
-                            <Image url="@../../../../../favicon.png" />
-                        </image>
-                    </ImageView>
-                    <TextArea fx:id="ContenuPost" prefHeight="150.0" promptText="Write your post here..." styleClass="postTextArea" wrapText="true" editable="false" />
-                </HBox>
-            </StackPane>
+            <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="490.0" spacing="10.0">
+                <TextField fx:id="DatePost" prefHeight="26.0" prefWidth="114.0" style="-fx-border-color: transparent;" styleClass="aggodStyle" text="time">
+                </TextField>
+                <TextField fx:id="TagPost" prefHeight="26.0" prefWidth="101.0" style="-fx-border-color: transparent;" styleClass="aggodStyle" text="John Doe">
+                </TextField>
 
-            <HBox spacing="10.0">
+            </HBox>
+
+            <HBox fx:id="postContentHBox" alignment="CENTER_LEFT" spacing="10.0">
+
+                <ImageView fx:id="imagePost" fitHeight="150.0" fitWidth="200.0" layoutX="203.0" pickOnBounds="true" preserveRatio="true" styleClass="postImage">
+
+                    <image>
+                        <Image url="@../../../../../favicon.png" />
+                    </image>
+                </ImageView>
+                <TextArea fx:id="ContenuPost" editable="false" prefHeight="150.0" prefWidth="350.0" style="-fx-border-color: #3b5998; -fx-border-width: 2px; -fx-alignment: top-left;" styleClass="postContent" wrapText="true" />
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefWidth="611.0" spacing="10.0">
                 <Button fx:id="shareButton" onAction="#shareComment" styleClass="shareButton" text="Share" />
+                <ImageView fitHeight="47.0" fitWidth="65.0" onMouseClicked="#incrementlikes" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/likejpg.jpg" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="likes" prefHeight="26.0" prefWidth="75.0" styleClass="no-border" stylesheets="@../../../post.css" text="1" />
+                <ImageView fitHeight="47.0" fitWidth="65.0" onMouseClicked="#incrementdislikes" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                    <image>
+                        <Image url="@../../../images/likejpg.jpg" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="dislikes" prefHeight="26.0" prefWidth="86.0" styleClass="no-border" stylesheets="@../../../post.css" text="2" />
 
             </HBox>
         </VBox>
-    </AnchorPane>
-</StackPane>
+        <TextField fx:id="SharName" layoutX="178.0" layoutY="4.0" />
+        <TextField fx:id="ShareComment" layoutX="384.0" layoutY="9.0" />
+    </children>
+
+</AnchorPane>

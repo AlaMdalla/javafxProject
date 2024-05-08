@@ -13,7 +13,7 @@
     <TextArea fx:id="comment_contenu" layoutX="14.0" layoutY="78.0" prefHeight="90.0" prefWidth="380.0" promptText="Comment" styleClass="postContent" />
     <ImageView fx:id="editphoto" fitHeight="45.0" fitWidth="69.0" layoutX="478.0" layoutY="108.0" onMouseClicked="#update" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@../../../../../../../src/main/resources/com/example/jobflow/images/posts/edit.png" />
+         <Image url="@../../../images/edit.png" />
       </image></ImageView>
 
 </AnchorPane>

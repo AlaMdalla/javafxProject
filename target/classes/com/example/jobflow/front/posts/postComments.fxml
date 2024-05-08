@@ -20,7 +20,7 @@
       <AnchorPane fx:id="rootPane" prefHeight="524.0" prefWidth="867.0" style="-fx-background-color: #f0f0f0; -fx-padding: 10px;" styleClass="AnchorPane" stylesheets="@post.css">
           <children>
               <TextField fx:id="idPost" editable="false" layoutX="-100" layoutY="-100" prefWidth="80.0" visible="false" />
-
+      
               <ImageView fx:id="profilePicture" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                       <Image url="@profile_picture.png" />
@@ -31,10 +31,10 @@
                       <Circle fx:id="profilePicture" fill="#cccccc" radius="20.0" stroke="#cccccc">
 
                 </Circle>
-
+      
                       <TextField fx:id="nomPost" editable="false" prefHeight="26.0" prefWidth="87.0" style="-fx-border-color: transparent;" text="John Doe">
                 </TextField>
-
+      
                       <AnchorPane fx:id="menuPopup" visible="false">
                           <children>
                     </children>
@@ -50,13 +50,13 @@
                               <Image url="@../../../../../../../../ic_like.png" />
                           </image>
                       </ImageView>
-
+      
                   </HBox>
-
+      
                   <HBox fx:id="postContentHBox" alignment="CENTER_LEFT" spacing="10.0">
-
+      
                       <ImageView fx:id="imagePost" fitHeight="150.0" fitWidth="200.0" layoutX="203.0" pickOnBounds="true" preserveRatio="true" styleClass="postImage">
-
+      
                           <image>
                               <Image url="@../../../../../fa.png" />
                           </image>
@@ -83,9 +83,9 @@
               </Button>
               <ScrollPane fx:id="scroll" layoutX="111.0" layoutY="443.0" prefHeight="200.0" prefWidth="647.0" visible="false">
                   <content>
-
+      
                       <FlowPane fx:id="comment_Container" layoutX="1.0" prefHeight="200.0" prefWidth="647.0" />
-
+      
                   </content>
               </ScrollPane>
               <ImageView fitHeight="39.0" fitWidth="35.0" layoutX="24.0" layoutY="21.0" onMouseClicked="#navigateVersafficher" pickOnBounds="true" preserveRatio="true">
@@ -94,7 +94,7 @@
                   </image>
               </ImageView>
           </children>
-
+      
       </AnchorPane>
    </children>
 </StackPane>

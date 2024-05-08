@@ -11,6 +11,7 @@ module com.example.jobflow {
     requires com.google.zxing;
     requires org.controlsfx.controls;
     requires twilio;
+    requires com.gluonhq.maps;
 
     opens com.example.jobflow to javafx.fxml;
     opens com.example.jobflow.entities to javafx.fxml;
@@ -26,6 +27,7 @@ module com.example.jobflow {
     opens com.example.jobflow.controllers.back.test to javafx.fxml;
     opens com.example.jobflow.controllers.front.posts to javafx.fxml;
     opens com.example.jobflow.controllers.front.societe to javafx.fxml;
+    opens com.example.jobflow.controllers.front.evenement to javafx.fxml;
 
     exports com.example.jobflow;
     exports com.example.jobflow.entities;
@@ -36,6 +38,7 @@ module com.example.jobflow {
     exports com.example.jobflow.controllers.back.user;
     exports com.example.jobflow.controllers.forgot_password;
     exports com.example.jobflow.controllers.front.opportunite;
+    exports com.example.jobflow.controllers.front.evenement;
     exports com.example.jobflow.controllers.front.test;
     exports com.example.jobflow.controllers.front.posts;
     exports com.example.jobflow.controllers.front.societe;

@@ -15,6 +15,8 @@ public class Constants {
     public static final String FXML_BACK_MANAGE_USER = PACKAGE_NAME + "/back/user/Manage.fxml";
     public static final String FXML_FRONT_MY_PROFILE = PACKAGE_NAME + "/front/user/MyProfile.fxml";
     public static final String FXML_FRONT_MY_Posts = PACKAGE_NAME + "/front/posts/afficherpost.fxml";
+    public static final String FXML_FRONT_MY_Evenement = PACKAGE_NAME + "/front/evenement/hello-view.fxml";
+
     public static final String FXML_FRONT_MY_Societe = PACKAGE_NAME + "/front/societe/afficherSociete.fxml";
 
     public static final String FXML_FRONT_MY_Partenaire = PACKAGE_NAME + "/front/societe/AfficherPartenaire.fxml";

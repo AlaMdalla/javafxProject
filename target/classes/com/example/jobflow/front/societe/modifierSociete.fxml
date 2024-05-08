@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jobflow.controllers.front.societe.ModifierSociete">
+   <children>
+      <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <VBox layoutX="45.0" layoutY="23.0" prefHeight="185.0" prefWidth="511.0" spacing="10" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la société" />
+                  <TextField fx:id="fNS" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Numéro de téléphone" />
+                  <TextField fx:id="fNT" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse" />
+                  <TextField fx:id="fA" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="descreption" />
+                  <TextField fx:id="fD" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="siteweb" />
+                  <TextField fx:id="fSW" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="secteur" />
+                  <TextField fx:id="fS" />
+               </children>
+            </VBox>
+            <Button fx:id="btnsave" layoutX="262.0" layoutY="243.0" mnemonicParsing="false" onAction="#modifierSociete" text="Update" />
+            <ImageView fitHeight="30.0" fitWidth="42.0" layoutX="273.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/update.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

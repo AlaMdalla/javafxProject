@@ -1,55 +1,251 @@
-/* facebook_post.css */
+/* ------------------- SHADOWS ----------------- */
+.window-shadow {
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(gaussian, #555555, 25, 0, 0, 0);
+}
 
-/* Post container styles */
-.stack-pane {
-    -fx-background-color: #ffffff; /* White background */
+.window-rounded {
+    -fx-background-radius: 5;
+}
+
+.border-rounded {
+    -fx-border-radius: 5;
+}
+
+/*
+.scroll-pane {
+    -fx-background-color: #F8F9FD;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #F8F9FD;
+}*/
+
+/* ------------------ BUTTONS ------------------ */
+.link-button {
+    -fx-background-color: white;
+    -fx-background-radius: 0px;
+}
+
+.link-button:hover {
+    -fx-background-color: #E5E5E5;
+}
+
+.close-button {
+    -fx-background-color: white;
+    -fx-background-radius: 0px;
+}
+
+.top-button {
+    -fx-background-radius: 10px;
+    -fx-background-color: #EEEEEE;
+}
+
+.top-button:hover {
+    -fx-background-color: #CCCCCC;
+}
+
+.top-button:pressed {
+    -fx-background-color: #AAAAAA;
+}
+
+.normal-button {
+    -fx-background-radius: 10px;
+    -fx-background-color: #DDDDDD;
+}
+
+.normal-button:hover {
+    -fx-background-color: #CCCCCC;
+}
+
+.normal-button:pressed {
+    -fx-background-color: #AAAAAA;
+}
+
+.success-button {
+    -fx-background-color: #0a4669;
+    -fx-background-radius: 10px;
+}
+
+.success-button:hover {
+    -fx-background-color: #1a7312;
+}
+
+.danger-button {
+    -fx-background-color: #e43f52;
+    -fx-background-radius: 10px;
+}
+
+.danger-button:hover {
+    -fx-background-color: #c82333;
+}
+
+.light-button {
+    -fx-background-color: #f8f9fc;
+    -fx-background-radius: 10px;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+}
+
+.white-button {
+    -fx-background-radius: 10px;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-background-color: white;
+}
+
+.white-button:hover {
+    -fx-background-color: #F3F3F3;
+}
+
+.signup-button {
+    -fx-background-color: transparent;
+}
+
+.light-button:hover {
+    -fx-background-color: #e2e6ea;
+}
+
+.link-panel {
+    -fx-background-color: #FFFFFF;
+}
+
+.link-panel:hover {
+    -fx-background-color: #E5E5E5;
+    -fx-border-color: #8F8F8F;
+    -fx-border-width: 1px;
+}
+
+/* ------------------- FORMS ------------------- */
+.form-control {
+    -fx-background-radius: 8, 8, 8;
+    -fx-background-insets: 30, 30, 30;
+    -fx-border-color: #DDDDDD;
+    -fx-border-radius: 10;
+    -fx-text-box-border: transparent;
+}
+
+.form-control:focused {
+    -fx-border-color: #0a4669;
+}
+
+.form-control-white {
+    -fx-background-radius: 8, 8, 8;
+    -fx-background-insets: 1, 1, 1;
+    -fx-background-color: white;
+    -fx-border-color: #DDDDDD;
+    -fx-border-radius: 10;
+    -fx-text-box-border: white;
+}
+
+.form-control-white:focused {
+    -fx-border-color: #0a4669;
+}
+
+.search-bar {
+    -fx-text-box-border: #BDBFBF;
+    -fx-background-insets: 2, 2, 2;
+    -fx-background-radius: 0, 0, 0;
+}
+
+/* ------------------ BORDERS ------------------ */
+.border-gray {
+    -fx-border-color: #cccccc;
+}
+
+.border-dark {
+    -fx-border-color: #343a40;
+}
+
+.border-gray {
+    -fx-border-color: #cccccc;
+}
+
+.border-light {
+    -fx-border-color: #F8F9FD;
+}
+
+.border-white {
+    -fx-border-color: white;
+}
+
+/* ---------------- BACKGROUNDS ---------------- */
+
+.background-gray {
+    -fx-background-color: #cccccc;
+}
+
+.background-light {
+    -fx-background-color: #F8F9FD;
+}
+
+.background-blue {
+    -fx-background-color: #0a4669;
+}
+
+.background-dark {
+    -fx-background-color: #343a40;
+}
+
+.background-white {
+    -fx-background-color: white;
+}
+/* MainStyle.css */
+
+/* Styling for the VBox */
+VBox {
+    -fx-background-color: #ffffff; /* Background color */
     -fx-background-radius: 10px; /* Rounded corners */
-    -fx-padding: 10px; /* Add some padding */
+    -fx-border-color: #dddddd; /* Border color */
+    -fx-border-width: 1px; /* Border width */
+    -fx-padding: 10px; /* Padding */
 }
 
-/* Profile image styles */
-.image-view {
-    -fx-background-color: #f0f0f0; /* Light gray background */
-    -fx-background-radius: 50%; /* Circular shape */
-    -fx-border-color: #d3d3d3; /* Light border color */
-    -fx-border-width: 2px; /* Border width */
-}
-
-/* Text field styles */
-.text-field {
+/* Styling for the TextField */
+TextField {
     -fx-background-color: transparent; /* Transparent background */
-    -fx-border-color: transparent; /* Transparent border */
     -fx-font-size: 14px; /* Font size */
 }
 
-/* Text area styles */
-.text-area {
-    -fx-background-color: #f5f6f7; /* Light background */
-    -fx-background-radius: 5px; /* Rounded corners */
-    -fx-border-color: #d3d3d3; /* Light border color */
+/* Styling for the TextArea */
+TextArea {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-font-size: 14px; /* Font size */
+}
+
+/* Styling for the ImageView */
+ImageView {
+    -fx-border-color: black; /* Border color */
+    -fx-border-width: 1px; /* Border width */
+}
+
+/* Styling for the Buttons */
+Button {
+    -fx-background-color: #0077b5; /* Background color */
+    -fx-text-fill: #ffffff; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-padding: 5px 10px; /* Padding */
+}
+
+/* Styling for the number TextField */
+#likes, #dislikes {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-text-fill: #0077b5; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+}
+
+/* Styling for the post image */
+.postImage {
+    -fx-border-color: #dddddd; /* Border color */
+    -fx-border-width: 1px; /* Border width */
+}
+
+/* Styling for the post TextArea */
+.postTextArea {
+    -fx-border-color: #dddddd; /* Border color */
     -fx-border-width: 1px; /* Border width */
     -fx-font-size: 14px; /* Font size */
-    -fx-padding: 5px; /* Add some padding */
-}
-
-/* Button styles */
-.button {
-    -fx-background-color: #1877f2; /* Facebook blue */
-    -fx-text-fill: #ffffff; /* White text color */
-    -fx-font-size: 14px; /* Font size */
-    -fx-background-radius: 20px; /* Rounded corners */
-    -fx-padding: 6px 12px; /* Padding */
-}
-
-/* Like and dislike icon styles */
-.image-view.like-icon, .image-view.dislike-icon {
-    -fx-background-color: transparent; /* Transparent background */
-    -fx-padding: 5px; /* Add some padding */
-}
-
-/* Like and dislike count styles */
-.text-field.likes, .text-field.dislikes {
-    -fx-background-color: transparent; /* Transparent background */
-    -fx-font-size: 14px; /* Font size */
-    -fx-padding: 5px; /* Add some padding */
+    -fx-padding: 5px; /* Padding */
 }

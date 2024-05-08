@@ -1,6 +1,11 @@
 package com.example.demo1;
 
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -332,7 +337,15 @@ public class HelloController implements Initializable {
 
         // Créer le QR code avec une taille spécifiée
 
+        String qrCodeText = "VotreQrCode/event?id=" + event.getId(); // Supposons que vous ayez un ID pour chaque événement
+        ImageView qrCodeImageView = new ImageView();
+        qrCodeImageView.setPreserveRatio(true);
+        qrCodeImageView.setFitWidth(100); // Largeur de l'image
+        qrCodeImageView.setFitHeight(100); // Hauteur de l'image
+        qrCodeImageView.setImage(createQRCodeImage(qrCodeText, 100, 100)); // Génération du QR code
 
+        // Ajoutez la `ImageView` du QR code à la carte
+        card.getChildren().add(qrCodeImageView);
 
         // Ajouter le bouton à la carte
 
@@ -359,7 +372,18 @@ public class HelloController implements Initializable {
     }
 
 
-
+    private Image createQRCodeImage(String qrCodeText, int width, int height) {
+        try {
+            BitMatrix matrix = new MultiFormatWriter().encode(qrCodeText, BarcodeFormat.QR_CODE, width, height);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            MatrixToImageWriter.writeToStream(matrix, "jpg", out);
+            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+            return new Image(in);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     @FXML
     private void openMap() {
         // Créez une instance de la classe CustomMapLayer
@@ -369,66 +393,91 @@ public class HelloController implements Initializable {
         Stage mapStage = new Stage();
         mapLayer.start(mapStage);
     }
-    @FXML
-    void creatEvenement(ActionEvent event) {
+        @FXML
+        void creatEvenement(ActionEvent event) {
 
-        String insert = "INSERT INTO Evenements(Titre, Localisation, nb_participant, Date, Image) VALUES (?, ?, ?, ?, ?)";
-        String imagePath = null; // Déclaration de la variable imagePath
+            String insert = "INSERT INTO Evenements(Titre, Localisation, nb_participant, Date, Image) VALUES (?, ?, ?, ?, ?)";
+            String imagePath = null; // Déclaration de la variable imagePath
 
-        String titre = tTitre.getText();
-        String localisation = tLocalisation.getText();
-        String nbParticipantText = tNbParticipant.getText();
-        LocalDate date = tDate.getValue();
-        // Validation des champs de saisie
-        if (titre.isEmpty() || localisation.isEmpty() || nbParticipantText.isEmpty() || date == null) {
-            showAlert(Alert.AlertType.ERROR, "Veuillez remplir tous les champs.");
-            return; // Arrête la méthode si l'un des champs est vide
-        }
-
-        // Validation du nombre de participants
-        if (!isValidNbParticipant(nbParticipantText)) {
-            showAlert(Alert.AlertType.ERROR, "Le nombre de participants doit être un entier positif.");
-            return; // Arrête la méthode si le nombre de participants n'est pas valide
-        }
-
-        // Validation de la date
-        if (!isValidDate(date)) {
-            showAlert(Alert.AlertType.ERROR, "La date doit être dans le présent ou le futur.");
-            return; // Arrête la méthode si la date n'est pas valide
-        }
-
-        try {
-            con = DBconnexion.getCon();
-            st = con.prepareStatement(insert);
-            st.setString(1, tTitre.getText());
-            st.setString(2, tLocalisation.getText());
-
-            try {
-                int nbParticipants = Integer.parseInt(tNbParticipant.getText());
-                st.setInt(3, nbParticipants);
-            } catch (NumberFormatException e) {
-                System.out.println("Erreur : le champ de texte ne contient pas un entier valide.");
+            String titre = tTitre.getText();
+            String localisation = tLocalisation.getText();
+            String nbParticipantText = tNbParticipant.getText();
+            LocalDate date = tDate.getValue();
+            // Validation des champs de saisie
+            if (titre.isEmpty() || localisation.isEmpty() || nbParticipantText.isEmpty() || date == null) {
+                showAlert(Alert.AlertType.ERROR, "Veuillez remplir tous les champs.");
+                return; // Arrête la méthode si l'un des champs est vide
             }
 
-            // Récupérer la date sélectionnée du DatePicker
-            LocalDate Date = tDate.getValue();
-            st.setDate(4, java.sql.Date.valueOf(date));
+            // Validation du nombre de participants
+            if (!isValidNbParticipant(nbParticipantText)) {
+                showAlert(Alert.AlertType.ERROR, "Le nombre de participants doit être un entier positif.");
+                return; // Arrête la méthode si le nombre de participants n'est pas valide
+            }
+
+            // Validation de la date
+            if (!isValidDate(date)) {
+                showAlert(Alert.AlertType.ERROR, "La date doit être dans le présent ou le futur.");
+                return; // Arrête la méthode si la date n'est pas valide
+            }
+
+            try {
+                con = DBconnexion.getCon();
+                st = con.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
+
+                st.setString(1, tTitre.getText());
+                st.setString(2, tLocalisation.getText());
+
+                try {
+                    int nbParticipants = Integer.parseInt(tNbParticipant.getText());
+                    st.setInt(3, nbParticipants);
+                } catch (NumberFormatException e) {
+                    System.out.println("Erreur : le champ de texte ne contient pas un entier valide.");
+                }
+
+                // Récupérer la date sélectionnée du DatePicker
+                LocalDate Date = tDate.getValue();
+                st.setDate(4, java.sql.Date.valueOf(date));
 
 
-            imagePath = this.url;
-            st.setString(5, imagePath);
+                imagePath = this.url;
+                st.setString(5, imagePath);
 
 
-            st.executeUpdate();
+                st.executeUpdate();
+                // Récupérer l'ID de l'événement nouvellement inséré
+                try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int eventId = generatedKeys.getInt(1);
 
-        } catch (SQLException e) {
-            throw new RuntimeException("Erreur lors de l'ajout de l'événement", e);
-        }        showEvenements();
+                        // Générer le QR code après l'insertion de l'événement
+                        generateQRCodeForEvent(eventId);
+                    } else {
+                        throw new SQLException("Échec de la création de l'événement, aucun ID obtenu.");
+                    }
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Erreur lors de l'ajout de l'événement", e);
+            }        showEvenements();
 
-    }
-    // Méthode pour créer un QR code à partir du texte fourni
+        }
+        // Méthode pour créer un QR code à partir du texte fourni
 
+        private void generateQRCodeForEvent(int eventId) {
+            // Générer le texte du QR code en utilisant l'ID de l'événement
+            String qrCodeText = "https://www.example.com/event?id=" + eventId;
+            String path = "C:\\Users\\elyes\\Desktop\\QrCode\\event_" + eventId + ".jpg";
 
+            try {
+                BitMatrix matrix = new MultiFormatWriter().encode(qrCodeText, BarcodeFormat.QR_CODE, 500, 500);
+
+                // Write QR code to file
+                MatrixToImageWriter.writeToPath(matrix, "jpg", Paths.get(path));
+                System.out.println("QR code saved successfully for event ID: " + eventId);
+            } catch (IOException | WriterException ex) {
+                ex.printStackTrace();
+            }
+        }
 
 
 

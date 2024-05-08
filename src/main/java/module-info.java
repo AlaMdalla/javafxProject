@@ -6,6 +6,9 @@ module com.example.demo1 {
     requires javafx.web;
     requires java.desktop;
     requires com.gluonhq.maps;
+    requires com.google.zxing;
+
+    requires com.google.zxing.javase;
 
 
     opens com.example.demo1 to javafx.fxml;

@@ -19,7 +19,6 @@
                 <Button onAction="#trierParMatiere" text="Trier par Nom" />
                 <Button onAction="#resetList" text="Réinitialiser" />
                 <Button onAction="#goToMainWindow" prefHeight="33.0" prefWidth="143.0" text="Retour à l'accueil" />
-
             </HBox>
         </VBox>
     </children>

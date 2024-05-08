@@ -16,7 +16,44 @@ public class Post {
     String image;
     private List<Comment> comments;
 
+    public String getSharName() {
+        return SharName;
+    }
 
+    public void setSharName(String sharName) {
+        SharName = sharName;
+    }
+
+    public Post(String nom, String contenu, String tag, String sharName, String shareComment) {
+        this.nom = nom;
+        this.contenu = contenu;
+        this.tag = tag;
+        SharName = sharName;
+        ShareComment = shareComment;
+    }
+
+    public String getShareComment() {
+        return ShareComment;
+    }
+
+    public void setShareComment(String shareComment) {
+        ShareComment = shareComment;
+    }
+
+    private String SharName;
+    private String ShareComment;
+
+
+    public Post(int id, String nom, String contenu, LocalDate date, String tag, String image, String sharName, String shareComment) {
+        this.id = id;
+        this.nom = nom;
+        this.contenu = contenu;
+        this.date = date;
+        this.tag = tag;
+        this.image = image;
+        SharName = sharName;
+        ShareComment = shareComment;
+    }
 
     public Post(int id, String nom, String contenu, LocalDate date, String tag, String image) {
         this.id = id;

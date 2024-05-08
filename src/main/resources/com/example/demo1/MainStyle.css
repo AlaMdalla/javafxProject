@@ -11,6 +11,17 @@
 .border-rounded {
     -fx-border-radius: 5;
 }
+/* MainStyle.css */
+
+.form-control {
+    -fx-background-color: white;
+    -fx-border-width: 0;
+}
+
+.success-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+}
 
 /*
 .scroll-pane {

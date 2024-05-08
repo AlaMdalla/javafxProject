@@ -64,7 +64,11 @@ public class postController implements Initializable {
     ;
     @FXML
     private AnchorPane rootPane;
+    @FXML
+    private TextField SharName;
 
+    @FXML
+    private TextField ShareComment;
 
     private boolean menuVisible = false;
 
@@ -108,6 +112,13 @@ public class postController implements Initializable {
 
     String url;
     public void setData(Post post)  {
+        if(post.getShareComment()!=null&&post.getSharName()!=null){
+            System.out.println("not null"+post.getSharName()+post.getShareComment());
+            SharName.setText(post.getSharName());
+            ShareComment.setText(post.getShareComment());
+            SharName.setVisible(true);
+            ShareComment.setVisible(true);
+        }
         idPost.setText(String.valueOf(post.getId()));
         nomPost.setText(post.getNom());
         ContenuPost.setText(post.getContenu());
@@ -117,7 +128,7 @@ public class postController implements Initializable {
         String imageurl=post.getImage();
         System.out.println("imageurl"+imageurl);
         Image image = new Image(imageurl.replace("\\","\\\\"));
-
+id=post.getId();
         imagePost.setImage(image);
 
 
@@ -486,5 +497,84 @@ else
 
 
     }
+    public  void  shareComment() throws SQLException {
+        if (nomPost.getText().isEmpty() || ContenuPost.getText().isEmpty() || TagPost.getText().isEmpty()||this.url=="") {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Please fill in all fields");
+            alert.show();
+            return;
+        }
+        Post post =new Post(nomPost.getText(),ContenuPost.getText(),TagPost.getText(),SharName.getText(),ShareComment.getText());
+post.setDate();
+        Post old_post= service.getPost(this.id);
 
+
+        post.setImage(this.url);
+        if(this.url==null){
+            post.setImage(old_post.getImage());
+        }
+        try {
+
+            service.ajouter(post);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succes");
+            alert.setContentText("post Ajouter avec succes");
+            alert.show();
+            try{
+                Parent root =
+                        FXMLLoader.load(getClass().getResource("afficherpost.fxml"));
+
+                nomPost.getScene().setRoot(root);
+
+            } catch (IOException ex) {
+
+
+                System.err.println(ex.getMessage());
+
+            }
+
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText(ex.getMessage());
+            alert.show();
+        }
+
+        System.out.println("Ajouter");
+
+
+    }
+
+
+    public void sharePost(ActionEvent actionEvent) throws SQLException, IOException {
+
+        String idText = idPost.getText();
+        if (!idText.isEmpty()) {
+            int id = Integer.parseInt(idText);
+            Post p = service.getPost(id);
+            if (p != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("share.fxml"));
+                Parent root = loader.load();
+                postController controller = loader.getController();
+
+                controller.setData(p);
+                Scene scene = new Scene(root);
+
+                // Get the current stage and scene
+                Stage currentStage = (Stage) idPost.getScene().getWindow();
+
+
+                // Set the new scene
+                currentStage.setScene(scene);
+                currentStage.setTitle("Post Details");
+                currentStage.show();
+
+            }
+
+        }
+
+
+    }
 }

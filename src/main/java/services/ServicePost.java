@@ -17,7 +17,7 @@ public class ServicePost implements Iservice<Post> {
 
     @Override
     public void ajouter(Post post) throws SQLException {
-        String sql = "INSERT INTO post (name, contenu,date,tag,image) VALUES ('" + post.getNom() + "', '" + post.getContenu() + "','"+post.getDate()+"','"+post.getTag()+"','"+post.getImage()+"')";
+        String sql = "INSERT INTO post (name, contenu,date,tag,image,SharName,ShareComment) VALUES ('" + post.getNom() + "', '" + post.getContenu() + "','"+post.getDate()+"','"+post.getTag()+"','"+post.getImage()+"','"+post.getSharName()+"','"+post.getShareComment()+"')";
 
         Statement statement = connection.createStatement();
         int rowsAffected = statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
@@ -81,7 +81,7 @@ public class ServicePost implements Iservice<Post> {
         ResultSet rs = statement.executeQuery(sql);
 
         while (rs.next()){
-         Post post = new Post(rs.getInt("id"),rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(), rs.getString("tag"), rs.getString("image"));
+         Post post = new Post(rs.getInt("id"),rs.getString("name"),rs.getString("contenu"),rs.getDate("date").toLocalDate(), rs.getString("tag"), rs.getString("image"),rs.getString("SharName"),rs.getString("ShareComment"));
          posts.add(post);
 
         }
@@ -109,3 +109,4 @@ public  Post getPost(int id) throws SQLException {
 }
 
 }
+

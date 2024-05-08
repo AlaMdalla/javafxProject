@@ -92,3 +92,9 @@
 .circular-image {
     -fx-clip-path: circle(50%);
 }
+.no-border {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+}

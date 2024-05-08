@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 import services.ServiceComment;
 import services.ServicePost;
 
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import org.controlsfx.control.Notifications;
 
 
 public class HelloController implements Initializable  {
@@ -93,6 +95,7 @@ public class HelloController implements Initializable  {
         }}
     @FXML
     public  void  ajouterPoste() {
+
         if (txtNom.getText().isEmpty() || txtContenu.getText().isEmpty() || txtTag.getText().isEmpty()||this.url=="") {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -108,9 +111,16 @@ post.setImage(this.url);
             service.ajouter(post);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succes");
-            alert.setContentText("post Ajouter avec succes");
-            alert.show();
+            Image image=new Image("file:///C:\\Users\\ufl\\Downloads\\Notification_Project_youtube - 1\\Notification_Project_youtube\\src\\image\\error.png");
+
+            Notifications notifications=Notifications.create();
+            notifications.graphic(new ImageView(image));
+            notifications.text("post added ");
+            notifications.title("Success Message");
+            notifications.hideAfter(Duration.seconds(4));
+            /*notifications.darkStyle();*/
+            /*   notifications.position(Pos.BOTTOM_CENTER);*/
+            notifications.show();
             try{
                 Parent root =
                         FXMLLoader.load(getClass().getResource("afficherpost.fxml"));

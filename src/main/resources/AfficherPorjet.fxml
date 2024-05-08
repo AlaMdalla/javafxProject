@@ -55,7 +55,7 @@
       <Button fx:id="retour" layoutX="291.0" layoutY="32.0" mnemonicParsing="false" onAction="#retour" opacity="0.0" text="Button" />
       <HBox layoutX="618.0" layoutY="598.0" spacing="10">
          <children>
-   
+
          <TextField fx:id="searchField" layoutX="727.0" layoutY="598.0" prefHeight="66.0" prefWidth="332.0" promptText="Recherche par Nom" style="-fx-background-color: #40E0D0;" />
             <Button fx:id="rechercherParnom" onAction="#rechercherParTitre" text="Search" />
          </children>

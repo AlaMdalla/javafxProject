@@ -114,8 +114,8 @@ public class AjouterPartenaire {
     }
     private void sendSMS(String recipientNumber, Partenaire newPartenaire) {
         // Initialize Twilio library with your account information
-        String ACCOUNT_SID = "ACbed9c3e48616651cdcdcf8cbd1770f8e";
-        String AUTH_TOKEN = "d0fe91f7e8b9902e638f5c61d7987d2d";
+        String ACCOUNT_SID = "ACa0f21dcd8850e53c6475d30b715ef089";
+        String AUTH_TOKEN = "696a7359109ab7601fe7f3c374f0e445";
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         String PhoneNumber ="+21628178182";
         String message = "Bonjour,\n"
@@ -130,7 +130,7 @@ public class AjouterPartenaire {
         // Send the SMS message
         Message twilioMessage = Message.creator(
                 new PhoneNumber(PhoneNumber),
-                new PhoneNumber("+12569803965"),
+                new PhoneNumber("+12563630943"),
                 message).create();
 
         System.out.println("SMS envoyé : " + twilioMessage.getSid());

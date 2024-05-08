@@ -383,6 +383,21 @@ public class HelloController implements Initializable {
 
         return card;
     }
+    private void generateQRCodeForEvent(int eventId) {
+        // Générer le texte du QR code en utilisant l'ID de l'événement
+        String qrCodeText = "https://www.example.com/event?id=" + eventId;
+        String path = "C:\\Users\\elyes\\Desktop\\QrCode\\event_" + eventId + ".jpg";
+
+        try {
+            BitMatrix matrix = new MultiFormatWriter().encode(qrCodeText, BarcodeFormat.QR_CODE, 500, 500);
+
+            // Write QR code to file
+            MatrixToImageWriter.writeToPath(matrix, "jpg", Paths.get(path));
+            System.out.println("QR code saved successfully for event ID: " + eventId);
+        } catch (IOException | WriterException ex) {
+            ex.printStackTrace();
+        }
+    }
 
 
     private Image createQRCodeImage(String qrCodeText, int width, int height) {
@@ -473,21 +488,7 @@ public class HelloController implements Initializable {
     }
 
 
-    private void generateQRCodeForEvent(int eventId) {
-            // Générer le texte du QR code en utilisant l'ID de l'événement
-            String qrCodeText = "https://www.example.com/event?id=" + eventId;
-            String path = "C:\\Users\\elyes\\Desktop\\QrCode\\event_" + eventId + ".jpg";
 
-            try {
-                BitMatrix matrix = new MultiFormatWriter().encode(qrCodeText, BarcodeFormat.QR_CODE, 500, 500);
-
-                // Write QR code to file
-                MatrixToImageWriter.writeToPath(matrix, "jpg", Paths.get(path));
-                System.out.println("QR code saved successfully for event ID: " + eventId);
-            } catch (IOException | WriterException ex) {
-                ex.printStackTrace();
-            }
-        }
 
 
 

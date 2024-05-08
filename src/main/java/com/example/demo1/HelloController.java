@@ -77,6 +77,7 @@ public class HelloController implements Initializable {
 
     public TextField tserach;
     public Button btnsponsor;
+    public ImageView btnOpenMap;
     Connection con = null;
     PreparedStatement st = null;
     ResultSet rs = null;

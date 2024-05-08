@@ -1,0 +1,42 @@
+/* styles.css */
+
+/* Style de l'ancre */
+.anchor-pane {
+    -fx-background-color: #f0f0f0; /* Nouvelle couleur de fond */
+}
+
+/* Style du titre */
+.text-title {
+    -fx-font-family: "Arial"; /* Police de caractères */
+    -fx-font-size: 24.0; /* Taille de la police */
+    -fx-fill: #333333; /* Couleur du texte */
+}
+
+/* Style des boutons d'action */
+.action-button {
+    -fx-background-color: linear-gradient(to bottom, #4CAF50, #2e7a7d); /* Dégradé de couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-background-radius: 5px; /* Arrondi du bouton */
+    -fx-border-radius: 5px; /* Arrondi du bouton */
+    -fx-padding: 10px 20px; /* Marge intérieure */
+    -fx-cursor: hand; /* Curseur au survol */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-font-weight: bold; /* Gras */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0); /* Effet d'ombre */
+    -fx-transition: background-color 0.3s; /* Animation de transition */
+}
+
+/* Style au survol des boutons d'action */
+.action-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #43A047, #1B5E20); /* Changement de couleur au survol */
+}
+
+/* Animation de fondu */
+.fade-in {
+    -fx-opacity: 0.0; /* Opacité initiale à 0 */
+}
+
+.fade-in-entered {
+    -fx-opacity: 1.0; /* Opacité finale à 1 */
+    -fx-transition: opacity 1s; /* Animation de transition */
+}

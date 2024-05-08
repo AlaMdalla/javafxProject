@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="tf_NomProjet" prefHeight="629.0" prefWidth="1015.0" style="-fx-background-color: #E0E8F0to bottom, #3b5998, #1B365D);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ModifierProjetController">
+
+    <children>
+
+              <!-- Icône "Retour" -->
+        <ImageView fitHeight="31.0" fitWidth="85.0" layoutX="224.0" layoutY="15.0">
+            <image>
+                <Image url="@images/back.png" />
+            </image>
+        </ImageView>
+      <ImageView fitHeight="315.0" fitWidth="317.0" layoutX="622.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/ahmed.png" />
+         </image>
+      </ImageView>
+
+        <Text fill="#150eda" layoutX="214.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du projet " />
+        <TextField fx:id="nomProjetField" layoutX="364.0" layoutY="141.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #40E0D0;" />
+
+        <Text fill="#150eda" layoutX="214.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+        <TextField fx:id="descriptionField" layoutX="364.0" layoutY="201.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #40E0D0;" />
+
+        <Text fill="#150eda" layoutX="214.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
+        <TextField fx:id="typeField" layoutX="364.0" layoutY="261.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #40E0D0;" />
+
+        <Text fill="#150eda" layoutX="214.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date de début " />
+        <DatePicker fx:id="stdateField" layoutX="364.0" layoutY="321.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #87CEFA;" />
+
+        <Text fill="#150eda" layoutX="214.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date de fin " />
+        <DatePicker fx:id="endateField" layoutX="364.0" layoutY="381.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #87CEFA;" />
+        <Text fill="#656483" layoutX="663.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MODIFIER PROJET" textAlignment="CENTER" wrappingWidth="234.0">
+            <font>
+                <Font size="33.0" />
+            </font>
+        </Text>
+      <AnchorPane prefHeight="629.0" prefWidth="200.0" style="-fx-background-color: #40E0D0;" />
+      <ImageView fitHeight="249.0" fitWidth="306.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/jobflow.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="modifierProjetButton1" layoutX="236.0" layoutY="476.0" mnemonicParsing="false" onAction="#modifierProjet" prefHeight="20.0" prefWidth="370.0" style="-fx-background-color: #40E0D0;" text="Modifier Projet">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+
+              <!-- Bouton "Retour" -->
+        <Button fx:id="retourButton" layoutX="205.0" layoutY="14.0"  mnemonicParsing="false" onAction="#retour" opacity="0.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-color: linear-gradient(to bottom, #FFFFFF, #B2CCFF); -fx-text-fill: #1B365D;">
+            <style>
+                -fx-background-color: linear-gradient(to bottom, #5a88c1, #1f3b63);
+                -fx-text-fill: white;
+            </style>
+            <effect>
+                <DropShadow />
+            </effect>
+            Retour
+              </Button>
+      <Button fx:id="modifierProjetButton11" layoutX="622.0" layoutY="476.0" mnemonicParsing="false" onAction="#modifierProjet" prefHeight="20.0" prefWidth="370.0" style="-fx-background-color: #40E0D0;" text="cancel">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+
+    </children>
+</AnchorPane>

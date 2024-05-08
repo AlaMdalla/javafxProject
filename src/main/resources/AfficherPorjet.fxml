@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="876.0" prefWidth="1196.0" style="-fx-background-color: #E0E8F0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AfficherProjetController">
+   <children>
+      <ImageView fitHeight="276.0" fitWidth="289.0" layoutX="793.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/ahmed.png" />
+         </image>
+      </ImageView>
+
+      <ListView fx:id="listProjet" layoutX="356.0" layoutY="276.0" prefHeight="315.0" prefWidth="742.0" style="-fx-background-color: #40E0D0;" />
+      <!-- Fin de l'espace pour le chatbot -->
+
+      <Text fill="#150eda" layoutX="375.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Projet" />
+      <Text fill="#150eda" layoutX="657.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Début" />
+      <Text fill="#150eda" layoutX="926.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin" />
+      <Button fx:id="modifierProjet" layoutX="759.0" layoutY="731.0" onAction="#modifierProjet" prefHeight="54.0" prefWidth="413.0" style="-fx-background-color: #40E0D0; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-padding: 8px 16px; -fx-text-fill: #1B365D;" text="Modifier" />
+      <ImageView fitHeight="92.0" fitWidth="262.0" layoutY="230.0">
+      </ImageView>
+      <AnchorPane prefHeight="876.0" prefWidth="262.0" style="-fx-background-color: #40E0D0;">
+         <children>
+            <Button layoutX="119.0" layoutY="456.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="37.0" style="-fx-background-color: #40E0D0;" />
+            <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="106.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/GestionCour.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="98.0" layoutY="601.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="37.0" style="-fx-background-color: #40E0D0;" />
+            <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="87.0" layoutY="584.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/update.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <ImageView fitHeight="315.0" fitWidth="217.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/jobflow.png" />
+         </image>
+      </ImageView>
+
+            <Button fx:id="supprimerProjet" layoutX="345.0" layoutY="731.0" onAction="#delete" prefHeight="54.0" prefWidth="398.0" style="-fx-background-color: #40E0D0; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-padding: 8px 16px; -fx-text-fill: #1B365D;" text="Supprimer" />
+
+            <Text fill="#150eda" layoutX="885.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LISTE DES PROJETS" wrappingWidth="136.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Button layoutX="102.0" layoutY="238.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="47.0" style="-fx-background-color: #40E0D0;" />
+      <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="98.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/GestionEvaluation.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="46.0" layoutY="47.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="37.0" style="-fx-background-image:  -fx-background-color: #40E0D0;" />
+      <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="32.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/back.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="retour" layoutX="33.0" layoutY="57.0"   onAction="#retour"  mnemonicParsing="false" opacity="0.0" text="Button" />
+   </children>
+</AnchorPane>

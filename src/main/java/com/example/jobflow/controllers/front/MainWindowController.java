@@ -40,6 +40,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private Button btnOpportunites;
     @FXML
+    private Button btnSociete;
+    @FXML
     private Button btnTests;
     @FXML
     private Button btnPosts;
@@ -61,6 +63,7 @@ public class MainWindowController implements Initializable {
                 btnOpportunites,
                 btnTests,
                 btnPosts,
+                btnSociete,
         };
 
         for (Button lien : liens) {
@@ -78,6 +81,20 @@ public class MainWindowController implements Initializable {
     @FXML
     private void showProfile(ActionEvent ignored) {
         goToLink(Constants.FXML_FRONT_MY_PROFILE);
+
+        btnProfile.setTextFill(COLOR_PRIMARY);
+        Animations.animateButton(btnProfile, COLOR_GRAY, Color.WHITE, COLOR_PRIMARY, 0, false);
+    }
+    @FXML
+    private void showSociete(ActionEvent ignored) {
+        goToLink(Constants.FXML_FRONT_MY_Societe);
+
+        btnProfile.setTextFill(COLOR_PRIMARY);
+        Animations.animateButton(btnProfile, COLOR_GRAY, Color.WHITE, COLOR_PRIMARY, 0, false);
+    }
+    @FXML
+    private void showPartenaire(ActionEvent ignored) {
+        goToLink(Constants.FXML_FRONT_MY_Partenaire);
 
         btnProfile.setTextFill(COLOR_PRIMARY);
         Animations.animateButton(btnProfile, COLOR_GRAY, Color.WHITE, COLOR_PRIMARY, 0, false);

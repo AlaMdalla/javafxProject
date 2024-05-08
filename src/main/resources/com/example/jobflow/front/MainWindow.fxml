@@ -16,6 +16,14 @@
                     <Font name="System Bold" size="26.0" />
                 </font>
             </Text>
+         <Button fx:id="btnProfile" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showProfile" text="Mon profil" textFill="WHITE">
+            <font>
+               <Font name="Segoe UI Bold" size="15.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
 
             <Button fx:id="btnOpportunites" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#afficherOpportunites" text="Opportunites" textFill="WHITE">
                 <HBox.margin>
@@ -40,7 +48,7 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </Button>
-         <Button fx:id="btnProfile" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showProfile" text="Mon profil" textFill="WHITE">
+         <Button fx:id="btnTests" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#afficherTests" text="Tests" textFill="WHITE">
             <font>
                <Font name="Segoe UI Bold" size="15.0" />
             </font>
@@ -48,7 +56,15 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </Button>
-         <Button fx:id="btnTests" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#afficherTests" text="Tests" textFill="WHITE">
+         <Button fx:id="btnSociete" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showSociete" text="Societe" textFill="WHITE">
+            <font>
+               <Font name="Segoe UI Bold" size="15.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+         <Button fx:id="btnpartenaire" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showPartenaire" text="partenaire" textFill="WHITE">
             <font>
                <Font name="Segoe UI Bold" size="15.0" />
             </font>

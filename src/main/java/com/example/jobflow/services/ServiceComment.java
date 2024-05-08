@@ -23,10 +23,7 @@ public class ServiceComment implements Iservice<Comment> {
 
     }
 
-    @Override
-    public void modifier(Post p) throws SQLException {
 
-    }
 
     @Override
     public void supprimer(int id) throws SQLException {

@@ -11,40 +11,20 @@
 
 <AnchorPane prefHeight="430.0" prefWidth="943.0" style="-fx-background-color: #E0E8F0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jobflow.controllers.front.project.ajouterProjetController">
     <children>
-        <AnchorPane prefHeight="524.0" prefWidth="139.0" style="-fx-background-color: #40E0D0;">
+        <AnchorPane prefHeight="499.0" prefWidth="149.0" style="-fx-background-color: #000080;">
             <children>
-                <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="20.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@images/GestionEvaluation.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="18.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@images/GestionCour.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="20.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@images/update.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="17.0" layoutY="349.0" pickOnBounds="true" preserveRatio="true">
+                <Button layoutX="24.0" layoutY="129.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="47.0" style="-fx-background-color: #40E0D0;" />
+                <ImageView fitHeight="66.0" fitWidth="127.0" layoutX="41.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@images/back.png" />
                     </image>
                 </ImageView>
-                <Button layoutX="24.0" layoutY="129.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="47.0" style="-fx-background-color: #40E0D0;" />
-                <Button layoutX="31.0" layoutY="218.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="37.0" style="-fx-background-color: #40E0D0;" />
-                <Button layoutX="31.0" layoutY="287.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="37.0" style="-fx-background-color: #40E0D0;" />
-            <Button fx:id="retour" layoutX="19.0" layoutY="367.0"  onAction="#retour" mnemonicParsing="false" opacity="0.11" text="Button" />
+                <Button fx:id="retour" layoutX="43.0" layoutY="34.0" mnemonicParsing="false" onAction="#retour" opacity="0.0" text="Button" />
+                <Button fx:id="ajouterProjetButton" layoutX="14.0" layoutY="145.0" mnemonicParsing="false" onAction="#ajouterProjet" prefHeight="21.0" prefWidth="107.0" style="-fx-background-color: #006400;" text="create" />
+                <Button cancelButton="true" layoutX="10.0" layoutY="266.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="115.0" style="-fx-background-color: #006400;" text="cancel" />
             </children></AnchorPane>
-        <ImageView fitHeight="189.0" fitWidth="225.0" layoutX="-5.0" layoutY="-80.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@images/jobflow.png" />
-            </image>
-        </ImageView>
         <Label layoutX="152.0" layoutY="198.0" prefHeight="21.0" prefWidth="127.0" text="type" />
-        <TextField id="projectNameField" fx:id="projectNameField" layoutX="158.0" layoutY="94.0" prefHeight="31.0" prefWidth="348.0" />
+        <TextField id="projectNameField" fx:id="projectNameField" layoutX="158.0" layoutY="95.0" prefHeight="31.0" prefWidth="348.0" />
         <Label layoutX="158.0" layoutY="133.0" prefHeight="17.0" prefWidth="115.0" text="description" />
         <TextField id="descriptionField" fx:id="descriptionField" layoutX="158.0" layoutY="166.0" prefHeight="31.0" prefWidth="348.0" />
         <TextField id="typeField" fx:id="typeField" layoutX="158.0" layoutY="237.0" prefHeight="31.0" prefWidth="348.0" />
@@ -54,18 +34,17 @@
         <DatePicker id="endDatePicker" fx:id="endDatePicker" layoutX="158.0" layoutY="358.0" prefHeight="31.0" prefWidth="362.0" />
         <Accordion />
         <Label layoutX="158.0" layoutY="335.0" prefHeight="15.0" prefWidth="127.0" text="end date" />
-        <ImageView fitHeight="330.0" fitWidth="336.0" layoutX="547.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/ahmed.png" />
-         </image></ImageView>
-        <Label layoutX="624.0" layoutY="94.0" prefHeight="207.0" prefWidth="216.0" text="create project" textAlignment="CENTER" textFill="#947e7e">
+        <ChoiceBox layoutX="317.0" layoutY="399.0" prefHeight="31.0" prefWidth="172.0" style="-fx-background-color: #000080;" />
+        <Label layoutX="164.0" layoutY="404.0" prefHeight="15.0" prefWidth="127.0" text="chat id" />
+        <Label layoutX="304.0" layoutY="-81.0" prefHeight="207.0" prefWidth="216.0" text="create project" textAlignment="CENTER" textFill="#947e7e">
             <font>
                 <Font size="28.0" />
             </font>
         </Label>
-      <Button fx:id="ajouterProjetButton" layoutX="151.0" layoutY="456.0" mnemonicParsing="false" onAction="#ajouterProjet" prefHeight="31.0" prefWidth="362.0" style="-fx-background-color: #40E0D0;" text="create" />
-      <Button cancelButton="true" layoutX="558.0" layoutY="456.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="348.0" style="-fx-background-color: #40E0D0;" text="cancel" />
-      <ChoiceBox layoutX="317.0" layoutY="399.0" prefHeight="31.0" prefWidth="172.0" style="-fx-background-color: #40E0D0;" />
-      <Label layoutX="164.0" layoutY="404.0" prefHeight="15.0" prefWidth="127.0" text="chat id" />
+        <ImageView fitHeight="335.0" fitWidth="362.0" layoutX="619.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/jobflow.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

@@ -48,7 +48,7 @@ public class MainApp extends Application {
                 Constants.FXML_LOGIN,
                 "Connexion",
                 500,
-                600
+                700
         );
     }
 
@@ -78,6 +78,34 @@ public class MainApp extends Application {
                 700
         );
     }
+
+    public void loadForgotFirst() {
+        loadScene(
+                Constants.FXML_FORGOT_FIRST,
+                "Forgot password",
+                700,
+                700
+        );
+    }
+
+    public void loadForgotSecond() {
+        loadScene(
+                Constants.FXML_FORGOT_SECOND,
+                "Forgot password",
+                700,
+                700
+        );
+    }
+
+    public void loadForgotThird() {
+        loadScene(
+                Constants.FXML_FORGOT_THIRD,
+                "Forgot password",
+                700,
+                700
+        );
+    }
+
 
     public void login(User user) {
         MainApp.setSession(user);

@@ -16,6 +16,9 @@ public class Constants {
     public static final String FXML_FRONT_MY_PROFILE = PACKAGE_NAME + "/front/user/MyProfile.fxml";
     public static final String FXML_FRONT_EDIT_PROFILE = PACKAGE_NAME + "/front/user/EditProfile.fxml";
 
+    public static final String FXML_FORGOT_FIRST = PACKAGE_NAME + "/forgot_password/ForgotFirst.fxml";
+    public static final String FXML_FORGOT_SECOND = PACKAGE_NAME + "/forgot_password/ForgotSecond.fxml";
+    public static final String FXML_FORGOT_THIRD = PACKAGE_NAME + "/forgot_password/ForgotThird.fxml";
 
     public static final String FXML_SIGNUP = PACKAGE_NAME + "/Register.fxml";
     public static final String FXML_LOGIN = PACKAGE_NAME + "/Login.fxml";

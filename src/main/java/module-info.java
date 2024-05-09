@@ -3,6 +3,9 @@ module com.example.jobflow {
     requires javafx.fxml;
     requires java.sql;
     requires jbcrypt;
+    requires java.mail;
+    requires simplecaptcha;
+    requires javafx.swing;
 
     opens com.example.jobflow to javafx.fxml;
     opens com.example.jobflow.entities to javafx.fxml;
@@ -11,6 +14,7 @@ module com.example.jobflow {
     opens com.example.jobflow.controllers.front to javafx.fxml;
     opens com.example.jobflow.controllers.front.user to javafx.fxml;
     opens com.example.jobflow.controllers.back.user to javafx.fxml;
+    opens com.example.jobflow.controllers.forgot_password to javafx.fxml;
 
     exports com.example.jobflow;
     exports com.example.jobflow.entities;
@@ -19,4 +23,5 @@ module com.example.jobflow {
     exports com.example.jobflow.controllers.front;
     exports com.example.jobflow.controllers.front.user;
     exports com.example.jobflow.controllers.back.user;
+    exports com.example.jobflow.controllers.forgot_password;
 }

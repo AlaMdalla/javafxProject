@@ -14,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -34,6 +36,8 @@ public class ShowAllController implements Initializable {
     public Button addButton;
     @FXML
     public VBox mainVBox;
+    @FXML
+    public TextField searchTF;
 
 
     List<User> listUser;
@@ -42,19 +46,22 @@ public class ShowAllController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         listUser = UserService.getInstance().getAll();
 
-        displayData();
+        displayData("");
     }
 
-    void displayData() {
+    void displayData(String searchText) {
         mainVBox.getChildren().clear();
 
         Collections.reverse(listUser);
 
         if (!listUser.isEmpty()) {
             for (User user : listUser) {
-
-                mainVBox.getChildren().add(makeUserModel(user));
-
+                if (searchText.isEmpty()
+                        || user.getEmail().contains(searchText)
+                        || user.getLastname().contains(searchText)
+                ) {
+                    mainVBox.getChildren().add(makeUserModel(user));
+                }
             }
         } else {
             StackPane stackPane = new StackPane();
@@ -74,11 +81,28 @@ public class ShowAllController implements Initializable {
 
             HBox innerContainer = ((HBox) ((AnchorPane) ((AnchorPane) parent).getChildren().get(0)).getChildren().get(0));
             ((Text) innerContainer.lookup("#emailText")).setText("Email : " + user.getEmail());
-            ((Text) innerContainer.lookup("#passwordText")).setText("Password : " + user.getPassword());
             ((Text) innerContainer.lookup("#lastnameText")).setText("Lastname : " + user.getLastname());
             ((Text) innerContainer.lookup("#rolesText")).setText("Roles : " + user.getRoles());
-            ((Text) innerContainer.lookup("#statusText")).setText("Status : " + user.getStatus());
 
+            Text statusText = ((Text) innerContainer.lookup("#statusText"));
+            statusText.setText("Status : " + (user.getStatus() == 1 ? "Active" : "Banned"));
+            statusText.setStyle("-fx-fill: " + (user.getStatus() == 1 ? "green" : "red"));
+
+            Button banButton = ((Button) innerContainer.lookup("#banButton"));
+            banButton.setText(user.getStatus() == 1 ? "Ban" : "Unban");
+
+            banButton.setStyle("-fx-background-color: " + (user.getStatus() == 1 ? "red" : "green"));
+            banButton.setTextFill(javafx.scene.paint.Color.WHITE);
+            banButton.setOnAction((ignored) -> {
+                user.setStatus(user.getStatus() == 1 ? 0 : 1);
+
+                if (UserService.getInstance().edit(user)) {
+                    statusText.setText("Status : " + (user.getStatus() == 1 ? "Active" : "Banned"));
+                    statusText.setStyle("-fx-fill: " + (user.getStatus() == 1 ? "green" : "red"));
+                    banButton.setText(user.getStatus() == 1 ? "Ban" : "Unban");
+                    banButton.setStyle("-fx-background-color: " + (user.getStatus() == 1 ? "red" : "green"));
+                }
+            });
 
             ((Button) innerContainer.lookup("#editButton")).setOnAction((ignored) -> modifierUser(user));
             ((Button) innerContainer.lookup("#deleteButton")).setOnAction((ignored) -> supprimerUser(user));
@@ -89,7 +113,9 @@ public class ShowAllController implements Initializable {
         }
         return parent;
     }
-
+    public void search(KeyEvent keyEvent) {
+        displayData(searchTF.getText());
+    }
     @FXML
     private void ajouterUser(ActionEvent ignored) {
         currentUser = null;
@@ -120,6 +146,7 @@ public class ShowAllController implements Initializable {
             }
         }
     }
+
 
 
 }

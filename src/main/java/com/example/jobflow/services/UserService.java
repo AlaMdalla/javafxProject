@@ -158,4 +158,36 @@ public class UserService {
         }
         return false;
     }
+
+    public boolean checkExist(String email) {
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM `user` WHERE `email` = ?");
+
+            preparedStatement.setString(1, email);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+
+        } catch (SQLException exception) {
+            System.out.println("Error (checkExist) : " + exception.getMessage());
+        }
+        return false;
+    }
+
+    public boolean updatePassword(String email, String newPassword) {
+
+        String request = "UPDATE `user` SET `password` = ? WHERE `email` LIKE '" + email + "'";
+        try {
+            preparedStatement = connection.prepareStatement(request);
+
+            preparedStatement.setString(1, encodePassword(newPassword));
+
+            preparedStatement.executeUpdate();
+            System.out.println("User edited");
+            return true;
+        } catch (SQLException exception) {
+            System.out.println("Error (edit) user : " + exception.getMessage());
+        }
+        return false;
+    }
 }

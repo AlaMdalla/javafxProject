@@ -4,12 +4,16 @@ import com.example.jobflow.MainApp;
 import com.example.jobflow.entities.User;
 import com.example.jobflow.services.UserService;
 import com.example.jobflow.utils.AlertUtils;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import nl.captcha.Captcha;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,10 +32,17 @@ public class RegisterController implements Initializable {
     public Button btnAjout;
     @FXML
     public Text topText;
+    @FXML
+    public TextField captchaTF;
+    @FXML
+    public ImageView captchaIV;
+
+    Captcha captcha;
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setCaptcha();
 
         topText.setText("Inscription");
         btnAjout.setText("S'inscrire");
@@ -67,6 +78,10 @@ public class RegisterController implements Initializable {
 
     private boolean controleDeSaisie() {
 
+        if (!captcha.isCorrect(captchaTF.getText())) {
+            AlertUtils.makeInformation("Captcha invalide");
+            return false;
+        }
 
         if (emailTF.getText().isEmpty()) {
             AlertUtils.makeInformation("Email ne doit pas etre vide");
@@ -90,5 +105,24 @@ public class RegisterController implements Initializable {
         }
 
         return true;
+    }
+
+    @FXML
+    public void resetCaptcha(ActionEvent ignored) {
+        setCaptcha();
+        captchaTF.clear();
+    }
+
+
+    void setCaptcha() {
+        captcha = new Captcha.Builder(250, 200)
+                .addText()
+                .addBackground()
+                .addNoise()
+                .addBorder()
+                .build();
+
+        Image image = SwingFXUtils.toFXImage(captcha.getImage(), null);
+        captchaIV.setImage(image);
     }
 }

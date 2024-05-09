@@ -70,6 +70,17 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </Button>
+            <Button fx:id="btnEvent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#afficherEvenements" text="enements" textFill="WHITE">
+                <HBox.margin>
+                    <Insets />
+                </HBox.margin>
+                <font>
+                    <Font name="Segoe UI Bold" size="15.0" />
+                </font>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
             <Button fx:id="btnComments" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                     mnemonicParsing="false" onAction="#afficherComments" text="Comments" textFill="WHITE">
                 <HBox.margin>

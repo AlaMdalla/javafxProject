@@ -49,6 +49,8 @@ public class MainWindowController implements Initializable {
     private Button btnTests;
     @FXML
     private Button btnPartenaire;
+    @FXML
+    private Button btnEvent;
 
     public static MainWindowController getInstance() {
         if (instance == null) {
@@ -68,7 +70,8 @@ public class MainWindowController implements Initializable {
                 btnPosts,
                 btnComments,
                 btnSociete,
-                btnPartenaire
+                btnPartenaire,
+                btnEvent
         };
 
         for (Button lien : liens) {
@@ -164,5 +167,12 @@ public class MainWindowController implements Initializable {
 
         btnPartenaire.setTextFill(COLOR_PRIMARY);
         Animations.animateButton(btnUsers, COLOR_GRAY, Color.WHITE, COLOR_PRIMARY, 0, false);
+    }
+
+    public void afficherEvenements(ActionEvent actionEvent) {
+        goToLink(Constants.FXML_BACK_DISPLAY_ALL_Back_Event);
+
+        btnEvent.setTextFill(COLOR_PRIMARY);
+        Animations.animateButton(btnEvent, COLOR_GRAY, Color.WHITE, COLOR_PRIMARY, 0, false);
     }
 }

@@ -12,6 +12,8 @@ module com.example.jobflow {
     requires org.controlsfx.controls;
     requires twilio;
     requires com.gluonhq.maps;
+    requires com.jfoenix;
+    requires emoji.java;
 
     opens com.example.jobflow to javafx.fxml;
     opens com.example.jobflow.entities to javafx.fxml;
@@ -28,6 +30,10 @@ module com.example.jobflow {
     opens com.example.jobflow.controllers.front.posts to javafx.fxml;
     opens com.example.jobflow.controllers.front.societe to javafx.fxml;
     opens com.example.jobflow.controllers.front.evenement to javafx.fxml;
+    opens com.example.jobflow.controllers.front.project to javafx.fxml;
+    opens com.example.jobflow.server to javafx.fxml;
+
+
 
     exports com.example.jobflow;
     exports com.example.jobflow.entities;
@@ -42,6 +48,10 @@ module com.example.jobflow {
     exports com.example.jobflow.controllers.front.test;
     exports com.example.jobflow.controllers.front.posts;
     exports com.example.jobflow.controllers.front.societe;
+    exports com.example.jobflow.controllers.front.project;
     exports com.example.jobflow.controllers.back.opportunite;
     exports com.example.jobflow.controllers.back.test;
+    exports com.example.jobflow.server;
+
+
 }

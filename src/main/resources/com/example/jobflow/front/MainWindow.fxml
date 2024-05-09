@@ -80,6 +80,14 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </Button>
+         <Button fx:id="btnProject" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showProject" text="projet" textFill="WHITE">
+            <font>
+               <Font name="Segoe UI Bold" size="15.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
    
               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" styleClass="danger-button" text="Logout" textFill="WHITE">
                <font>

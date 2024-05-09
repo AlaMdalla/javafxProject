@@ -1,0 +1,23 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import Controller.AfficherChatController?>
+
+<AnchorPane prefHeight="400.0" prefWidth="750.0" style="-fx-background-color: linear-gradient(to bottom, #4F81BD, #1B365D);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jobflow.controllers.front.project.AfficherChatController">
+    <VBox layoutX="529.0" layoutY="223.0" prefHeight="252.0" prefWidth="200.0" spacing="10.0" alignment="CENTER">
+        <Label text="SmatStepsBot" textFill="#FFFFFF" style="-fx-font-size: 20px;" />
+
+        <HBox spacing="10.0" alignment="CENTER">
+            <Button text="Modifier" onAction="#modifierChat" style="-fx-font-size: 14px;" />
+
+            <TextField fx:id="chatInput" prefWidth="200" promptText="Message SmartStepsBot" style="-fx-font-size: 14px;" />
+        </HBox>
+
+        <TextArea fx:id="chatOutput" editable="false" prefHeight="162.0" prefWidth="200.0" style="-fx-font-size: 14px;" />
+
+        <Button text="Supprimer" onAction="#deleteChat" style="-fx-font-size: 14px;" />
+    </VBox>
+
+    <ListView fx:id="listProjet" layoutX="184.0" layoutY="233.0" prefHeight="221.0" prefWidth="334.0" style="-fx-font-size: 14px;" />
+
+    <!-- Add other UI components and event handlers as needed -->
+</AnchorPane>

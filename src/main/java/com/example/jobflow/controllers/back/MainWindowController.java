@@ -37,7 +37,8 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private Button btnUsers;
-
+    @FXML
+    private Button btnSociete;
     @FXML
     private Button btnPosts;
     @FXML
@@ -46,6 +47,8 @@ public class MainWindowController implements Initializable {
     private Button btnOpportunites;
     @FXML
     private Button btnTests;
+    @FXML
+    private Button btnPartenaire;
 
     public static MainWindowController getInstance() {
         if (instance == null) {
@@ -63,7 +66,9 @@ public class MainWindowController implements Initializable {
                 btnOpportunites,
                 btnTests,
                 btnPosts,
-                btnComments
+                btnComments,
+                btnSociete,
+                btnPartenaire
         };
 
         for (Button lien : liens) {
@@ -88,6 +93,13 @@ public class MainWindowController implements Initializable {
     @FXML
     private void afficherComments(ActionEvent ignored) {
         goToLink(Constants.FXML_BACK_DISPLAY_ALL_Comments);
+
+        btnUsers.setTextFill(COLOR_PRIMARY);
+        Animations.animateButton(btnUsers, COLOR_GRAY, Color.WHITE, COLOR_PRIMARY, 0, false);
+    }
+    @FXML
+    private void afficherSociete(ActionEvent ignored) {
+        goToLink(Constants.FXML_BACK_DISPLAY_ALL_Societ);
 
         btnUsers.setTextFill(COLOR_PRIMARY);
         Animations.animateButton(btnUsers, COLOR_GRAY, Color.WHITE, COLOR_PRIMARY, 0, false);
@@ -145,5 +157,12 @@ public class MainWindowController implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void afficherPartenaire(ActionEvent actionEvent) {
+        goToLink(Constants.FXML_BACK_DISPLAY_ALL_Partenaire);
+
+        btnPartenaire.setTextFill(COLOR_PRIMARY);
+        Animations.animateButton(btnUsers, COLOR_GRAY, Color.WHITE, COLOR_PRIMARY, 0, false);
     }
 }

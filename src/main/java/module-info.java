@@ -22,6 +22,8 @@ module com.example.jobflow {
     opens com.example.jobflow.controllers.front to javafx.fxml;
     opens com.example.jobflow.controllers.front.user to javafx.fxml;
     opens com.example.jobflow.controllers.back.user to javafx.fxml;
+    opens com.example.jobflow.controllers.back.societe to javafx.fxml;
+
     opens com.example.jobflow.controllers.forgot_password to javafx.fxml;
     opens com.example.jobflow.controllers.front.opportunite to javafx.fxml;
     opens com.example.jobflow.controllers.front.test to javafx.fxml;

@@ -27,7 +27,9 @@ public class Constants {
     // OPPORTUNITE
     public static final String FXML_BACK_DISPLAY_ALL_Posts = PACKAGE_NAME + "/back/post/Posts.fxml";
     public static final String FXML_BACK_DISPLAY_ALL_Comments = PACKAGE_NAME + "/back/post/Comments.fxml";
+    public static final String FXML_BACK_DISPLAY_ALL_Societ = PACKAGE_NAME + "/back/societe/afficherSociete.fxml";
 
+    public static final String FXML_BACK_DISPLAY_ALL_Partenaire = PACKAGE_NAME + "/back/societe/AfficherPartenaire.fxml";
 
     public static final String FXML_BACK_DISPLAY_ALL_OPPORTUNITE = PACKAGE_NAME + "/back/opportunite/ShowAll.fxml";
     public static final String FXML_BACK_MODEL_OPPORTUNITE = PACKAGE_NAME + "/back/opportunite/Model.fxml";

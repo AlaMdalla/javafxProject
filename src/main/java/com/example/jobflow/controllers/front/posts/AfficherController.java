@@ -10,14 +10,23 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import com.example.jobflow.services.ServicePost;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 
 public class AfficherController  implements Initializable {
+    public javafx.scene.control.TextField search;
     ServicePost service =new ServicePost();
+    @FXML
+    private TextField searchField;
+
     @FXML
     private FlowPane comment_Container;
 
@@ -40,6 +49,23 @@ public class AfficherController  implements Initializable {
                 controller.setData(post);
                 controller.setreactions(post);
           cardContainer.getChildren().add(card);
+            }
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    // Méthode de tri par likes
+    public void trierParLikes() {
+        try {
+            for (Post post : service.getAll().sorted(Comparator.comparing(Post::getNom))) {
+                // Load card view for each post and add it to the container
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/jobflow/front/posts/post.fxml"));
+                Parent card = loader.load();
+                postController controller = loader.getController();
+                controller.setData(post);
+                controller.setreactions(post);
+                cardContainer.getChildren().add(card);
             }
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
@@ -81,21 +107,32 @@ public class AfficherController  implements Initializable {
 
     }
 
-    public void navigatetoback(ActionEvent actionEvent) {
-        try{
-            Parent root =
-                    FXMLLoader.load(getClass().getResource("back/Posts.fxml"));
+    public void afficherTree(ActionEvent actionEvent) {
 
+        try {
+            // Get all posts and sort them by name
+            List<Post> sortedPosts = service.getAll()
+                    .stream()
+                    .sorted(Comparator.comparing(Post::getNom))
+                    .collect(Collectors.toList());
 
-            cardContainer.getScene().setRoot(root);
-        } catch (IOException ex) {
+            // Clear the card container before adding sorted posts
+            cardContainer.getChildren().clear();
 
-
-            System.err.println(ex.getMessage());
-
+            // Load card view for each post and add it to the container
+            for (Post post : sortedPosts) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/jobflow/front/posts/post.fxml"));
+                Parent card = loader.load();
+                postController controller = loader.getController();
+                controller.setData(post);
+                controller.setreactions(post);
+                cardContainer.getChildren().add(card);
+            }
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
         }
-
     }
+
 
     public void vavtocomments(ActionEvent actionEvent) {
         try {
@@ -115,6 +152,36 @@ public class AfficherController  implements Initializable {
         }
     }
 
+
+
+
+
+    public void searchPosts(javafx.scene.input.KeyEvent keyEvent) {
+        String query = search.getText().toLowerCase();
+
+        try {
+            // Get all posts and filter them based on the search query
+            List<Post> filteredPosts = service.getAll()
+                    .stream()
+                    .filter(post -> post.getNom().toLowerCase().contains(query))
+                    .collect(Collectors.toList());
+
+            // Clear the card container before adding filtered posts
+            cardContainer.getChildren().clear();
+
+            // Load card view for each filtered post and add it to the container
+            for (Post post : filteredPosts) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/jobflow/front/posts/post.fxml"));
+                Parent card = loader.load();
+                postController controller = loader.getController();
+                controller.setData(post);
+                controller.setreactions(post);
+                cardContainer.getChildren().add(card);
+            }
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 

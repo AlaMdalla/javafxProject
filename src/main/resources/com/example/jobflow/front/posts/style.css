@@ -1,0 +1,91 @@
+/* style.css */
+
+/* StackPane */
+.stack-pane {
+    -fx-background-color: #f0f0f0; /* Light gray background */
+}
+
+/* TextField */
+.text-field {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-width: 0; /* Remove border */
+    -fx-padding: 5px; /* Padding around the text */
+    -fx-font-size: 14px; /* Text size */
+}
+
+/* TextArea */
+.text-area {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-width: 0; /* Remove border */
+    -fx-padding: 5px; /* Padding around the text */
+    -fx-font-size: 14px; /* Text size */
+}
+
+/* Button */
+.button-small {
+    -fx-background-color: #007bff; /* Blue background */
+    -fx-text-fill: #ffffff; /* White text color */
+    -fx-padding: 4px 8px; /* Padding around the button text */
+    -fx-font-size: 12px; /* Button text size */
+}
+
+/* TextField for Likes and Dislikes */
+.like-dislike-text {
+    -fx-background-color: #007bff; /* Blue background */
+    -fx-text-fill: #ffffff; /* White text color */
+    -fx-padding: 2px 4px; /* Padding around the text */
+    -fx-font-size: 12px; /* Text size */
+}/* style.css */
+
+/* StackPane */
+.stack-pane {
+    -fx-background-color: #f0f0f0; /* Light gray background */
+}
+
+/* VBox */
+.vbox {
+    -fx-alignment: center; /* Center align content */
+    -fx-spacing: 10.0; /* Spacing between children */
+    -fx-padding: 20.0; /* Padding around the VBox */
+}
+
+/* TextField */
+.text-field {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-width: 0; /* Remove border */
+    -fx-font-size: 14px; /* Text size */
+}
+
+/* HBox */
+.hbox {
+    -fx-spacing: 10.0; /* Spacing between children */
+    -fx-padding: 10.0; /* Padding around the HBox */
+}
+
+/* ImageView */
+.image-view {
+    -fx-fit-height: 100.0; /* Fixed height */
+    -fx-fit-width: 100.0; /* Fixed width */
+}
+
+/* TextArea */
+.text-area {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-width: 0; /* Remove border */
+    -fx-font-size: 14px; /* Text size */
+}
+
+/* Button */
+.button {
+    -fx-background-color: #007bff; /* Blue background */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 14px; /* Text size */
+}
+
+/* TextField for Likes and Dislikes */
+.like-dislike-text {
+    -fx-background-color: #007bff; /* Blue background */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 14px; /* Text size */
+}
+

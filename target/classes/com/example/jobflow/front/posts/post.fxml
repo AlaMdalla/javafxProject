@@ -10,28 +10,28 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane alignment="CENTER" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jobflow.controllers.front.posts.postController">
+<StackPane alignment="CENTER" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jobflow.controllers.front.posts.postController">
     <AnchorPane>
 
         <VBox alignment="CENTER" spacing="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="15.0">
             <TextField fx:id="idPost" editable="false" layoutX="-100" layoutY="-100" prefWidth="80.0" style="-fx-border-color: transparent;" visible="false" />
             <HBox spacing="10.0">
                 <VBox spacing="5.0">
-                    <TextField fx:id="SharName" layoutX="178.0" layoutY="4.0" visible="false" editable="false" />
-                    <TextField fx:id="ShareComment" layoutX="384.0" layoutY="9.0" visible="false" editable="false" />
+                    <TextField fx:id="SharName" layoutX="178.0" layoutY="4.0" visible="false" />
+                    <TextField fx:id="ShareComment" layoutX="384.0" layoutY="9.0" visible="false" />
                 </VBox>
                 <VBox spacing="5.0" />
                 <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="490.0" spacing="10.0">
                     <children>
-                        <TextField fx:id="nomPost" prefHeight="26.0" prefWidth="87.0" style="-fx-border-color: transparent;" styleClass="aggodStyle" text="John Doe" editable="false" />
-                        <TextField fx:id="DatePost" prefHeight="26.0" prefWidth="114.0" style="-fx-border-color: transparent;" styleClass="aggodStyle" text="time" editable="false" />
-                        <TextField fx:id="TagPost" prefHeight="26.0" prefWidth="101.0" style="-fx-border-color: transparent;" styleClass="aggodStyle" text="John Doe" editable="false" />
-                        <ImageView fx:id="editphoto" fitHeight="31.0" fitWidth="47.0" onMouseClicked="#navtoupdate" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: transparent;">
+                        <TextField fx:id="nomPost" prefHeight="26.0" prefWidth="87.0" styleClass="aggodStyle" text="John Doe" />
+                        <TextField fx:id="DatePost" prefHeight="26.0" prefWidth="114.0" styleClass="aggodStyle" text="time" />
+                        <TextField fx:id="TagPost" prefHeight="26.0" prefWidth="101.0" styleClass="aggodStyle" text="John Doe" />
+                        <ImageView fx:id="editphoto" fitHeight="31.0" fitWidth="47.0" onMouseClicked="#navtoupdate" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../images/posts/edit.png" />
                             </image>
                         </ImageView>
-                        <ImageView fx:id="deletephoto1" fitHeight="31.0" fitWidth="47.0" layoutX="288.0" layoutY="10.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: transparent;">
+                        <ImageView fx:id="deletephoto1" fitHeight="31.0" fitWidth="47.0" layoutX="288.0" layoutY="10.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../images/posts/close.png" />
                             </image>
@@ -40,33 +40,30 @@
                 </HBox>
             </HBox>
             <!-- Content -->
-            <StackPane prefWidth="400.0">
-                <HBox spacing="10.0">
-                    <ImageView fx:id="imagePost" fitHeight="206.0" fitWidth="202.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: black; -fx-border-width: 1px;" styleClass="postImage" editable="false">
-                        <image>
-                            <Image url="@../../../../../favicon.png" />
-                        </image>
-                    </ImageView>
-                    <TextArea fx:id="ContenuPost" promptText="Write your post here..." wrapText="true" editable="false" />
-                </HBox>
-            </StackPane>
+            <HBox spacing="10.0">
+                <TextArea fx:id="ContenuPost" promptText="Write your post here..." wrapText="true" HBox.hgrow="ALWAYS" />
+                <ImageView fx:id="imagePost" fitHeight="206.0" fitWidth="202.0" pickOnBounds="true" preserveRatio="true" styleClass="postImage">
+                    <image>
+                        <Image url="@../../../../../favicon.png" />
+                    </image>
+                </ImageView>
+            </HBox>
 
             <HBox spacing="10.0">
-                <Button fx:id="commentButton" onAction="#navigatetoPost" styleClass="commentButton" text="Comment" />
-                <Button fx:id="shareButton" onAction="#sharePost" styleClass="shareButton" text="Share" />
+                <Button fx:id="commentButton" onAction="#navigatetoPost" text="Comment" />
+                <Button fx:id="shareButton" onAction="#sharePost" text="Share" />
                 <ImageView fitHeight="47.0" fitWidth="65.0" onMouseClicked="#incrementlikes" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../images/posts/likejpg.jpg" />
                     </image>
                 </ImageView>
-                <TextField fx:id="likes" prefHeight="26.0" prefWidth="75.0" styleClass="no-border" stylesheets="@../../../post.css" text="1" editable="false" />
+                <TextField fx:id="likes" prefHeight="26.0" prefWidth="75.0" styleClass="no-border" text="1" />
                 <ImageView fitHeight="47.0" fitWidth="65.0" onMouseClicked="#incrementdislikes" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                     <image>
                         <Image url="@../../images/posts/likejpg.jpg" />
                     </image>
                 </ImageView>
-                <TextField fx:id="dislikes" prefHeight="26.0" prefWidth="86.0" styleClass="no-border" stylesheets="@../../../post.css" text="2" editable="false" />
-
+                <TextField fx:id="dislikes" prefHeight="26.0" prefWidth="86.0" styleClass="no-border" text="2" />
             </HBox>
         </VBox>
     </AnchorPane>

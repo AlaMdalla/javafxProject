@@ -53,3 +53,82 @@
     -fx-font-size: 14px; /* Font size */
     -fx-padding: 5px; /* Add some padding */
 }
+/* MainStyle.css */
+
+/* StackPane */
+.stack-pane {
+    -fx-background-color: #f0f0f0; /* Light gray background */
+    -fx-padding: 10px; /* Padding around the StackPane */
+}
+
+/* AnchorPane */
+.anchor-pane {
+    -fx-background-color: #f0f0f0; /* Light gray background */
+}
+
+/* VBox */
+.vbox {
+    -fx-alignment: center; /* Center align content */
+    -fx-spacing: 10.0; /* Spacing between children */
+    -fx-padding: 10px; /* Padding around the VBox */
+}
+
+/* TextField */
+.text-field {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-width: 0; /* Remove border */
+    -fx-font-size: 12px; /* Text size */
+}
+
+/* Circle */
+.circle {
+    -fx-fill: #cccccc; /* Light gray fill color */
+}
+
+/* ImageView */
+.image-view {
+    -fx-fit-height: 50.0; /* Fixed height */
+    -fx-fit-width: 50.0; /* Fixed width */
+    -fx-border-width: 1px; /* Border width */
+    -fx-border-color: #cccccc; /* Border color */
+}
+
+/* TextArea */
+.text-area {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-width: 0; /* Remove border */
+    -fx-font-size: 12px; /* Text size */
+}
+
+/* Button */
+.button {
+    -fx-background-color: #007bff; /* Blue background */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 12px; /* Text size */
+    -fx-padding: 5px 10px; /* Padding around the button text */
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-padding: 0; /* No padding */
+}
+
+/* FlowPane */
+.flow-pane {
+    -fx-padding: 0; /* No padding */
+}
+
+/* ImageView for profile picture */
+.profile-picture {
+    -fx-fit-height: 30.0; /* Fixed height */
+    -fx-fit-width: 30.0; /* Fixed width */
+}
+
+/* ImageView for post image */
+.post-image {
+    -fx-fit-height: 100.0; /* Fixed height */
+    -fx-fit-width: 150.0; /* Fixed width */
+    -fx-border-width: 1px; /* Border width */
+    -fx-border-color: #cccccc; /* Border color */
+}

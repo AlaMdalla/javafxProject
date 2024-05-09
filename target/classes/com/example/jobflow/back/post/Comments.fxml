@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../post.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jobflow.controllers.front.posts.Comments_back">
+    <children>
+        <ScrollPane fx:id="scroll" layoutX="148.8" layoutY="443.0" prefHeight="400.0" prefWidth="451.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="149.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <FlowPane fx:id="comment_Container" layoutX="1.0" prefHeight="200.0" prefWidth="647.0" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

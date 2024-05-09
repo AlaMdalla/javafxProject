@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane fx:id="PostTable" prefHeight="576.0" prefWidth="559.0" stylesheets="@../../../../post.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jobflow.controllers.front.posts.AfficherController">
+    <children>
+
+        <ScrollPane fitToHeight="true" prefHeight="576.0" prefWidth="513.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <HBox>
+                    <children>
+                        <FlowPane fx:id="cardContainer" prefHeight="584.0" prefWidth="458.0" styleClass="FlowPane" stylesheets="@../../../../post.css">
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </FlowPane>
+                    </children>
+                </HBox>
+            </content>
+
+        </ScrollPane>
+
+        <Label fx:id="noPostLabel" styleClass="noPostLabel" text="No posts available." visible="false">
+            <style>
+                .noPostLabel {
+                -fx-font-size: 16px;
+                -fx-text-fill: #ccc;
+                }
+            </style>
+        </Label>
+
+
+    </children>
+</AnchorPane>
